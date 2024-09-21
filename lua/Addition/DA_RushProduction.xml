@@ -1,0 +1,13 @@
+<Context>
+	<Button		ID="CitizenRushUnitsButton" Anchor="L,T" Offset="0,0" Size="44,53" Texture="Controls_IconButton.dds">
+		<Image	ID="CitizenRushUnitIcon"	Anchor="C,C" Offset="0,0" Size="32,32" Texture="CityPanel_ActionCItizensProduction.dds"/>
+	</Button>
+
+<!-- 	<Button		ID="ProductionToFoodButton" Anchor="L,T" Offset="0,0" Size="44,53" Texture="Controls_IconButton.dds">
+		<Image	ID="ProductionToFoodIcon"	Anchor="C,C" Offset="0,0" Size="39,39" Texture="CityPanel_ActionCItizensProduction.dds"/>
+	</Button>	 -->
+
+	<CheckBox	ID="ProductionToFoodCheck"			Size="44,53"  ButtonTexture="UnitPanel_ActionButton"	ButtonSize="44,53" CheckTexture="CityPanel_ActionWaterWork.dds"	    UnCheckTextureOffset="0,32"		CheckSize="32,32" CheckOffset="6,10"	UnCheckTexture="CityPanel_ActionWaterWork.dds"		  UnCheckSize="32,32" UnCheckOffset="6,10" UseSelectedTextures="1"
+		/>
+
+</Context>

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DA_CityPoliciesUI -->
+<!-- Author: 皮皮凯 -->
+<!-- Time: 2023-07-06T14:20:30.000Z -->
+<Context Name="DAPKCityPoliciesUI">
+    <Stack ID="TabStack" StackPadding="8">
+      <!-- Header -->
+      <Grid	ID="CPHeaderGrid" Anchor="L,T" Size="parent,24" Style="DivHeader">
+        <Container Size="parent,24">
+          <Image Texture="Controls_Gradient_HalfRadial" Size="parent, 120" FlipY="1" Anchor="C,T" Color="72,103,130,255"/>
+        </Container>
+        <Label Anchor="C,C" Offset="5,0" Style="CityPanelSubPanelTitle" String="制作中界面，请忽视" />
+      </Grid>
+      <!-- 当前城市政策 Current urban policies -->
+      <Stack Anchor="C,T" Offset="0,0" StackGrowth="Right">
+        <Stack Anchor="C,T" StackGrowth="Right" StackPadding="10">
+          <Grid  Anchor="C,T" Size="280,56" Style="CityPanelSubPanelContainer">
+			<Image Anchor="L,C" ID="CUPImage" Hidden="0" Size="48,48" Icon="ICON_AMENITIES"/>
+            <Stack Anchor="C,C" StackGrowth="Right" StackPadding="6">
+              <Stack StackPadding="2">
+                <Label ID="CPConsumingPowerLabel" Anchor="L,T" String="1" Style="FontNormal20" FontStyle="Stroke"	Color="255,255,255,200" EffectColor="0,0,0,100" />
+              </Stack>
+            </Stack>
+          </Grid>
+        </Stack>
+      </Stack>
+      <!-- Header -->
+      <Grid	ID="CPHeaderGrid2" Anchor="L,T" Size="parent,24" Style="DivHeader">
+        <Container Size="parent,24">
+          <Image Texture="Controls_Gradient_HalfRadial" Size="parent, 120" FlipY="1" Anchor="C,T" Color="72,103,130,255"/>
+        </Container>
+        <Label Anchor="C,C" Offset="5,0" Style="CityPanelSubPanelTitle" String="QXZCSZC" />
+      </Grid>
+      <!-- 选择城市政策 Choose urban policies -->
+      <Stack ID="CityPolicies" Anchor="C,T" Offset="0,0" StackGrowth="Down">
+      		<Container Anchor="C,T" ID="Root" Offset="0,0" Size="290,auto">
+			<!-- 这个是区域大类的插槽，用于插入下一级建筑的控件 -->
+			<Grid ID="BuildingDrawer" Offset="0,45" Size="parent,auto"	Texture="ProductionPanel_ExtendSlot" SliceCorner="14,6" SliceTextureSize="28,16" AutoSizePadding="0,3" Hidden="0">
+				<Stack ID="BuildingStack"			Anchor="C,T"	Offset="0,3">
+		<Container ID="Root"Size="280,auto"	Hidden="0">
+				<Stack StackGrowth="Down">
+			<Container ID="ButtonContainer1" Size="280,auto" Hidden="0">
+				<GridButton ID="Button"	Size="280,auto"Texture="Controls_ButtonLightweightSquarePK1.dds" Padding="0,0" StateOffsetIncrement="0,26" SliceCorner="10,10" SliceTextureSize="37,26" Anchor="L,B">
+					<Stack StackGrowth="Right">
+						<Stack StackGrowth="Down">
+							<Container Size="35,35"	Anchor="L,T">				
+								<Image ID="Icon" Anchor="C,C" Size="35,35" Icon="ICON_BUILDING_GROVE"/>
+							</Container>
+							<Box Color="22,27,29,200" Size="40,1" Anchor="R,C"/>
+						</Stack>
+					</Stack>
+					<Stack Anchor="L,C" Offset="35,0" StackPadding="2">
+						<Label ID="LabelText"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+					</Stack>
+					<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+						<Container Size="71,21" Anchor="R,C" Offset="3,0">
+							<Image		ID="ProductionProgressArea" Texture="CityPanel_MeterSmallBacking" Size="parent,21" Anchor="R,C">
+								<TextureBar ID="ProductionProgress" Texture="CityPanel_ProductionMeterSmall" Size="parent-4,17" Anchor="C,C" Speed="1" Direction="Right">
+									<Label ID="CostText" String="99[ICON_Gold]/[ICON_Turn]" Style="WhiteSemiBold14" Anchor="C,C" Offset="2,0"/>
+								</TextureBar>
+							</Image>
+						</Container>
+					</Stack>
+				</GridButton>
+			</Container>
+			<Container ID="ButtonContainer2" Size="30,auto" Hidden="0">
+				<Stack StackGrowth="Down">
+					<Grid Style="Drawer" Size="280,6" Offset="0,-1" />
+					<GridButton ID="Button2"	Size="30,30"Texture="Controls_ButtonLightweightSquarePK1.dds" Padding="0,0" StateOffsetIncrement="0,26" SliceCorner="10,10" SliceTextureSize="37,26" Anchor="L,B">
+						<Stack StackGrowth="Right">
+							<Stack StackGrowth="Down">
+								<Container Size="30,30"	Anchor="L,T">				
+									<Image ID="Icon2" Anchor="C,C" Size="30,30" Icon="ICON_BUILDING_GROVE"/>
+								</Container>
+							</Stack>
+							<Container				ID="top"			 Size="250,auto">
+								<Container		ID="ButtonContainerX" Size="parent, 30">
+									<GridButton			ID="Buttonx" Size="parent,30" Texture="Controls_ButtonLightweightSquarePK1.dds" Padding="0,0" StateOffsetIncrement="0,26" SliceCorner="10,10" SliceTextureSize="37,26" Anchor="L,B">
+										<Stack Anchor="L,C" Offset="10,0" StackPadding="2">
+											<Label ID="LabelTextX"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+										</Stack>
+										<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+											<Container Size="71,21" Anchor="R,C" Offset="3,0">
+												<Image		ID="ProductionProgressAreaX" Texture="CityPanel_MeterSmallBacking" Size="71,21" Anchor="R,C">
+													<TextureBar ID="ProductionProgressX" Texture="CityPanel_ProductionMeterSmall" Size="67,17" Anchor="C,C" Speed="1" Direction="Right"/>
+												</Image>
+												<Label				ID="CostTextX"					String="? Turns" Style="WhiteSemiBold14" Anchor="R,C" Offset="5,0"/>
+											</Container>
+										</Stack>
+										<Container ID="DisabledX" Size="parent,parent" Hidden="1"	ConsumeMouseButton="1">
+											<GridButton Size="parent,parent" Style="ProductionButton" Color="200,200,200,50" Disabled="1"/>
+										</Container>
+									</GridButton>
+								</Container>
+							</Container>
+						</Stack>
+					</GridButton>
+					<Stack ID="CityPoliciesStack" StackGrowth="Down">
+		<Container ID="Level3" Size="280,30">
+			<Container ID="ButtonContainer" Size="parent, 30">
+				<GridButton ID="Button" Size="parent,30" Style="ProductionButton" Anchor="R,B">
+					<Stack Anchor="L,C" Offset="10,0" StackPadding="2">
+						<Label ID="LabelText"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+					</Stack>
+					<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+						<Container Size="71,21" Anchor="R,C" Offset="3,0">
+							<Image		ID="ProductionProgressArea" Texture="CityPanel_MeterSmallBacking" Size="71,21" Anchor="R,C">
+								<TextureBar ID="ProductionProgress" Texture="CityPanel_ProductionMeterSmall" Size="67,17" Anchor="C,C" Speed="1" Direction="Right"/>
+							</Image>
+							<Label ID="CostText" String="? Turns" Style="WhiteSemiBold14" Anchor="R,C" Offset="5,0"/>
+						</Container>
+					</Stack>
+					<Container ID="Disabled" Size="parent,parent" Hidden="1"	ConsumeMouseButton="1">
+						<GridButton Size="parent,parent" Style="ProductionButton" Color="200,200,200,50" Disabled="1"/>
+					</Container>
+				</GridButton>
+			</Container>
+		</Container>
+		<Container ID="Level3" Size="280,30">
+			<Container ID="ButtonContainer" Size="parent, 30">
+				<GridButton ID="Button" Size="parent,30" Style="ProductionButton" Anchor="R,B">
+					<Stack Anchor="L,C" Offset="10,0" StackPadding="2">
+						<Label ID="LabelText"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+					</Stack>
+					<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+						<Container Size="71,21" Anchor="R,C" Offset="3,0">
+							<Image		ID="ProductionProgressArea" Texture="CityPanel_MeterSmallBacking" Size="71,21" Anchor="R,C">
+								<TextureBar ID="ProductionProgress" Texture="CityPanel_ProductionMeterSmall" Size="67,17" Anchor="C,C" Speed="1" Direction="Right"/>
+							</Image>
+							<Label ID="CostText" String="? Turns" Style="WhiteSemiBold14" Anchor="R,C" Offset="5,0"/>
+						</Container>
+					</Stack>
+					<Container ID="Disabled" Size="parent,parent" Hidden="1"	ConsumeMouseButton="1">
+						<GridButton Size="parent,parent" Style="ProductionButton" Color="200,200,200,50" Disabled="1"/>
+					</Container>
+				</GridButton>
+			</Container>
+		</Container>
+					</Stack>
+				</Stack>
+			</Container>
+		
+				</Stack>
+		</Container>
+
+				</Stack>
+			</Grid>
+			<Container		ID="ButtonContainer" Size="parent, auto">
+				<GridButton			ID="Button" Size="parent,48" Style="ProductionButton"	Anchor="R,B">
+					<Container		ID="CompletedArea" Size="parent,48"	Hidden="0">
+						<Image Size="parent-20,48" Texture="ProductionPanel_ChooserButtonTile" StretchMode="Tile" Anchor="C,T"/>
+						<Grid Size="parent,48"	Texture="ProductionPanel_ChooserButton" SliceStart="0,192" SliceTextureSize="102,48" SliceCorner="51,25"/>
+					</Container>
+					<Container Size="48,48">
+						<Image ID="Icon" Anchor="C,C" Size="32,32" Texture="Districts32" />
+					</Container>
+					<Container Anchor="R,C"	Offset="-10,0"	Size="255,33" >
+						<Label ID="LabelText" Anchor="L,C" Style="WhiteSemiBold14"	String="Industrial Zone" WrapWidth="174" />
+					</Container>
+					<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+						<!-- 顾问推荐，后续或许需要？ -->
+						<Grid ID="RecommendedIcon" SliceTextureSize="40,34" SliceCorner="22,15" Size="40,34" Hidden="1" Texture="Controls_AdvisorRecBacking" ToolTip="LOC_HUD_UNIT_PANEL_RECOMMENDED" Anchor="R,T">
+							<Image Texture="AdvisorRec22"		Size="22,22" Anchor="R,T" Offset="6,4">
+								<FlipAnim Texture="AdvisorRecAnim22"	Size="26,26" Anchor="C,C" FrameCount="12" Columns="4" Speed="14" EndPause="3" Color="255,255,255,200"/>
+							</Image>
+						</Grid>
+						
+						<Container Size="71,21" Anchor="R,C" Offset="3,0">
+							<Image ID="ProductionProgressArea" Texture="CityPanel_MeterSmallBacking" Size="71,21" Anchor="R,C">
+								<TextureBar ID="ProductionProgress" Texture="CityPanel_ProductionMeterSmall" Size="67,17" Anchor="C,C" Speed="1" Direction="Right"/>
+							</Image>
+							<Label ID="CostText" String="? Turns" Style="WhiteSemiBold14" Anchor="R,C" Offset="5,0"/>
+						</Container>
+					</Stack>
+					
+					<!-- 不可选变暗模式 -->
+					<Container ID="Disabled" Size="parent,parent"	Hidden="1"	ConsumeMouseButton="1">
+						<GridButton Size="parent,parent"	Style="ProductionButton" Color="200,200,200,150" Disabled="1"/>
+					</Container>
+				</GridButton>
+			</Container>
+		</Container>
+
+      
+      
+      
+      
+      
+      </Stack>
+
+      
+      
+      
+      
+      <!-- Header -->
+      <Grid	ID="HeaderGrid" Anchor="L,T" Size="parent,24" Style="DivHeader"  Hidden="1">
+        <Container Size="parent,24">
+          <Image Texture="Controls_Gradient_HalfRadial" Size="parent, 120" FlipY="1" Anchor="C,T" Color="72,103,130,255"/>
+        </Container>
+        <Label Anchor="C,C" Offset="5,0" Style="CityPanelSubPanelTitle" String="LOC_CITY_PANEL_POWER_HEADER" />
+      </Grid>
+
+      <!-- Power Status -->
+      <Stack Offset="20,0" StackGrowth="Right" Hidden="1">
+        <Stack Anchor="C,T" StackGrowth="Right" StackPadding="10">
+          <Grid Size="125,55" Style="CityPanelSubPanelContainer">
+            <Stack Anchor="C,C" StackGrowth="Right" StackPadding="6">
+              <Stack StackPadding="2">
+                <Label ID="ConsumingPowerLabel" Anchor="L,T" Style="CityPanelText"/>
+                <Label Anchor="C,T" Style="CityPanelText" String="LOC_POWER_PANEL_OF"/>
+                <Label ID="RequiredPowerLabel" Anchor="L,T" Style="CityPanelText"/>
+              </Stack>
+            </Stack>
+          </Grid>
+          <Grid Size="125,55" Style="CityPanelSubPanelContainer">
+            <Image Anchor="L,C" AnchorSide="O,I" Texture="Controls_ThereforeArrow" Offset="-10,0"/>
+            <Stack Anchor="C,C" StackGrowth="Right" StackPadding="6">
+              <Stack StackPadding="2">
+                <Label Anchor="C,T" Style="FontNormal16" String="LOC_POWER_PANEL_STATUS"/>
+                <Label ID="PowerStatusNameLabel" Anchor="C,T" Style="CityPanelText" WrapWidth="120"/>
+              </Stack>
+            </Stack>
+          </Grid>
+        </Stack>
+      </Stack>
+
+      <!-- Powered Status Effects -->
+      <Grid	ID="PowerStatusDescriptionBox"  Hidden="1"Texture="CityPanel_StatPanelSubContainer" SliceCorner="7,7" SliceSize="1,1" SliceTextureSize="16,16" InnerPadding="4,2" Anchor="C,T" Size="260,55">
+        <Label ID="PowerStatusDescriptionLabel" Offset="4,0" Anchor="C,C" Style="CityPanelTextSmall" WrapWidth="200"/>
+      </Grid>
+      
+
+      <!-- Breakdown -->
+      <Stack Padding="4" Anchor="C,T" Offset="0,6" Hidden="1">
+        <Grid	ID="ConsumedTitle" Anchor="C,T" Size="parent,24" Style="DivHeader">
+          <Container Size="parent,24">
+            <Image Texture="Controls_Gradient_HalfRadial" Size="parent,120" FlipY="1" Anchor="C,T" Color="72,103,130,255"/>
+          </Container>
+          <Label Anchor="C,C" Offset="5,0" Style="CityPanelSubPanelTitle" FontSize="14" String="LOC_POWER_PANEL_CONSUMED_POWER" />
+        </Grid>
+        <Grid ID="ConsumedBreakdownBox" Anchor="C,T" Size="260,230" Style="CityPanelSubPanelContainer">
+          <Stack ID="ConsumedPowerBreakdownStack" Offset="5,10" Anchor="L,T" Padding="5"/>
+        </Grid>
+        <Grid	ID="RequiredTitle" Anchor="C,T" Size="parent,24" Style="DivHeader">
+          <Container Size="parent,24">
+            <Image Texture="Controls_Gradient_HalfRadial" Size="parent,120" FlipY="1" Anchor="C,T" Color="72,103,130,255"/>
+          </Container>
+          <Label Anchor="C,C" Offset="5,0" Style="CityPanelSubPanelTitle" FontSize="14" String="LOC_POWER_PANEL_REQUIRED_POWER" />
+        </Grid>
+        <Grid ID="RequiredBreakdownBox" Anchor="C,T" Size="260,230" Style="CityPanelSubPanelContainer">
+          <Stack ID="RequiredPowerBreakdownStack" Offset="5,10" Anchor="L,T" Padding="5"/>
+        </Grid>
+        <Grid	ID="GeneratedTitle" Anchor="C,T" Size="parent,24" Style="DivHeader">
+          <Container Size="parent,24">
+            <Image Texture="Controls_Gradient_HalfRadial" Size="parent,120" FlipY="1" Anchor="C,T" Color="72,103,130,255"/>
+          </Container>
+          <Label Anchor="C,C" Offset="5,0" Style="CityPanelSubPanelTitle" FontSize="14" String="LOC_POWER_PANEL_GENERATED_POWER" />
+        </Grid>
+        <Grid ID="GeneratedBreakdownBox" Anchor="C,T" Size="260,230" Style="CityPanelSubPanelContainer">
+          <Stack ID="GeneratedPowerBreakdownStack" Offset="5,10" Anchor="L,T" Padding="5"/>
+        </Grid>
+      </Stack>
+      
+      <!-- Advisor -->
+      <Container ID="PowerAdvisor" Offset="15,0" Size="parent-29,auto"  Hidden="1">
+        <Image Anchor="R,T" Size="64,64" Texture="Advisors64"/>
+        <Grid Offset="3,0" Size="parent-64,auto" Style="AdvisorWordBubble" Color="255,255,255,50" InnerPadding="5,15">
+          <Label ID="PowerAdvice" Anchor="C,C" Offset="-20,0" WrapWidth="parent-40" Style="CityPanelTextSmall"  String="LOC_HUD_CITY_ADVISOR_TRY_IMPROVING" />
+        </Grid>
+      </Container>
+
+			<!-- Lens Key -->
+			<Grid						 Hidden="1"			ID="KeyPanel"		Anchor="C,T"			Size="195,auto"	AutoSizePadding="0,10" Texture="Controls_PanelBlue"  SliceCorner="25,28" SliceSize="33,18" SliceTextureSize="83,75">
+				<Line																Start="20,16"			End="174,16"		Color="55,95,126,255" Width="2" />
+				<Label															Anchor="C,T"			Offset="0,20"		Style="FontFlair16" SmallCaps="20" String="LOC_TREE_KEY" Color0="78,119,151,255" Color1="0,0,0,0" Color2="25,65,96,255" />
+				<Line																Start="20,40"			End="174,40"		Color="55,95,126,255" Width="2" />
+				<ScrollPanel ID="KeyScrollPanel" Offset="16,54" Size="150,204" Style="ScrollPanelWithRightBar">
+					<Stack ID="KeyStack" StackGrowth="Down" StackPadding="6"/>
+				</ScrollPanel>
+			</Grid>
+
+      <!-- Spacer -->
+      <Container Size="5,50" Hidden="1"/>
+    </Stack>
+	
+		
+
+	<!-- Instances -->
+  <!-- Population Line Item Instance -->
+  <Instance Name="PowerLineInstance">
+    <Grid ID="Top" Size="250,auto"	 Hidden="1"	Texture="CityPanel_StatPanelLineItem" SliceCorner="7,7" SliceSize="1,1" SliceTextureSize="16,16" MinSize="16,16">
+      <Label ID="LineTitle" Anchor="L,T" Offset="0,2" Style="CityPanelTextSmall" WrapWidth="parent-20"/>
+      <Label ID="LineValue" Anchor="R,T" Offset="0,2" Style="CityPanelTextSmall"/>
+    </Grid>
+  </Instance>
+	
+	<Instance Name="KeyEntry">
+		<Image ID="KeyColorImage" Hidden="1" Size="32,36" Texture="Controls_KeySwatchHex">
+			<Stack ID="KeyInfoStack" StackGrowth="Down" Anchor="L,C" Offset="38,0">
+				<Label ID="KeyLabel" Style="FontNormal14" String="LOC_HUD_UNIT_PANEL_TOOLTIP_NO_WATER" WrapWidth="110"/>
+			</Stack>
+		</Image>
+	</Instance>
+
+
+	<SlideAnim ID="PauseCollapseList" Speed="10" Begin="-10,0" End="0,0" Cycle="Once"/>
+
+	<Instance Name="PKCityPoliciesLevel1">
+		<Container Anchor="C,T" ID="Root" Offset="0,0" Size="290,auto">
+			<!-- 这个是区域大类的插槽，用于插入下一级建筑的控件 -->
+			<Stack StackGrowth="Down">
+				<Container		ID="ButtonContainer" Size="parent, auto">
+					<GridButton			ID="Button" Size="parent,48" Anchor="R,B" Texture="PK_District_Button.dds"	 SliceTextureSize="100,48" StateOffsetIncrement="0,48" SliceStart="0,0" SliceCorner="50,24">
+						<Container Size="48,48">
+							<Image ID="CPLevel1Icon" Anchor="C,C" Size="32,32" Texture="Districts32" />
+						</Container>
+						<Container Anchor="R,C"	Offset="-10,0"	Size="255,33" >
+							<Label ID="CPLevel1LabelText" Anchor="L,C" Style="WhiteSemiBold14"	String="Industrial Zone" WrapWidth="174" />
+						</Container>
+						<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+							<!-- 顾问推荐，后续或许需要？ -->
+							<Grid ID="RecommendedIcon" SliceTextureSize="40,34" SliceCorner="22,15" Size="40,34" Hidden="1" Texture="Controls_AdvisorRecBacking" ToolTip="LOC_HUD_UNIT_PANEL_RECOMMENDED" Anchor="R,T">
+								<Image Texture="AdvisorRec22"		Size="22,22" Anchor="R,T" Offset="6,4">
+									<FlipAnim Texture="AdvisorRecAnim22"	Size="26,26" Anchor="C,C" FrameCount="12" Columns="4" Speed="14" EndPause="3" Color="255,255,255,200"/>
+								</Image>
+							</Grid>
+							
+							<Container ID="PolicySituationContainer" Size="71,21" Anchor="R,C" Offset="7,0">
+								<Label ID="PolicySituation" String="? Turns" Style="WhiteSemiBold14" Anchor="R,C" Offset="5,0"/>
+							</Container>
+						</Stack>
+						<!-- 不可选变暗模式 Disabled-->
+					</GridButton>
+				</Container>
+				<SlideAnim		ID="ListSlide"  Anchor="C,T" Speed="3.5" Begin="0,-10" End="0,0" Cycle="Once" Size="290,auto">
+					<AlphaAnim  ID="ListAlpha"  Anchor="C,T" Speed="4" AlphaBegin="0" AlphaEnd="1" Cycle="Once"  Size="default,auto">
+						<Grid ID="BuildingDrawer" Offset="0,0"  Anchor="C,T"  Size="parent,auto"	Texture="ProductionPanel_ExtendSlot" SliceCorner="14,6" SliceTextureSize="28,16" AutoSizePadding="0,3" Hidden="0">
+							<Stack ID="BuildingStack" Anchor="C,T"	Offset="0,0"/>
+						</Grid>
+					</AlphaAnim>
+				</SlideAnim>
+				<Grid Style="Drawer" Size="290,6" Offset="0,0" />
+			</Stack>
+		</Container>
+	</Instance>
+	
+	<Instance Name="PKCityPoliciesLevel2">
+		<Container ID="Root"Size="280,auto"	Hidden="0">
+			<Stack StackGrowth="Down">
+				<Grid Style="Drawer" Size="280,6" Offset="0,-1" />
+				<Container ID="CPLevel2ButtonContainer" Size="280,auto" Hidden="1">
+					<GridButton ID="CPLevel2Button"	Size="280,auto"Texture="Controls_ButtonLightweightSquarePK1.dds" Padding="0,0" StateOffsetIncrement="0,26" SliceCorner="10,10" SliceTextureSize="37,26" Anchor="L,B">
+						<Stack StackGrowth="Right">
+							<Stack StackGrowth="Down">
+								<Container Size="35,35"	Anchor="L,T">				
+									<Image ID="CPLevel2Icon" Anchor="C,C" Size="35,35" Icon="ICON_BUILDING_GROVE"/>
+								</Container>
+								<Box Color="22,27,29,200" Size="40,1" Anchor="R,C"/>
+							</Stack>
+						</Stack>
+						<Stack Anchor="L,C" Offset="35,0" StackPadding="2">
+							<Label ID="CPLevel2LabelText"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+						</Stack>
+						<Stack ID="PMCStack" Anchor="R,C" StackGrowth="Down" Padding="-6">
+							<Container ID="PMCContainer" Size="71,21" Anchor="R,C" Offset="3,0">
+								<Image		ID="ProductionProgressArea" Texture="CityPanel_MeterSmallBacking" Size="parent,21" Anchor="R,C">
+									<TextureBar ID="ProductionProgress" Texture="CityPanel_ProductionMeterSmall" Size="parent-4,17" Anchor="C,C" Speed="1" Direction="Right">
+										<Label ID="PolicyMaintenanceCost" String="? Turns" Style="WhiteSemiBold14" Anchor="C,C" Offset="5,0"/>
+									</TextureBar>
+								</Image>
+							</Container>
+						</Stack>
+					</GridButton>
+				</Container>
+				<Container ID="CPLevel2ButtonContainerX" Size="30,auto" Hidden="0">
+					<Stack StackGrowth="Down">
+						<GridButton ID="CPLevel2ButtonX"	Size="30,30"Texture="Controls_ButtonLightweightSquarePK1.dds" Padding="0,0" StateOffsetIncrement="0,26" SliceCorner="10,10" SliceTextureSize="37,26" Anchor="L,B">
+							<Stack StackGrowth="Right">
+								<Stack StackGrowth="Down">
+									<Container Size="30,30"	Anchor="L,T">				
+										<Image ID="CPLevel2IconX" Anchor="C,C" Size="30,30" Icon="ICON_BUILDING_GROVE"/>
+									</Container>
+								</Stack>
+								<Container				ID="top"			 Size="250,auto">
+									<Container		ID="ButtonContainer" Size="parent, 30">
+										<GridButton			ID="CPLevel2ButtonX2" Size="parent,30" Texture="Controls_ButtonLightweightSquarePK1.dds" Padding="0,0" StateOffsetIncrement="0,26" SliceCorner="10,10" SliceTextureSize="37,26" Anchor="L,B">
+											<Stack Anchor="L,C" Offset="10,0" StackPadding="2">
+												<Label ID="CPLevel2LabelTextX"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+											</Stack>
+											<Stack ID="PMCStackX" Anchor="R,C" StackGrowth="Down" Padding="-6">
+												<Container ID="PMCContainerX" Size="71,21" Anchor="R,C" Offset="3,0">
+													<Image		ID="ProductionProgressAreaX" Texture="CityPanel_MeterSmallBacking" Size="parent,21" Anchor="R,C">
+														<TextureBar ID="ProductionProgressX" Texture="CityPanel_ProductionMeterSmall" Size="parent-4,17" Anchor="C,C" Speed="1" Direction="Right">
+															<Label ID="PolicyMaintenanceCostX" String="? Turns" Style="WhiteSemiBold14" Anchor="C,C" Offset="3,0"/>
+														</TextureBar>
+													</Image>
+												</Container>
+											</Stack>
+											<Container ID="Disabled" Size="parent,parent" Hidden="1"	ConsumeMouseButton="1">
+												<GridButton Size="parent,parent" Style="ProductionButton" Color="200,200,200,50" Disabled="1"/>
+											</Container>
+										</GridButton>
+									</Container>
+								</Container>
+							</Stack>
+						</GridButton>
+					</Stack>
+				</Container>
+				<SlideAnim		ID="CPLevel2ListSlide" Speed="3.5" Begin="0,0" End="0,0" Cycle="Once" Size="280,auto">
+					<AlphaAnim  ID="CPLevel2ListAlpha" Speed="4" AlphaBegin="0" AlphaEnd="1" Cycle="Once"  Size="default,auto">
+						<Stack	ID="CityPoliciesStack" StackGrowth="Down"/>
+					</AlphaAnim>
+				</SlideAnim>
+			</Stack>
+			<Label ID="SaveLevel2Key" Hidden="1"/>
+		</Container>
+	</Instance>
+	
+	<Instance Name="PKCityPoliciesLevel3">
+		<Container ID="Level3" Size="280,30">
+			<Container ID="CPLevel3ButtonContainer" Size="parent, 30">
+				<GridButton ID="CPLevel3Button" Size="parent,30" Style="ProductionButton" Anchor="R,B">
+					<Stack Anchor="L,C" Offset="10,0" StackPadding="2">
+						<Label ID="CPLevel3LabelText"	WrapWidth="120" String="Industrial Zone" Style="WhiteSemiBold14"/>
+					</Stack>
+					<Stack Anchor="R,C" StackGrowth="Down" Padding="-6">
+						<Container Size="71,21" Anchor="R,C" Offset="3,0">
+							<Image		ID="ProductionProgressArea" Texture="CityPanel_MeterSmallBacking" Size="71,21" Anchor="R,C">
+								<TextureBar ID="ProductionProgress" Texture="CityPanel_ProductionMeterSmall" Size="67,17" Anchor="C,C" Speed="1" Direction="Right">
+									<Label ID="CPCostText" String="99[ICON_Gold]/[ICON_Turn]" Style="WhiteSemiBold14" Anchor="C,C" Offset="2,0"/>
+								</TextureBar>
+							</Image>
+						</Container>
+					</Stack>
+					<Container ID="CPLevel3Disabled" Size="parent,parent" Hidden="1"	ConsumeMouseButton="1">
+						<GridButton Size="parent,parent+20" Style="ProductionButton" Color="255,255,255,70" Disabled="1"/>
+					</Container>
+				</GridButton>
+			</Container>
+		</Container>
+	</Instance>
+</Context>

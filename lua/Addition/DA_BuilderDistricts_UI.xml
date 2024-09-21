@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is the empty file just for loading the interface lua script -->
+<Context>
+	<Grid							ID="BuilderBuildDistrictsGrid"				Anchor="R,B" Offset="0,0"	Size="51,160" Texture="UnitPanel_SpecialActionsFrame" SliceCorner="14,14" >
+        <Stack					ID="BuilderBuildDistrictsStack"				Anchor="R,T" Offset="10,0" StackGrowth="Left" Padding="6" />
+      </Grid>
+      <Instance				Name="BuilderBuildDistrictsColumnInstance">
+		<Container		ID="Top"																		Size="38,140" >
+			<Image			ID="Row1"			Anchor="L,T" Offset="0,15"								Texture="UnitPanel_SpecialActionSlot" />
+			<Image			ID="Row2"			Anchor="L,T" Offset="0,60"								Texture="UnitPanel_SpecialActionSlot" />
+			<Image			ID="Row3"			Anchor="L,T" Offset="0,105"								Texture="UnitPanel_SpecialActionSlot" />
+		</Container>
+	</Instance>
+	<Instance Name="BuilderBuildDistrictsInstance" >
+		<Button		ID="BuilderBuildDistrictsButton" Anchor="L,T" Offset="0,0" Size="44,53" Texture="Controls_IconButton.dds">
+			<Image	ID="BuilderBuildDistrictsIcon"	Anchor="C,C" Offset="-1,-2" Size="39,39" Icon="UnitActions"/>
+		</Button>
+	</Instance>
+</Context>
