@@ -4,7 +4,7 @@
     <Name>LOC_DARKAGE_NAME</Name>
     <Description>LOC_DARKAGE_DESCRIPTION</Description>
     <Teaser>LOC_DARKAGE_TEASER</Teaser>
-    <Authors>errt</Authors>
+    <Authors>errt,Maple_Leaves</Authors>
 	 <CompatibleVersions>1.2,2.0</CompatibleVersions>
   </Properties>
 
