@@ -627,4 +627,70 @@ function m_DAUnitCommands.BuilderAddProd.IsDisabled(pUnit : object)
 	return false;
 end
 
+--[[
+-- =======================================================================
+	ui
+	凯旋门 建筑效果 仅限一次，允许军事单位使用“凯旋”行动，立刻回到最近的未使用过该行动的凯旋门，并获得一项升级。
+-- =========================================================================
+]]--
+m_DAUnitCommands.TriumphToTriumphalArch = {};
+m_DAUnitCommands.TriumphToTriumphalArch.Properties = {};
+
+-- UI Data
+m_DAUnitCommands.TriumphToTriumphalArch.EventName		= "DA_TriumphToTriumphalArch";
+m_DAUnitCommands.TriumphToTriumphalArch.CategoryInUI		= "SPECIFIC";
+m_DAUnitCommands.TriumphToTriumphalArch.Icon				= "promotion";
+-- m_DAUnitCommands.TriumphToTriumphalArch.ToolTipString	= Locale.Lookup("LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_NAME") .. "[NEWLINE][NEWLINE]" .. 
+-- 												Locale.Lookup("LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_DESCRIPTION");
+--m_DAUnitCommands.TriumphToTriumphalArch.DisabledToolTipString = Locale.Lookup("LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_DISABLED");
+m_DAUnitCommands.TriumphToTriumphalArch.VisibleInUI	= true;
+
+function m_DAUnitCommands.TriumphToTriumphalArch.CanUse(pUnit : object)
+	if pUnit == nil then
+		return false;
+	end
+	local pPlayer = Players[pUnit:GetOwner()];
+	local PROP_ENABLE_TRIUMPH = pPlayer:GetProperty('PROP_ENABLE_TRIUMPH') or 0;
+	if PROP_ENABLE_TRIUMPH > 0 then
+		return GameInfo.Units[pUnit:GetType()].Combat > 0;
+	end
+	return false;
+end
+
+function m_DAUnitCommands.TriumphToTriumphalArch.IsVisible(pUnit : object)
+	return true;
+end
+
+function m_DAUnitCommands.TriumphToTriumphalArch.IsDisabled(pUnit : object)
+	return false;
+end
+
+function m_DAUnitCommands.TriumphToTriumphalArch.GetToolTipString(pUnit : object)
+	local pPlayer = Players[pUnit:GetOwner()];
+	local cityList = Utils.GetPlayerCitiesSortedByDistance(pUnit:GetOwner(), pUnit:GetX(), pUnit:GetY());
+	for i, city in ipairs(cityList) do
+		local PROP_USED_TRIUMPH = city:GetProperty('PROP_USED_TRIUMPH') or 0;
+		if PROP_USED_TRIUMPH == 0 and city:GetBuildings():HasBuilding(GameInfo.Buildings["BUILDING_TRIUMPHAL"].Index) then
+			return Locale.Lookup("LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_NAME") .. "[NEWLINE][NEWLINE]" .. 
+				Locale.Lookup("LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_TOOLTIP", city:GetName());
+		end
+	end
+	return Locale.Lookup("LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_DISABLED");
+end
+
+function m_DAUnitCommands.TriumphToTriumphalArch.Acitvate(pUnit : object)
+	local pPlayer = Players[pUnit:GetOwner()];
+	local cityList = Utils.GetPlayerCitiesSortedByDistance(pUnit:GetOwner(), pUnit:GetX(), pUnit:GetY());
+	for i, city in ipairs(cityList) do
+		local PROP_USED_TRIUMPH = city:GetProperty('PROP_USED_TRIUMPH') or 0;
+		if PROP_USED_TRIUMPH == 0 and city:GetBuildings():HasBuilding(GameInfo.Buildings["BUILDING_TRIUMPHAL"].Index) then
+			UI.LookAtPlot( city:GetX(), city:GetY() );
+		end
+	end
+end
+	
+
+
+
+
 

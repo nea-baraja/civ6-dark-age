@@ -270,6 +270,29 @@ GameEvents.DA_BuilderAddProd.Add(function(playerID : number, unitID : number)
     GameEvents.ReduceBuildCharge.Call(playerID, unitID);
 end)
 
+--凯旋门 建筑效果 game play部分 仅限一次，允许军事单位使用“凯旋”行动，立刻回到最近的未使用过该行动的凯旋门，并获得一项升级。
+GameEvents.DA_TriumphToTriumphalArch.Add(function(playerID : number, unitID : number)
+    local pPlayer = Players[playerID];
+    local pUnit = UnitManager.GetUnit(playerID, unitID);
+    local PROP_ENABLE_TRIUMPH = pPlayer:GetProperty('PROP_ENABLE_TRIUMPH') or 0;
+    local iXP = pUnit:GetExperience():GetExperienceForNextLevel();
+	pUnit:GetExperience():ChangeExperience(iXP);
+	local cityList = Utils.GetPlayerCitiesSortedByDistance(playerID, pUnit:GetX(), pUnit:GetY());
+	for i, city in ipairs(cityList) do
+		local PROP_USED_TRIUMPH = city:GetProperty('PROP_USED_TRIUMPH') or 0;
+		if PROP_USED_TRIUMPH == 0 and city:GetBuildings():HasBuilding(GameInfo.Buildings["BUILDING_TRIUMPHAL"].Index) then
+            city:SetProperty('PROP_USED_TRIUMPH', 1);
+            pPlayer:SetProperty('PROP_ENABLE_TRIUMPH', PROP_ENABLE_TRIUMPH - 1);
+            UnitManager.PlaceUnit(pUnit, city:GetX(), city:GetY());
+            break;
+        end
+    end
+end)
+
+
+
+
+
 
 -- function CityStateClearBarbCamp(playerID,unitID,x,y)
 --     local pPlayer = Players[playerID];
@@ -703,6 +726,7 @@ function GovernmentChanged(playerID)
 end
 
 Events.GovernmentChanged.Add(GovernmentChanged)
+
 
 
 

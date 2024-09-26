@@ -3,12 +3,12 @@ insert or replace into LocalizedText
 values
     ("zh_Hans_CN",  "LOC_POLICY_BLOOD_SACRIFICE_DESCRIPTION",               "每击杀1个战斗单位即可获得等于其战斗力50%的 [ICON_Faith] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_LOCAL_MAP_DESCRIPTION",                     "单位在城市5格范围内开始回合时，无视地形和地貌的额外 [ICON_MOVEMENT] 移动力消耗。"),
-    ("zh_Hans_CN",  "LOC_POLICY_LAND_MEASURE_DESCRIPTION",                  "所有城市+1 [ICON_Food] 食物。水渠+2 [ICON_food] 食物。"),
+    ("zh_Hans_CN",  "LOC_POLICY_LAND_MEASURE_DESCRIPTION",                  "所有城市+1 [ICON_FOOD] 食物。丘陵上的城市+1 [ICON_FOOD] 食物。"),
     ("zh_Hans_CN",  "LOC_POLICY_CELEBRATION_DESCRIPTION",                   "所有城市+1 [ICON_Amenities] 宜居度，拥有娱乐中心的城市额外+1 [ICON_Amenities] 宜居度。"),
-    ("zh_Hans_CN",  "LOC_POLICY_URBAN_PLANNING_DESCRIPTION",                "所有城市在建造建筑或区域时+2 [ICON_PRODUCTION] 生产力。水渠+2 [ICON_PRODUCTION] 生产力。"),
+    ("zh_Hans_CN",  "LOC_POLICY_URBAN_PLANNING_DESCRIPTION",                "所有城市+1  [ICON_PRODUCTION] 生产力。平坦地形上的城市+1 [ICON_PRODUCTION] 生产力。"),
     ("zh_Hans_CN",  "LOC_POLICY_HERB_PLANT_DESCRIPTION",                    "首都+1 [ICON_SCIENCE] 科技值。"),
 
-    ("zh_Hans_CN",  "LOC_POLICY_GOD_KING_DESCRIPTION",                      "[ICON_CAPITAL] 首都+2 [ICON_FAITH] 信仰值。观星台+4 [ICON_FAITH] 信仰值。"),
+    ("zh_Hans_CN",  "LOC_POLICY_GOD_KING_DESCRIPTION",                      "所有城市+2 [ICON_FAITH] 信仰值。相邻沙漠的城市，沙漠城市，冻土城市 +2 [ICON_FAITH] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_DISCIPLINE_DESCRIPTION",                    "同蛮族战斗时，+4 [ICON_STRENGTH] 单位战斗力"),
     ("zh_Hans_CN",  "LOC_POLICY_SURVEY_DESCRIPTION",                        "侦察单位获得的经验值翻倍，且+1视野范围。"),
     ("zh_Hans_CN",  "LOC_POLICY_CARAVANSARIES_DESCRIPTION",                 "所有城市+3 [ICON_Gold] 金币。港口和商业中心+6 [ICON_GOLD] 金币。"),

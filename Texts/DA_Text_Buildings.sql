@@ -8,9 +8,9 @@ values
 
     --("zh_Hans_CN",  "LOC_BUILDING_MONUMENT_DESCRIPTION",                        "本城未建造学院时+1 [ICON_SCIENCE] 科技值，未建造剧院广场时+1 [ICON_CULTURE] 文化值，未建造圣地时+1 [ICON_FAITH] 信仰值，每建造一个以上区域就+2 [ICON_PressureUp] 忠诚度。"),
     ("zh_Hans_CN",  "LOC_BUILDING_MONUMENT_DESCRIPTION",                        "若城市拥有奇观则+2 [ICON_CULTURE] 文化值。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_DESCRIPTION",                         "市中心获得来自草原，平原和沙漠泛滥平原的少量 [ICON_Food] 食物相邻加成。研究“灌溉”科技后为种植园+1 [ICON_Food] 食物。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_DESCRIPTION",                         "市中心获得来自草原，平原和沙漠泛滥平原的少量 [ICON_Food] 食物相邻加成，研究“灌溉”科技后改为标准相邻加成。种植园+1 [ICON_Food] 食物。"),
     ("zh_Hans_CN",  "LOC_BUILDING_MASON_NAME",                                  "石匠坊"),
-    ("zh_Hans_CN",  "LOC_BUILDING_MASON_DESCRIPTION",                           "市中心获得来自草原丘陵和平原丘陵的少量 [ICON_PRODUCTION] 生产力相邻加成，以及来自草原山脉和平原山脉的标准 [ICON_PRODUCTION] 生产力相邻加成。研究“砌砖”科技后为采石场+1 [ICON_PRODUCTION] 生产力。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_MASON_DESCRIPTION",                           "市中心获得来自草原丘陵和平原丘陵的少量 [ICON_PRODUCTION] 生产力相邻加成，研究“砌砖”科技后改为标准相邻加成。采石场+1 [ICON_PRODUCTION] 生产力。"),
     ("zh_Hans_CN",  "LOC_BUILDING_FLAG_ONE_DISTRICT_NAME",                      "城市至少拥有一个专业区域"),
     ("zh_Hans_CN",  "LOC_BUILDING_FLAG_TWO_DISTRICT_NAME",                      "城市至少拥有两个专业区域"),
     ("zh_Hans_CN",  "LOC_BUILDING_FLAG_THREE_DISTRICT_NAME",                    "城市至少拥有三个专业区域"),
@@ -31,9 +31,9 @@ values
 
     ("zh_Hans_CN",  "LOC_BUILDING_FLAG_ONE_DISTRICT_DESCRIPTION",               "一些建筑需要城市至少拥有一个专业区域方可建造，如磨坊和天文台。"),  
     ("zh_Hans_CN",  "LOC_BUILDING_FLAG_TWO_DISTRICT_DESCRIPTION",               "一些建筑需要城市至少拥有两个专业区域方可建造，如锻造坊和造纸坊。"),  
-    ("zh_Hans_CN",  "LOC_BUILDING_WATER_MILL_DESCRIPTION",                      "需要城市拥有至少一个专业区域方可建造。所有专业区域+1 [ICON_Food] 食物，研究“工程”科技后非专业区域也+1 [ICON_Food] 食物。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_OBSERVATORY_DESCRIPTION",                     "需要城市拥有至少一个专业区域方可建造。若城市拥有自然奇观则+1 [ICON_SCIENCE] 科技值。研究“数学”科技后，在城市相邻海岸和城市相邻山脉时+1 [ICON_SCIENCE] 科技值。可以使用信仰值购买。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_TRIUMPHAL_DESCRIPTION",                       "需要城市拥有至少一个专业区域方可建造。使市中心获得等于驻扎单位等级的 [ICON_Culture] 文化值相邻加成。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_WATER_MILL_DESCRIPTION",                      "需要城市拥有至少一个专业区域方可建造。所有专业区域+1 [ICON_Food] 食物，研究“工程”“科技后再+1 [icon_production] 生产力。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_OBSERVATORY_DESCRIPTION",                     "需要城市拥有至少一个专业区域方可建造。若城市拥有自然奇观则+2 [ICON_SCIENCE] 科技值。研究“数学”科技后，在城市相邻海岸和城市相邻山脉时+2 [ICON_SCIENCE] 科技值。可以使用信仰值购买。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_TRIUMPHAL_DESCRIPTION",                       "需要城市拥有至少一个专业区域方可建造。使市中心获得等于 [icon_promotion] 驻扎单位等级的 [ICON_Culture] 文化值相邻加成。[NEWLINE]仅限一次，允许军事单位使用“凯旋”行动，立刻回到最近的未使用过该行动的凯旋门，并获得一项 [icon_promotion] 升级。"),
     ("zh_Hans_CN",  "LOC_BUILDING_PAPER_MAKER_DESCRIPTION",                     "需要城市拥有至少两个专业区域方可建造。学院，圣地，剧院广场+1对应基础相邻加成。"),
     ("zh_Hans_CN",  "LOC_BUILDING_FORGING_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。改良资源的单元格+1 [ICON_PRODUCTION] 生产力。研究“机械”科技后，没有资源的改良单元格+1 [ICON_PRODUCTION] 生产力。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_TINGTAI_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。魅力值达到“迷人”的区域+1 [ICON_Housing] 住房，达到“惊艳”的区域+1 [ICON_Amenities] 宜居度。"),    
@@ -86,6 +86,8 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_STATUE_OF_ZEUS_DESCRIPTION",                  "赠送所有类型的已解锁的最先进陆地战斗单位。建成时各陆地战斗单位每有一项升级，宙斯像就+1 [ICON_SCIENCE] 科技值。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_TERRACOTTA_ARMY_DESCRIPTION",                 "目前所有单位获得1级强化升级。建成时每有一个陆地战斗单位，兵马俑就+1 [ICON_Culture] 文化值。"),    
 
+    ("zh_Hans_CN",  "LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_NAME",               "凯旋"),
+    ("zh_Hans_CN",  "LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_TOOLTIP",            "单位立刻回到 {1_cityname}，并获得一次升级"),
 
     ("zh_Hans_CN",  "LOC_ABILITY_TEMPLE_ARTEMIS_RANGED_STRENGTH_DA_NAME",       "阿耳忒弥斯的祝福"),    
     ("zh_Hans_CN",  "LOC_ABILITY_DA_ARTEMIS_CAMP_STRENGTH_NAME",                "阿耳忒弥斯的祝福"),    

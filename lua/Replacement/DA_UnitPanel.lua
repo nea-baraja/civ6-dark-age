@@ -412,6 +412,10 @@ function GetUnitActionsTable(pUnit : object)
                     end
             
                     local sToolTipString : string = pCommandTable.ToolTipString or "Undefined Unit Command";
+                    if (pCommandTable.GetToolTipString ~= nil) then
+                        sToolTipString = pCommandTable.GetToolTipString(pUnit);
+                    end
+
 					if pCommandTable.GetToolTipString ~= nil then
 						local noErr, ttp = pcall(pCommandTable.GetToolTipString, pUnit);
 						if noErr then
@@ -426,10 +430,13 @@ function GetUnitActionsTable(pUnit : object)
                         if (pSelectedUnit == nil) then
                             return;
                         end
-
+                        if (pCommandTable.Activate ~= nil) then
+                            pCommandTable.Activate(pUnit);
+                        end
                         local tParameters = {};
                         tParameters[UnitCommandTypes.PARAM_NAME] = pCommandTable.EventName or "";
                         UnitManager.RequestCommand(pSelectedUnit, UnitCommandTypes.EXECUTE_SCRIPT, tParameters);
+
 						--if (pCommandTable.DoNotDelete == nil) or (pCommandTable.DoNotDelete ~= true) then
 	                        --UnitManager.RequestCommand(pSelectedUnit, UnitCommandTypes.DELETE);
 						--end

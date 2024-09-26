@@ -512,3 +512,49 @@ end
 GameEvents.CostUnity.Add(CostUnity);
 Utils.CostUnity = CostUnity;
 
+Utils.FindClosestCity = function(player, iStartX, iStartY)
+
+    local pCity = nullptr;
+    local iShortestDistance = 10000;
+	local pPlayer = Players[player];
+   
+	local pPlayerCities:table = pPlayer:GetCities();
+	for i, pLoopCity in pPlayerCities:Members() do
+		local iDistance = Map.GetPlotDistance(iStartX, iStartY, pLoopCity:GetX(), pLoopCity:GetY());
+		if (iDistance < iShortestDistance) then
+			pCity = pLoopCity;
+			iShortestDistance = iDistance;
+		end
+	end
+
+	if (pCity == nullptr) then
+		print ("No closest city found of player " .. tostring(player) .. " from " .. tostring(iStartX) .. ", " .. tostring(iStartX));
+	end
+   
+    return pCity;
+end
+
+Utils.GetPlayerCitiesSortedByDistance = function(player, iStartX, iStartY)
+    local pPlayer = Players[player]
+    local pPlayerCities = pPlayer:GetCities()
+    local cityDistances = {}
+
+    -- 遍历玩家城市，计算每个城市到起始位置的距离
+    for i, pLoopCity in pPlayerCities:Members() do
+        local iDistance = Map.GetPlotDistance(iStartX, iStartY, pLoopCity:GetX(), pLoopCity:GetY())
+        table.insert(cityDistances, {city = pLoopCity, distance = iDistance})
+    end
+
+    -- 按照距离进行排序
+    table.sort(cityDistances, function(a, b) return a.distance < b.distance end)
+
+    -- 提取排序后的城市列表
+    local sortedCities = {}
+    for _, cityData in ipairs(cityDistances) do
+        table.insert(sortedCities, cityData.city)
+    end
+
+    return sortedCities
+end
+
+

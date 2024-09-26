@@ -167,7 +167,7 @@ from Resources;
 
 
 
---玩家有某科技/市政 REQ/RS
+--玩家有/无某科技/市政 REQ/RS
 insert or replace into Requirements (RequirementId, RequirementType)
 select 'REQ_PLAYER_HAS_'||TechnologyType, 'REQUIREMENT_PLAYER_HAS_TECHNOLOGY'
 from Technologies;
@@ -184,6 +184,24 @@ from Technologies;
 insert or ignore into RequirementSetRequirements
     (RequirementSetId,                                  RequirementId)
 select	'RS_PLAYER_HAS_'||TechnologyType,				'REQ_PLAYER_HAS_'||TechnologyType
+from Technologies;
+
+insert or replace into Requirements (RequirementId, RequirementType, Inverse)
+select 'REQ_PLAYER_NO_'||TechnologyType, 'REQUIREMENT_PLAYER_HAS_TECHNOLOGY', 1
+from Technologies;
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+select 'REQ_PLAYER_NO_'||TechnologyType, 'TechnologyType', TechnologyType
+from Technologies;
+
+insert or ignore into RequirementSets
+    (RequirementSetId,                                  RequirementSetType)
+select	'RS_PLAYER_NO_'||TechnologyType,				'REQUIREMENTSET_TEST_ALL'
+from Technologies;
+                                   
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+select	'RS_PLAYER_NO_'||TechnologyType,				'REQ_PLAYER_NO_'||TechnologyType
 from Technologies;
 
 
@@ -203,6 +221,24 @@ from Civics;
 insert or ignore into RequirementSetRequirements
     (RequirementSetId,                                  RequirementId)
 select	'RS_PLAYER_HAS_'||CivicType,				'REQ_PLAYER_HAS_'||CivicType
+from Civics;
+
+insert or replace into Requirements (RequirementId, RequirementType, Inverse)
+select 'REQ_PLAYER_NO_'||CivicType, 'REQUIREMENT_PLAYER_HAS_CIVIC', 1
+from Civics;
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+select 'REQ_PLAYER_NO_'||CivicType, 'CivicType', CivicType
+from Civics;
+
+insert or ignore into RequirementSets
+    (RequirementSetId,                                  RequirementSetType)
+select	'RS_PLAYER_NO_'||CivicType,				'REQUIREMENTSET_TEST_ALL'
+from Civics;
+                                   
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+select	'RS_PLAYER_NO_'||CivicType,				'REQ_PLAYER_NO_'||CivicType
 from Civics;
 
 
