@@ -1150,8 +1150,8 @@ function RealizePolicyCatalog()
         if tempTable then
           tempTable[KEY_POLICY_TYPE] = "DA_COPY_" ..policyType
           cardInstance.Button:RegisterCallback( Mouse.eRClick, function()
-        AddToNextAvailRow(cardInstance);
-        AddToNextAvailRow(tempTable, policyType);
+		    AddToNextAvailRow(cardInstance);
+		    AddToNextAvailRow(tempTable, policyType);
           end );
         else
           DA_Copy_ActiveCard[policyType:sub(9)] = {Active = false, Card = -1}
@@ -1384,20 +1384,20 @@ function RealizeActivePoliciesRows()
           table.insert( DA_Copy_CardHiddenSlots[nRowIndex].ShowSlots, tSlotData.GC_SlotIndex)
           cardInst.Button:RegisterCallback( Mouse.eRClick, function()
             if DA_Copy_Card.Active and DA_Copy_Card.Card ~= -1 then
-        RemoveActivePolicyAtSlotIndex( DA_Copy_ActiveCard[policyType].Card );
-        DA_Copy_ActiveCard[policyType] = {Active = false, Card = -1}
-        RealizePolicyCatalog();
-        RealizeActivePoliciesRows();
-      else
-        if GetFreeSlotCountForRow(nRowIndex) >= 1 then
+			  RemoveActivePolicyAtSlotIndex( DA_Copy_ActiveCard[policyType].Card );
+			  DA_Copy_ActiveCard[policyType] = {Active = false, Card = -1}
+			  RealizePolicyCatalog();
+			  RealizeActivePoliciesRows();
+			else
+			  if GetFreeSlotCountForRow(nRowIndex) >= 1 then
                 AddToNextAvailRow(tempTable, policyType);
-        end
-        end
+			  end
+		    end
           end );
           if DA_Copy_ActiveCard[policyType].Active then
-      cardInst.PKDoubleBackground:SetShow(true)
-      cardInst.PKDoubleIcon:SetShow(true)
-      end
+			cardInst.PKDoubleBackground:SetShow(true)
+			cardInst.PKDoubleIcon:SetShow(true)
+		  end
         else
           DA_Copy_CardHiddenSlots[nRowIndex].HiddenSlotNum = DA_Copy_CardHiddenSlots[nRowIndex].HiddenSlotNum + 1
           DA_Copy_ActiveCard[policyType:sub(9)] = {Active = true, Card = tSlotData.GC_SlotIndex}
@@ -2380,14 +2380,14 @@ function OnDropFromCatalog( dragStruct:table, cardInstance:table )
       if targetPolicyType ~= "empty" then
         -- 检查目标卡槽是否是双倍卡状态
         local DACopyCard = DA_Copy_ActiveCard[targetPolicyType]
-    if DACopyCard.Active and DACopyCard.Card ~= -1 then
+		if DACopyCard.Active and DACopyCard.Card ~= -1 then
           -- 把目标卡槽的卡挪到他对应复制卡的卡槽
-        RemoveActivePolicyAtSlotIndex(targetPolicySlot)
-      RemoveActivePolicyAtSlotIndex(DACopyCard.Card)
-      SetActivePolicyAtSlotIndex(DACopyCard.Card, targetPolicyType)
-      DA_Copy_ActiveCard[targetPolicyType] = {Active = false, Card = -1}
-    end
-    end
+	      RemoveActivePolicyAtSlotIndex(targetPolicySlot)
+		  RemoveActivePolicyAtSlotIndex(DACopyCard.Card)
+		  SetActivePolicyAtSlotIndex(DACopyCard.Card, targetPolicyType)
+		  DA_Copy_ActiveCard[targetPolicyType] = {Active = false, Card = -1}
+		end
+	  end
       -- 新卡正常添加到原目标卡槽
       
       SetActivePolicyAtSlotIndex( targetPolicySlot , policyType );
@@ -2398,7 +2398,7 @@ function OnDropFromCatalog( dragStruct:table, cardInstance:table )
       -- Get a free slot if there is one and stick this guy in there
       local nFreeSlot :number = GetFirstFreeSlotIndex( nTargetRow );
       if nFreeSlot ~= -1 then
-      print("2", nFreeSlot)
+	    print("2", nFreeSlot)
         SetActivePolicyAtSlotIndex( nFreeSlot, policyType );
         bDropAccepted = true;
       end
