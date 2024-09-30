@@ -67,11 +67,16 @@ Utils.CanBuildDistricts = {
 		end,
 		BuildCharge = function(playerID,unitID,iX,iY)
 			local pPlayer = Players[playerID]
+			local iCharge = 0;
 			if pPlayer ~= nil and pPlayer:GetProperty('ZHENGGUO_SALE_AQUEDUCT') == 1 then
-				return 2;
+				iCharge = 2;
 			else
-				return 3;
+				iCharge = 3;
 			end
+			if pPlayer:GetProperty('PROP_ABILITY_CHINA') == 1 then
+				iCharge = 1;
+			end
+			return iCharge;
 		end,
 	},
 	{
@@ -98,8 +103,6 @@ Utils.CanBuildDistricts = {
 					return false
 			    end
 			end
-
-
 			return true 
 		end,
 		-- PrereqTech = function(playerID,unitID,iX,iY)
@@ -111,6 +114,28 @@ Utils.CanBuildDistricts = {
 				return 1;
 			else
 				return 2;
+			end
+		end,
+	},
+	--堤坝
+	{
+		DistrictID = "DISTRICT_DAM",
+		DistrictDisabled = function(playerID,unitID,iX,iY)
+			local pPlot = Map.GetPlot(iX, iY);
+			if pPlot:GetRiverCrossingCount() < 2 then
+				return true;
+			end
+			return false;
+		end,
+		PrereqTech = function(playerID,unitID,iX,iY)
+			return true
+		end,
+		BuildCharge = function(playerID,unitID,iX,iY)
+			local pPlayer = Players[playerID]
+			if pPlayer ~= nil and pPlayer:GetProperty('PROP_ABILITY_CHINA') == 1 then
+				return 1;
+			else
+				return 4;
 			end
 		end,
 	},

@@ -24,12 +24,12 @@ insert or replace into Improvement_YieldChanges(ImprovementType,	YieldType,	Yiel
 
 --改良产出随科技增长
 delete from Improvement_BonusYieldChanges where ImprovementType in (
-	--'IMPROVEMENT_FARM',
+	'IMPROVEMENT_FARM',
 	--'IMPROVEMENT_PLANTATION',
-	--'IMPROVEMENT_CAMP',
-	'IMPROVEMENT_PASTURE'
+	'IMPROVEMENT_CAMP',
+	'IMPROVEMENT_PASTURE',
 	--'IMPROVEMENT_QUARRY',
-	--'IMPROVEMENT_MINE',
+	'IMPROVEMENT_MINE'
 	--'IMPROVEMENT_LUMBER_MILL',
 	--'IMPROVEMENT_FISHING_BOATS'
 	);
@@ -93,9 +93,16 @@ values
 	('IMPROVEMENT_CAMP',		'FEATURE_FLOODPLAINS_GRASSLAND',	'TECH_ARCHERY',		null),
 	('IMPROVEMENT_CAMP',		'FEATURE_FOREST',					'TECH_ARCHERY',		null),
 	('IMPROVEMENT_CAMP',		'FEATURE_JUNGLE',					'TECH_ARCHERY',		null),
-	('IMPROVEMENT_CAMP',		'FEATURE_MARSH',					'TECH_ARCHERY',		null);
+	('IMPROVEMENT_CAMP',		'FEATURE_MARSH',					'TECH_ARCHERY',		null),
+	('IMPROVEMENT_CAMP',		'FEATURE_FLOODPLAINS',				'TECH_ARCHERY',		null);
 
-
+insert or replace into Improvement_ValidTerrains
+	(ImprovementType,				TerrainType,					PrereqTech,			PrereqCivic)
+values
+	('IMPROVEMENT_CAMP',		'TERRAIN_DESERT',				'TECH_HORSEBACK_RIDING',		null),
+	('IMPROVEMENT_CAMP',		'TERRAIN_DESERT_HILLS',			'TECH_HORSEBACK_RIDING',		null),
+	('IMPROVEMENT_CAMP',		'TERRAIN_TUNDRA',				'TECH_HORSEBACK_RIDING',		null),
+	('IMPROVEMENT_CAMP',		'TERRAIN_TUNDRA_HILLS',			'TECH_HORSEBACK_RIDING',		null);
 
 
 

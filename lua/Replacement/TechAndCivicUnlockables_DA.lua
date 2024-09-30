@@ -14,7 +14,9 @@ function GetUnlockablesForTech( techType, playerId, unlockables )
 				return true
 			end
 		end
-
+		if string.find(item[2], 'DA_COPY_') ~= nil then
+			return false
+		end
 		return (item[1].PrereqTech == techType) or (item[1].InitiatorPrereqTech == techType);
 
 	end

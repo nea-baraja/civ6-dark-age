@@ -14,7 +14,8 @@ update ModifierArguments set Value = 2 where ModifierId = 'GOD_KING_FAITH' and N
 update ModifierArguments set Value = 15 where ModifierId = 'ILKUM_BUILDERPRODUCTION' and Name = 'Amount';
 --服役改名开垦 且改为军事卡
 update Policies set GovernmentSlotType = 'SLOT_MILITARY' where PolicyType = 'POLICY_ILKUM';
--- 强迫劳役 改名纪念 奇观加速 15改15+10
+-- 强迫劳役 改名劳役 改为军事卡 奇观加速 15改15+10
+update Policies set GovernmentSlotType = 'SLOT_MILITARY' where PolicyType = 'POLICY_CORVEE';
 --update ModifierArguments set Value = 30 where ModifierId = 'CORVEE_ANCIENTCLASSICALWONDER' and Name = 'Amount';
 -- 删除土地调查员
 delete from Policies where PolicyType = 'POLICY_LAND_SURVEYORS';
@@ -51,7 +52,8 @@ update ModifierArguments set Value = 5 where ModifierId = 'CHARISMATICLEADER_INF
 delete from Policies where PolicyType in ('POLICY_RAID', 'POLICY_VETERANCY', 'POLICY_BASTIONS', 'POLICY_LIMES', 'POLICY_EQUESTRIAN_ORDERS');
 -- 君主崇拜重做
 delete from PolicyModifiers where PolicyType = 'POLICY_GOD_KING';
-
+--美学改为文官制度解锁
+update Policies set PrereqCivic = 'CIVIC_DEFENSIVE_TACTICS' where PolicyType = 'POLICY_AESTHETICS';
 
 insert or replace into PolicyModifiers
 	(PolicyType,						ModifierId)
@@ -72,7 +74,7 @@ values
 	('POLICY_CARAVANSARIES',			'CARAVANSARIES_COMMERCIAL_GOLD'),   --商队旅馆 追加商业中心+3金币
 	('POLICY_ILKUM',					'ILKUM_BUILDERPRODUCTION_EXTRA'), --服役建造者加速 50改为15 有专业区域再+10
 	--('POLICY_CORVEE',					'CORVEE_SUB_AMENITY'),   --强迫劳役减2宜居度
-	('POLICY_CORVEE',					'CORVEE_EXTRA_PRODUCTION'), --纪念 有纪念碑额外加速10%
+	('POLICY_CORVEE',					'CORVEE_EXTRA_PRODUCTION'), --劳役 有纪念碑额外加速10%
 	('POLICY_COLONIZATION',				'COLONIZATION_SETTLERPRODUCTION_PLUS'),   --殖民在5人口后额外10开拓者加速
 	--('POLICY_STRATEGOS',				'STRATEGOS_GREATGENERALPOINTS_PERCENT'),   --将军卡给高相邻军营城市加大将军点百分比
 	--('POLICY_INSPIRATION',				'INSPIRATION_GREATSCIENTISTPOINTS_PERCENT'),   --启示给高相邻学院城市加大科点百分比
@@ -84,7 +86,7 @@ values
 --伟人卡
 	('POLICY_STRATEGOS',				'STRATEGOS_POINTS'),	
 	('POLICY_REVELATION',				'REVELATION_POINTS'),	
-	('POLICY_INSPIRATION',				'INSPIRATION_POINTS'),	
+	('POLICY_INSPIRATION',				'INSPIRATION_POINTS'),
 	('POLICY_LITERARY_TRADITION',		'LITERARY_TRADITION_POINTS'),	
 
 	--('POLICY_LITERARY_TRADITION',		'LITERARY_GREATWRITERPOINTS_PERCENT'),	--文学传统那啥，同上
@@ -214,13 +216,18 @@ values
 	('POLICY_COOPERATIVE_COMBAT',			'KIND_POLICY'),	--协同作战
 	('POLICY_SORCERY_AND_HERB',				'KIND_POLICY'),	--协同作战
 
+	('POLICY_OFFICIAL_CRAFTS',					'KIND_POLICY'), --工官
+	('POLICY_TAX',							'KIND_POLICY'), --税收
+	('POLICY_PRIEST',						'KIND_POLICY'), --祭司
+
 	('POLICY_AUTHORITARIAN_LEADER',			'KIND_POLICY'), --威权型领袖
 	('POLICY_TRIBUTE',						'KIND_POLICY'),	--朝贡
 	--('POLICY_TRIUMPH',						'KIND_POLICY'),	--凯旋式
 	--('POLICY_HEDONISM',						'KIND_POLICY'),	--享乐主义
 	('POLICY_TRANSLATION',					'KIND_POLICY'),	--翻译
 	('POLICY_TRAIN',						'KIND_POLICY'),	--操练
-	('POLICY_ARMY_FARM',					'KIND_POLICY');	--军屯
+	('POLICY_ARMY_FARM',					'KIND_POLICY'),	--军屯
+	('POLICY_LOUGE',						'KIND_POLICY');	--楼阁
 
 insert or replace into Policies
 	(PolicyType,							Name,											Description,											PrereqCivic,								PrereqTech,					GovernmentSlotType)
@@ -232,9 +239,13 @@ values
     -- ('POLICY_HERB_PLANT',           		'LOC_POLICY_HERB_PLANT_NAME',           		'LOC_POLICY_HERB_PLANT_DESCRIPTION',            		'CIVIC_SORCERY_AND_HERB',               	null,                       'SLOT_ECONOMIC'),
 
 
-	--('POLICY_CAPITAL',						'LOC_POLICY_CAPITAL_NAME',						'LOC_POLICY_CAPITAL_DESCRIPTION',						'CIVIC_CRAFTSMANSHIP',						null,						'SLOT_ECONOMIC'),
+	--('POLICY_CAPITAL',						'LOC_POLICY_CAPITAL_NAME',						'LOC_POLICY_CAPITAL_DESCRIPTION',						'CIVIC_OFFICIAL_CRAFTSSHIP',						null,						'SLOT_ECONOMIC'),
 	('POLICY_COOPERATIVE_COMBAT',			'LOC_POLICY_COOPERATIVE_COMBAT_NAME',			'LOC_POLICY_COOPERATIVE_COMBAT_DESCRIPTION',			'CIVIC_MILITARY_TRADITION',					null,						'SLOT_MILITARY'),
     
+	('POLICY_OFFICIAL_CRAFTS',					'LOC_POLICY_OFFICIAL_CRAFTS_NAME',					'LOC_POLICY_OFFICIAL_CRAFTS_DESCRIPTION',						'CIVIC_STATE_WORKFORCE',						null,						'SLOT_ECONOMIC'),
+	('POLICY_TAX',							'LOC_POLICY_TAX_NAME',							'LOC_POLICY_TAX_DESCRIPTION',							'CIVIC_EARLY_EMPIRE',					null,						'SLOT_ECONOMIC'),
+	('POLICY_PRIEST',						'LOC_POLICY_PRIEST_NAME',						'LOC_POLICY_PRIEST_DESCRIPTION',						'CIVIC_MYSTICISM',						null,						'SLOT_ECONOMIC'),
+
 	('POLICY_SORCERY_AND_HERB',				'LOC_POLICY_SORCERY_AND_HERB_NAME',				'LOC_POLICY_SORCERY_AND_HERB_DESCRIPTION',				'CIVIC_MYSTICISM',							null,						'SLOT_ECONOMIC'),
 
     ('POLICY_TRIBUTE',           			'LOC_POLICY_TRIBUTE_NAME',           			'LOC_POLICY_TRIBUTE_DESCRIPTION',            			'CIVIC_POLITICAL_PHILOSOPHY',               null,                       'SLOT_DIPLOMATIC'),
@@ -243,8 +254,10 @@ values
     --('POLICY_HEDONISM',           			'LOC_POLICY_HEDONISM_NAME',           			'LOC_POLICY_HEDONISM_DESCRIPTION',            			'CIVIC_GAMES_RECREATION',                   null,                       'SLOT_ECONOMIC'),
     ('POLICY_COASTAL_SURVEY',           	'LOC_POLICY_COASTAL_SURVEY_NAME',           	'LOC_POLICY_COASTAL_SURVEY_DESCRIPTION',            	'CIVIC_FOREIGN_TRADE',                 		null,                       'SLOT_MILITARY'),
     ('POLICY_TRANSLATION',           		'LOC_POLICY_TRANSLATION_NAME',           		'LOC_POLICY_TRANSLATION_DESCRIPTION',            		'CIVIC_DRAMA_POETRY',                 		null,                       'SLOT_DIPLOMATIC'),
-    ('POLICY_TRAIN',           				'LOC_POLICY_TRAIN_NAME',           				'LOC_POLICY_TRAIN_DESCRIPTION',            			'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
-    ('POLICY_ARMY_FARM',           			'LOC_POLICY_ARMY_FARM_NAME',           			'LOC_POLICY_ARMY_FARM_DESCRIPTION',            			'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY');
+    ('POLICY_TRAIN',           				'LOC_POLICY_TRAIN_NAME',           				'LOC_POLICY_TRAIN_DESCRIPTION',            				'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
+    ('POLICY_ARMY_FARM',           			'LOC_POLICY_ARMY_FARM_NAME',           			'LOC_POLICY_ARMY_FARM_DESCRIPTION',            			'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
+	('POLICY_LOUGE',           				'LOC_POLICY_LOUGE_NAME',           				'LOC_POLICY_LOUGE_DESCRIPTION',            				null,                 						'TECH_CONSTRUCTION',        'SLOT_MILITARY');
+
 
 insert or replace into PolicyModifiers
 	(PolicyType,						ModifierId)
@@ -265,6 +278,15 @@ values
 	--('POLICY_CAPITAL',					'P_CAPITAL_FIRST_DISTRICT_PRODUCTION'),   --首都 第一个区域再加速25
 	('POLICY_COOPERATIVE_COMBAT',		'COOPERATIVE_COMBAT_FLANKING'),   --协同作战 夹击50加成
 	('POLICY_COOPERATIVE_COMBAT',		'COOPERATIVE_COMBAT_SUPPORT'),   --协同作战 支援50加成
+
+	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_FOOD_ADJACENCY'),   --工匠 市中心食物相邻50
+	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY'),   --工匠 市中心生产相邻50
+	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA'), --工匠 市中心食物相邻100
+	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA'),   --工匠 市中心生产相邻100
+
+	('POLICY_TAX',						'TAX_POP_GOLD'),   --税收 总督城人口税1
+	('POLICY_PRIEST',					'PRIEST_IMPROVED_TUNDRA_FAITH'),   --祭司 改良冻土加信仰
+	('POLICY_PRIEST',					'PRIEST_IMPROVED_DESERT_FAITH'),   --祭司 改良沙漠加信仰
 	
 	('POLICY_SORCERY_AND_HERB',			'SORCERY_AND_HERB_HOLYSITE_SCIENCE'),   --巫术与草药 圣地1瓶
 	('POLICY_SORCERY_AND_HERB',			'SORCERY_AND_HERB_CAMPUS_FAITH'),   --巫术与草药 学院2鸽子
@@ -304,6 +326,17 @@ values
 	-- ('HERB_PLANT_COST_FOOD',						'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_CHANGE',			'RS_CITY_HAS_BUILDING_PALACE'),
 	('SORCERY_AND_HERB_HOLYSITE_SCIENCE',			'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_CHANGE',			'RS_PLOT_HAS_DISTRICT_HOLY_SITE'),
 	('SORCERY_AND_HERB_CAMPUS_FAITH',				'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_CHANGE',			'RS_PLOT_HAS_DISTRICT_CAMPUS'),
+
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY',					'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',				'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA',				'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',					'RS_CITY_HAS_WONDER'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA',		'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',					'RS_CITY_HAS_WONDER'),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD',			'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD',	'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
+
+	('TAX_POP_GOLD',								'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_PER_POPULATION',	'RS_1_GOVERNOR_TITLES'),
+	('PRIEST_IMPROVED_TUNDRA_FAITH',				'MODIFIER_PLAYER_IMPROVEMENTS',								'RS_PLOT_IS_TERRAIN_CLASS_TUNDRA'),
+	('PRIEST_IMPROVED_DESERT_FAITH',				'MODIFIER_PLAYER_IMPROVEMENTS',								'RS_PLOT_IS_TERRAIN_CLASS_DESERT'),
 
 
 	('P_CAPITAL_DISTRICT_PRODUCTION',				'MODIFIER_PLAYER_CITIES_ADJUST_DISTRICT_PRODUCTION_MODIFIER',	'RS_CITY_HAS_BUILDING_PALACE'),
@@ -357,11 +390,27 @@ values
 	('SORCERY_AND_HERB_CAMPUS_FAITH',						'Amount',					2),
 	('SORCERY_AND_HERB_CAMPUS_FAITH',						'YieldType',				'YIELD_FAITH'),
 
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY',							'YieldType',				'YIELD_FOOD'),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY',							'Amount',					50),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',						'YieldType',				'YIELD_PRODUCTION'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',						'Amount',					50),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA',						'ModifierId',				'OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA',				'ModifierId',				'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD'),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD',					'Amount',					50),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD',			'Amount',					50),
+
+	('TAX_POP_GOLD',										'Amount',					1),
+	('TAX_POP_GOLD',										'YieldType',				'YIELD_GOLD'),
+	('PRIEST_IMPROVED_TUNDRA_FAITH',						'YieldType',				'YIELD_FAITH'),
+	('PRIEST_IMPROVED_TUNDRA_FAITH',						'Amount',					1),
+	('PRIEST_IMPROVED_DESERT_FAITH',						'YieldType',				'YIELD_FAITH'),
+	('PRIEST_IMPROVED_DESERT_FAITH',						'Amount',					1),
+
 	('P_CAPITAL_DISTRICT_PRODUCTION',						'Amount',				25),
 	('P_CAPITAL_FIRST_DISTRICT_PRODUCTION',					'Amount',				25),
 	('COOPERATIVE_COMBAT_FLANKING',							'AbilityType',			'ABILITY_COOPERATIVE_FLANKING'),
 	('COOPERATIVE_COMBAT_SUPPORT',							'AbilityType',			'ABILITY_COOPERATIVE_SUPPORT'),
-	('AUTHORITARIAN_LEADER_UNITY',							'Key',					'PROP_UNITY_RATE_FROM_OTHERS'),
+	('AUTHORITARIAN_LEADER_UNITY',							'Key',					'PROP_UNITY_SOURCE_POLICY'),
 	('AUTHORITARIAN_LEADER_UNITY',							'Amount',				5),
 	('AUTHORITARIAN_LEADER_LOYALTY',						'Amount',				5),
 	('TRIBUTE_SCIENCEPERTRIBUTARY',							'YieldType',			'YIELD_SCIENCE'),
@@ -426,7 +475,46 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) select
 	'ARMY_FARM_GARRISON_'||numbers,	'Amount', 25 * numbers
     from counter where numbers > 0 and numbers < 8;
 
+--楼阁卡 市中心建筑加直接产出百分比
+insert or replace into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_LOUGE',			'LOUGE_BUFF_'||BuildingType||'_SCIENCE'
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
 
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'LOUGE_BUFF_'||BuildingType||'_SCIENCE', 'MODIFIER_PLAYER_CITIES_ADJUST_BUILDING_YIELD_MODIFIER', null
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'LOUGE_BUFF_'||BuildingType||'_SCIENCE',	'BuildingType', BuildingType
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'LOUGE_BUFF_'||BuildingType||'_SCIENCE',	'YieldType', 'YIELD_SCIENCE'
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'LOUGE_BUFF_'||BuildingType||'_SCIENCE',	'Amount', 50
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_LOUGE',			'LOUGE_BUFF_'||BuildingType||'_CULTURE'
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'LOUGE_BUFF_'||BuildingType||'_CULTURE', 'MODIFIER_PLAYER_CITIES_ADJUST_BUILDING_YIELD_MODIFIER', null
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'LOUGE_BUFF_'||BuildingType||'_CULTURE',	'BuildingType', BuildingType
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'LOUGE_BUFF_'||BuildingType||'_CULTURE',	'YieldType', 'YIELD_CULTURE'
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'LOUGE_BUFF_'||BuildingType||'_CULTURE',	'Amount', 50
+	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
 
 
 
@@ -791,5 +879,24 @@ insert or ignore into PolicyModifiers(PolicyType, ModifierId) select
 insert or ignore into CivilopediaPageExcludes(SectionId,   PageId) select
 	'POLICY',		'DA_COPY_'||Type
 	from Types where Type like 'POLICY_%' and Kind == 'KIND_POLICY';
+
+
+
+-- 特殊政策卡翻倍效果
+insert or ignore into PolicyModifiers(PolicyType, ModifierId) 
+values
+--税收 翻倍额外+3
+	('DA_COPY_POLICY_TAX',				'TAX_COPY_EXTRA_GOLD');
+
+insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) 
+	values
+	('TAX_COPY_EXTRA_GOLD',			'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_PER_POPULATION',	'RS_1_GOVERNOR_TITLES');
+
+insert or ignore into ModifierArguments(ModifierId, Name, Value) 
+	values
+	('TAX_COPY_EXTRA_GOLD',			'Amount',		'3'),
+	('TAX_COPY_EXTRA_GOLD',			'YieldType',	'YIELD_GOLD');
+
+
 
 

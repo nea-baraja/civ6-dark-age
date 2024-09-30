@@ -18,9 +18,11 @@ values
 
 delete from TechnologyPrereqs where Technology = 'TECH_APPRENTICESHIP' and PrereqTech = 'TECH_HORSEBACK_RIDING';
 delete from TechnologyPrereqs where Technology = 'TECH_APPRENTICESHIP' and PrereqTech = 'TECH_CURRENCY';
+delete from TechnologyPrereqs where Technology = 'TECH_CONSTRUCTION' and PrereqTech = 'TECH_HORSEBACK_RIDING';
 
 update Technologies set Description = 'LOC_'||TechnologyType||'_DESCRIPTION' where TechnologyType in
-	('TECH_ARCHERY',	 'TECH_THE_WHEEL', 'TECH_BRONZE_WORKING', 'TECH_POTTERY', 'TECH_IRON_WORKING');
+	('TECH_ARCHERY',	 'TECH_THE_WHEEL', 'TECH_BRONZE_WORKING', 'TECH_POTTERY', 
+        'TECH_IRON_WORKING', 'TECH_HORSEBACK_RIDING');
 
 
 insert or replace into Boosts

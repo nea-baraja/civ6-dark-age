@@ -2,7 +2,11 @@ insert or replace into LocalizedText
     (Language,      Tag,                                                        Text)
 values
     -- 中国
-    ("zh_Hans_CN",  "LOC_TRAIT_CIVILIZATION_DYNASTIC_CYCLE_EXPANSION2_DESCRIPTION",        "每个时代开始时，随机获得一个未出现的文明的能力作为该时代的能力。时代更替时可以选择维持原来的能力，但每种能力最多持续2个时代。"),
+    ("zh_Hans_CN",  "LOC_TRAIT_CIVILIZATION_DYNASTIC_CYCLE_NAME",                           "理水"),
+    ("zh_Hans_CN",  "LOC_TRAIT_CIVILIZATION_DYNASTIC_CYCLE_EXPANSION2_DESCRIPTION",         "建造水利区域仅需1 [ICON_Charges] 劳动力，水利区域提供1凝聚力，且其提供的城市能力效果翻倍。"),
+    ("zh_Hans_CN",  "LOC_TRAIT_LEADER_FIRST_EMPEROR_NAME",                                  "秦制"),
+    ("zh_Hans_CN",  "LOC_TRAIT_LEADER_FIRST_EMPEROR_EXPANSION2_DESCRIPTION",                "消耗人口加速建造无需花费凝聚力，且额外+30%加速的 [ICON_production] 生产力。"),
+   
     --苏美尔
     ("zh_Hans_CN",  "LOC_TRAIT_CIVILIZATION_FIRST_CIVILIZATION_NAME",           "首先步入文明"),
 

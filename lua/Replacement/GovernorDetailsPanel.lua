@@ -54,7 +54,11 @@ function Refresh()
 	local pGovernorDef:table = GameInfo.Governors[m_GovernorIndex];	
 	local pGovernor:table = GetAppointedGovernor(localPlayerID, m_GovernorIndex);
 	local pLocalPlayer:table = Players[localPlayerID];
-	local pPlayerGovernors:table = pLocalPlayer:GetGovernors();
+	local playerGovernors = pLocalPlayer:GetGovernors();
+	local governorPointsObtained = playerGovernors:GetGovernorPoints();
+	local governorPointsSpent = playerGovernors:GetGovernorPointsSpent();
+  	local hidedGovernors = pLocalPlayer:GetProperty('PROP_HIDE_GOVERNOR') or 0;
+    local policyGovernors = pLocalPlayer:GetProperty('PROP_POLICY_GOVERNOR') or 0;
 	local bIsSecretGovernor:boolean = IsCannotAssign(pGovernorDef);
 
 	-- Update governor name and title
@@ -92,7 +96,7 @@ function Refresh()
 			Controls.AssignButtonLabel:SetText(Locale.Lookup("LOC_GOVERNORS_SCREEN_BUTTON_APPOINT_GOVERNOR"));
 			Controls.AssignButton:SetVoid1(pGovernorDef.Index);
 			Controls.AssignButton:RegisterCallback( Mouse.eLClick, OnAppointGovernor );
-			local bCanAppoint:boolean = pPlayerGovernors:CanAppoint();
+			local bCanAppoint = playerGovernors:CanAppoint() and ((governorPointsObtained - governorPointsSpent - hidedGovernors) > 0);
 			Controls.AssignButton:SetDisabled((not bCanAppoint) or m_isReadOnly);
 		end
 

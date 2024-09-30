@@ -145,11 +145,11 @@ function RefreshGovernors(iUnkonwn, iRefresh)
 
     local unityBalance = localPlayer:GetProperty('PROP_UNITY_BALANCE') or 0;
     local unityRateFromDoublePolicy = localPlayer:GetProperty('PROP_UNITY_RATE_FROM_DOUBLE_POLICY') or 0;
-    local unityRate = localPlayer:GetProperty('PROP_UNITY_RATE_FROM_OTHERS') or 0;
+    
     local unityThreshold = localPlayer:GetProperty('PROP_UNITY_THRESHOLD') or 200;
-    if iRefresh ~= nil then
-        currentGovernors = currentGovernors - iRefresh;
-    end
+    -- if iRefresh ~= nil then
+    --     currentGovernors = currentGovernors - iRefresh;
+    -- end
 
     local sTooltip = "";
 
@@ -161,11 +161,13 @@ function RefreshGovernors(iUnkonwn, iRefresh)
     sTooltip = sTooltip .. "[NEWLINE][NEWLINE]";
     sTooltip = sTooltip .. Locale.Lookup("LOC_TOP_PANEL_UNITY_TOOLTIP_BALANCE", unityBalance);
     sTooltip = sTooltip .. "[NEWLINE]";
-    sTooltip = sTooltip .. Locale.Lookup("LOC_TOP_PANEL_UNITY_TOOLTIP_RATE", unityRate);
-    sTooltip = sTooltip .. "[NEWLINE]";
-    if unityRateFromDoublePolicy > 0 then
-        sTooltip = sTooltip .. Locale.Lookup("LOC_TOP_PANEL_UNITY_TOOLTIP_RATE_FROM_DOUBLE_POLICY", unityRateFromDoublePolicy);
-        sTooltip = sTooltip .. "[NEWLINE]";
+    for row in GameInfo.Unity_Sources() do
+        local propertyName = row.SourceProperty;
+        local propertyValue = localPlayer:GetProperty(propertyName) or 0;
+        if propertyValue ~= 0 then
+            sTooltip = sTooltip .. Locale.Lookup(row.SourceDescription.."", propertyValue);
+            sTooltip = sTooltip .. "[NEWLINE]";
+        end
     end
     sTooltip = sTooltip .. "[NEWLINE]";
     sTooltip = sTooltip .. Locale.Lookup("LOC_TOP_PANEL_UNITY_TOOLTIP_SOURCES_HELP");

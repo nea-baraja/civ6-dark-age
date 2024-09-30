@@ -266,7 +266,6 @@ function BuildDistrictsButtonabled(playerID,unitID,iX,iY,CanBuildDistricts,i,iRo
 				return false
 			end
 		end
-		
 	end
 	--所需市政判断
 	if CanBuildDistricts[(i+iRow)-1].PrereqCivic ~= nil then
@@ -281,7 +280,6 @@ function BuildDistrictsButtonabled(playerID,unitID,iX,iY,CanBuildDistricts,i,iRo
 				return false
 			end
 		end
-		
 	end
 	--自定义条件函数判断
 	local DistrictDisabled = false

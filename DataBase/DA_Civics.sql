@@ -7,7 +7,7 @@ update DiplomaticActions set
 	where DiplomaticActionType in ('DIPLOACTION_ALLIANCE_ECONOMIC',	'DIPLOACTION_ALLIANCE_MILITARY');
 
 update Civics set Description = 'LOC_'||CivicType||'_DESCRIPTION' where CivicType in
-	('CIVIC_MILITARY_TRADITION', 'CIVIC_STATE_WORKFORCE');
+	('CIVIC_MILITARY_TRADITION', 'CIVIC_STATE_WORKFORCE', 'CIVIC_MEDIEVAL_FAIRES');
 
 
 --远古市政价格 25 45 75

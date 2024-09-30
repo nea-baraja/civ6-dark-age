@@ -672,10 +672,16 @@ function OnTurnBeginUnity()
     for _, player in ipairs(players) do
         local unityBalance = player:GetProperty('PROP_UNITY_BALANCE') or 0;
         local unityRateFromDoublePolicy = player:GetProperty('PROP_UNITY_RATE_FROM_DOUBLE_POLICY') or 0;
-        local unityRate = player:GetProperty('PROP_UNITY_RATE_FROM_OTHERS') or 0;
+        local UnityIncome = 0;
+        for row in GameInfo.Unity_Sources() do
+            local propertyName = row.SourceProperty;
+            local propertyValue = player:GetProperty(propertyName) or 0;
+            UnityIncome = UnityIncome + propertyValue;
+        end
+
         local unityThreshold = player:GetProperty('PROP_UNITY_THRESHOLD') or 200;
-        local newBalance = (unityBalance + unityRate - unityRateFromDoublePolicy) % unityThreshold;
-        local gainGovernors = math.floor((unityBalance + unityRate - unityRateFromDoublePolicy) / unityThreshold);
+        local newBalance = (unityBalance + UnityIncome - unityRateFromDoublePolicy) % unityThreshold;
+        local gainGovernors = math.floor((unityBalance + UnityIncome - unityRateFromDoublePolicy) / unityThreshold);
         if gainGovernors >= 0 then
             local playerGovernors = player:GetGovernors();
             playerGovernors:ChangeGovernorPoints(gainGovernors);

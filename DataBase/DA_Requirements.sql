@@ -944,7 +944,8 @@ insert or ignore into RequirementSetRequirements (RequirementSetId, RequirementI
 
 
 --水相关 REQ/RS
-insert or replace into RequirementSets 				(RequirementSetId ,     RequirementSetType) 	values
+insert or ignore into RequirementSets 				(RequirementSetId ,     RequirementSetType) 	values
+('RS_IS_RIVER' , 									'REQUIREMENTSET_TEST_ALL'),
 ('RS_RIVER_DISTRICT' , 								'REQUIREMENTSET_TEST_ALL'),
 ('RS_NEAR_COAST_DISTRICT' , 						'REQUIREMENTSET_TEST_ALL'),
 ('RS_NEAR_WATER_DISTRICT' , 						'REQUIREMENTSET_TEST_ALL'),
@@ -960,7 +961,8 @@ insert or replace into RequirementSets 				(RequirementSetId ,     RequirementSe
 
 
 
-insert or replace into RequirementSetRequirements 	(RequirementSetId ,   RequirementId) 			values
+insert or ignore into RequirementSetRequirements 	(RequirementSetId ,   RequirementId) 			values
+('RS_IS_RIVER' , 									'REQ_IS_RIVER'),
 ('RS_RIVER_DISTRICT' , 								'REQ_IS_RIVER'),
 ('RS_RIVER_DISTRICT' , 								'REQ_NOT_WONDER'),
 ('RS_NEAR_COAST_DISTRICT' , 						'REQ_NEAR_COAST'),
@@ -1083,6 +1085,15 @@ from Districts;
 insert or replace into RequirementArguments (RequirementId, Name, Value)
 select 'REQ_PLOT_ON_'||DistrictType, 'RequirementSetId', 'RS_PLOT_ON_'||DistrictType
 from Districts;
+
+--是水利区域
+insert or ignore into RequirementSets(RequirementSetId, RequirementSetType) values
+	('RS_IS_WATER_DISTRICT',		'REQUIREMENTSET_TEST_ANY');
+
+insert or ignore into RequirementSetRequirements(RequirementSetId, RequirementId) values
+	('RS_IS_WATER_DISTRICT',		'REQ_PLOT_HAS_DISTRICT_AQUEDUCT'),
+	('RS_IS_WATER_DISTRICT',		'REQ_PLOT_HAS_DISTRICT_DAM'),
+	('RS_IS_WATER_DISTRICT',		'REQ_PLOT_HAS_DISTRICT_CANAL');
 
 
 
@@ -1335,11 +1346,13 @@ insert or ignore into RequirementSetRequirements (RequirementSetId, RequirementI
 -- );	
 
 insert or replace into PropertyRequirements(PropertyType, Threshold, Match) values
-	('PROP_CITY_PRODUCTION_TO_FOOD',	1, 0),
+	('PROP_CITY_PRODUCTION_TO_FOOD',	2, 0),
 	('GARRISON_LEVEL',					7, 1),
 	('PROP_CONSECRATION',				1, 1),
 	('PROP_INFRASTRUCTURE',				2, 1),
-	('PROP_DOMESTIC_INCOMING',			20, 1);
+	('PROP_DOMESTIC_INCOMING',			20, 1),
+	('PROP_DAM_FOOD',					2, 0),
+	('PROP_DAM_PRODUCTION',				2, 0);
 
 
 

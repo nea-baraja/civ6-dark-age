@@ -265,6 +265,11 @@
         <File>DataBase/DA_Trade.sql</File>
     </UpdateDatabase> 
 
+    <UpdateDatabase id="Trade">
+    <Properties><LoadOrder>28312</LoadOrder></Properties>
+        <File>DataBase/DA_Unity.sql</File>
+    </UpdateDatabase> 
+
     <UpdateDatabase id="Goody">
     <Properties><LoadOrder>28000</LoadOrder></Properties>
         <File>DataBase/DA_GoodyHuts.sql</File>
@@ -305,11 +310,11 @@
         <File>DataBase/DA_Techs.sql</File>
     </UpdateDatabase>
 
-    <UpdateDatabase id="Post">
+    <!-- <UpdateDatabase id="Post">
     <Properties><LoadOrder>30000</LoadOrder></Properties>
       <Criteria>POST</Criteria>
         <File>MajorCivs/DA_China_Post.sql</File>
-    </UpdateDatabase>
+    </UpdateDatabase> -->
 
     <UpdateDatabase id="Post">
     <Properties><LoadOrder>30000</LoadOrder></Properties>
@@ -317,7 +322,11 @@
         <File>MajorCivs/DA_Egypt.sql</File>
     </UpdateDatabase>
 
-
+    <UpdateDatabase id="Post">
+    <Properties><LoadOrder>30000</LoadOrder></Properties>
+      <Criteria>POST</Criteria>
+        <File>MajorCivs/DA_China.sql</File>
+    </UpdateDatabase>
 
 
 
@@ -665,12 +674,12 @@
       <Properties><LoadOrder>28203</LoadOrder></Properties>
       <File>lua/DA_City_Policies.lua</File>
     </ImportFiles> -->
-    <AddGameplayScripts id="Post">
+    <!-- <AddGameplayScripts id="Post">
       <Properties>
         <LoadOrder>28204</LoadOrder>
       </Properties>
       <File>lua/DA_China_Dynasty.lua</File>
-    </AddGameplayScripts>
+    </AddGameplayScripts> -->
     <AddGameplayScripts id="Victories">
       <Properties>
         <LoadOrder>28204</LoadOrder>
@@ -1048,8 +1057,8 @@
         <File>lua/DA_Policies.lua</File>
         <File>lua/DA_Religion.lua</File>
         <File>lua/DA_City_Policies_GP.lua</File>
-        <File>MajorCivs/DA_China_Post.sql</File>
-        <File>lua/DA_China_Dynasty.lua</File>
+        <!-- <File>MajorCivs/DA_China_Post.sql</File>
+        <File>lua/DA_China_Dynasty.lua</File> -->
         <!-- <File>Icons/DA_Icon_Citypolicies.sql</File> -->
         <File>lua/DA_Victories.lua</File>
         <File>DA.dep</File>
@@ -1191,7 +1200,8 @@
         <File>MajorCivs/DA_Nubia.xml</File>
         <File>MajorCivs/DA_Nubia.lua</File>
         <File>Textures/Governments_PKDoubleCard.dds</File>
-
+        <File>MajorCivs/DA_China.sql</File>
+        <File>DataBase/DA_Unity.sql</File>
   </Files>
   <LocalizedText>
     <Text id="LOC_DARKAGE_NAME">
