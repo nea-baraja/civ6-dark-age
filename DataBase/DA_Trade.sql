@@ -27,13 +27,13 @@ insert or replace into District_TradeRouteYields(DistrictType, YieldType, YieldC
 	('DISTRICT_CITY_CENTER',				'YIELD_PRODUCTION', 			0, 1, 0),
 	('DISTRICT_CITY_CENTER',				'YIELD_GOLD', 					3, 0, 3),
 
-	('DISTRICT_GOVERNMENT',					'YIELD_FOOD', 					0, 1, 0),
-	--('DISTRICT_GOVERNMENT',					'YIELD_PRODUCTION', 			0, 1, 0),
-	('DISTRICT_GOVERNMENT',					'YIELD_GOLD', 					3, 0, 3),
+	-- ('DISTRICT_GOVERNMENT',					'YIELD_FOOD', 					0, 1, 0),
+	-- --('DISTRICT_GOVERNMENT',					'YIELD_PRODUCTION', 			0, 1, 0),
+	-- ('DISTRICT_GOVERNMENT',					'YIELD_GOLD', 					3, 0, 3),
 
-	--('DISTRICT_DIPLOMATIC_QUARTER',			'YIELD_FOOD', 					0, 1, 0),
-	('DISTRICT_DIPLOMATIC_QUARTER',			'YIELD_PRODUCTION', 			0, 1, 0),
-	('DISTRICT_DIPLOMATIC_QUARTER',			'YIELD_GOLD', 					3, 0, 3),
+	-- --('DISTRICT_DIPLOMATIC_QUARTER',			'YIELD_FOOD', 					0, 1, 0),
+	-- ('DISTRICT_DIPLOMATIC_QUARTER',			'YIELD_PRODUCTION', 			0, 1, 0),
+	-- ('DISTRICT_DIPLOMATIC_QUARTER',			'YIELD_GOLD', 					3, 0, 3),
 
 	('DISTRICT_CAMPUS',						'YIELD_FOOD', 					0, 1, 0),
 	('DISTRICT_CAMPUS',						'YIELD_GOLD', 					3, 0, 3),

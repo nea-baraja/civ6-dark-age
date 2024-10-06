@@ -2112,6 +2112,7 @@ function RefreshGE()
   Controls.GovernorCount:SetText(GovernorNum)
   Controls.GovernorImage:SetToolTipString(Locale.Lookup("LOC_GOVERNOR_GOVERNOR_TITLES_AVAILABLE", GovernorNum))
   for _, policyType in ipairs(PKpolicyTypes) do
+    m_GovernorExchangePolicy = Players[Game.GetLocalPlayer()]:GetProperty('PROP_EXCHANGE_POLICY') or m_GovernorExchangePolicy;
     local iGovernorNum = m_GovernorExchangePolicy[policyType]
     local capitalPolicy = string.upper(policyType)
     if GovernorNum > 0 then
