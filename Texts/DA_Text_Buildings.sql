@@ -44,16 +44,16 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_GOV_CONQUEST_DESCRIPTION",                    "奖励1个 [ICON_GOVERNOR] 总督头衔。每拥有一座非自己建造的城市，每回合+1凝聚力"),    
 
 
-    ("zh_Hans_CN",  "LOC_BUILDING_LIBRARY_DESCRIPTION",                         "研究“造纸术”科技后，城市中每位 [ICON_CITIZEN] 公民 +0.5 [ICON_SCIENCE] 科技值产出。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_LIBRARY_DESCRIPTION",                         "城市中每位 [ICON_CITIZEN] 公民 +0.5 [ICON_SCIENCE] 科技值产出；研究“造纸术”科技后，变为+1 [ICON_SCIENCE] 。"),
     ("zh_Hans_CN",  "LOC_BUILDING_UNIVERSITY_DESCRIPTION",                      "研究“印刷术”科技后，城市每有一个专业区域，就为城市所有专业区域+1 [ICON_SCIENCE] 科技值"),
     ("zh_Hans_CN",  "LOC_BUILDING_RESEARCH_LAB_DESCRIPTION",                    "研究“无线电”科技后，城市每有一个专业区域，就为城市所有专业区域+2 [ICON_SCIENCE] 科技值 。研究“大众媒体”市政后，城市中每位 [ICON_CITIZEN] 公民 +1 [ICON_SCIENCE] 科技值产出，通电后城市+20% [ICON_SCIENCE] 科技值。"),
 
-    ("zh_Hans_CN",  "LOC_BUILDING_AMPHITHEATER_DESCRIPTION",                    "研究“造纸术”科技后，城市中每位 [ICON_CITIZEN] 公民 +0.5 [ICON_CULTURE] 文化值产出。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_AMPHITHEATER_DESCRIPTION",                    "城市中每位 [ICON_CITIZEN] 公民 +0.5 [ICON_CULTURE] 文化值产出；研究“造纸术”科技后，变为+1 [ICON_CULTURE]。"),
     
     ("zh_Hans_CN",  "LOC_BUILDING_ARENA_DESCRIPTION",                           "提供“马戏”奢侈资源，城市在拥有圣地或军营后，也提供对应的奢侈资源（均提供4 [ICON_Amenities] 宜居度）"),
 
     ("zh_Hans_CN",  "LOC_BUILDING_SHRINE_DESCRIPTION",                          "允许使用 [ICON_Faith] 信仰值购买建造者和商人。允许购买传教士（只能使用 [ICON_Faith] 信仰值进行购买）。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_TEMPLE_DESCRIPTION",                          "研究“造纸术”科技后，城市中每位 [ICON_CITIZEN] 公民 +1 [ICON_Faith] 信仰值产出。允许使用 [ICON_Faith] 信仰值购买开拓者。允许购买使徒、上师、审判官，拥有特定信仰还可购买武僧（这些宗教单位只能通过 [ICON_Faith] 信仰值购买）。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_TEMPLE_DESCRIPTION",                          "城市中每位 [ICON_CITIZEN] 公民 +1 [ICON_Faith] 信仰值产出；研究“造纸术”科技后，变为 +2 [ICON_Faith]。允许使用 [ICON_Faith] 信仰值购买开拓者。允许购买使徒、上师、审判官，拥有特定信仰还可购买武僧（这些宗教单位只能通过 [ICON_Faith] 信仰值购买）。"),
     ("zh_Hans_CN",  "LOC_BUILDING_BARRACKS_EXPANSION2_DESCRIPTION",             "该城市中训练的所有近战、抗骑兵和远程类陆地单位+50%战斗经验值。训练单位时获得等于军营相邻加成的 [ICON_Production] 生产力加成。[NEWLINE][NEWLINE]无法建造在已有马厩的军营区域中。"),
     ("zh_Hans_CN",  "LOC_BUILDING_STABLE_EXPANSION2_DESCRIPTION",               "该城市中训练的所有骑兵类和攻城类单位+50%战斗经验值。牧场+1 [ICON_Food] 食物+1 [ICON_Production] 生产力。[NEWLINE][NEWLINE]不能建造在已有兵营的军营区域中。"),
 

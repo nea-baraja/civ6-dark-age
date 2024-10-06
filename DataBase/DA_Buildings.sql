@@ -290,6 +290,8 @@ values
     ('BUILDING_SHRINE',             'SHRINE_BUILDER_PURCHASE'),
     ('BUILDING_SHRINE',             'SHRINE_TRADER_PURCHASE'),
     ('BUILDING_TEMPLE',             'TEMPLE_SETTLER_PURCHASE'),
+	('BUILDING_TEMPLE',             'TEMPLE_POP_FAITH_BASE'),
+	('BUILDING_TEMPLE',             'TEMPLE_POP_FAITH_AFTER_PAPER'),
 
     -- ('BUILDING_BARRACKS',           'BARRACKS_UNIT_PRODUCTION'),
     -- ('BUILDING_STABLE',             'STABLE_UNIT_PRODUCTION'),
@@ -298,6 +300,7 @@ values
 
 
     ('BUILDING_LIBRARY',            'LIBRARY_POP_SCIENCE_AFTER_PAPER'),
+	('BUILDING_LIBRARY',            'LIBRARY_POP_SCIENCE_BASE'),
     ('BUILDING_UNIVERSITY',         'UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT'),
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_DISTRICT_SCIENCE_FROM_DISTRICT'),
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_POP_SCIENCE_AFTER_CIVIC'),
@@ -314,7 +317,8 @@ values
     ('BUILDING_GOV_WIDE',           'GOV_WIDE_CITY_UNITY_GOVERNOR'),
     ('BUILDING_GOV_CONQUEST',       'GOV_CONQUEST_CITY_UNITY'),
 
-    ('BUILDING_AMPHITHEATER',       'AMPHITHEATER_POP_CULTURE'),
+    ('BUILDING_AMPHITHEATER',       'AMPHITHEATER_POP_CULTURE_AFTER_PAPER'),
+	('BUILDING_AMPHITHEATER',       'AMPHITHEATER_POP_CULTURE_BASE'),
 
     ('BUILDING_ARENA',              'ARENA_GIFT_CIRCUS'),
     ('BUILDING_ARENA',              'ARENA_GIFT_OLYMPIC'),
@@ -367,7 +371,8 @@ values
     ('SHRINE_BUILDER_PURCHASE',                     'MODIFIER_CITY_ENABLE_UNIT_FAITH_PURCHASE',                     NULL),
     ('SHRINE_TRADER_PURCHASE',                      'MODIFIER_CITY_ENABLE_UNIT_FAITH_PURCHASE',                     NULL),    
     ('TEMPLE_SETTLER_PURCHASE',                     'MODIFIER_CITY_ENABLE_UNIT_FAITH_PURCHASE',                     NULL),
-    ('TEMPLE_POP_FAITH',                            'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                         'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
+    ('TEMPLE_POP_FAITH_BASE',                       'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                         NULL),
+	('TEMPLE_POP_FAITH_AFTER_PAPER',                'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                         'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
 
     ('BARRACKS_UNIT_PRODUCTION',                    'MODIFIER_SINGLE_CITY_ADJUST_UNIT_PRODUCTION_CHANGE',           NULL),
     ('STABLE_UNIT_PRODUCTION',                      'MODIFIER_SINGLE_CITY_ADJUST_UNIT_PRODUCTION_CHANGE',           NULL),
@@ -396,6 +401,7 @@ values
     ('TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD',          'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD',                   NULL),
     ('TRIUMPHAL_ENABLE_TRIUMPH',                    'MODIFIER_PLAYER_ADJUST_PROPERTY',                              NULL),
     ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
+	('LIBRARY_POP_SCIENCE_BASE',             		'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          NULL),
 
     ('UNIVERSITY_DISTRICT_SCIENCE',                 'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
     ('RESEARCH_LAB_DISTRICT_SCIENCE',               'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
@@ -416,7 +422,8 @@ values
     ('GOV_WIDE_CITY_UNITY_GOVERNOR',                'MODIFIER_PLAYER_CITIES_ADJUST_PLAYER_PROPERTY',                 'CITY_HAS_GOVERNOR_FOUNDED'),
     ('GOV_CONQUEST_CITY_UNITY',                     'MODIFIER_PLAYER_CITIES_ADJUST_PLAYER_PROPERTY',                 'CITY_NOT_FOUNDED'),
 
-    ('AMPHITHEATER_POP_CULTURE',                    'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
+    ('AMPHITHEATER_POP_CULTURE_AFTER_PAPER',      	'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                  		'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
+	('AMPHITHEATER_POP_CULTURE_BASE',               'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                       	NULL),
 
     ('ARENA_GIFT_CIRCUS',                               'MODIFIER_SINGLE_CITY_GRANT_RESOURCE_IN_CITY',               NULL),
     ('ARENA_GIFT_OLYMPIC',                              'MODIFIER_SINGLE_CITY_GRANT_RESOURCE_IN_CITY',               'RS_CITY_HAS_DISTRICT_HOLY_SITE'),
@@ -483,8 +490,10 @@ values
 
     ('SHRINE_BUILDER_PURCHASE',                     'Tag',                      'CLASS_BUILDER'),
     ('SHRINE_TRADER_PURCHASE',                      'Tag',                      'CLASS_TRADER'),
-    ('TEMPLE_POP_FAITH',                            'YieldType',                'YIELD_FAITH'),
-    ('TEMPLE_POP_FAITH',                            'Amount',                   '1'),
+    ('TEMPLE_POP_FAITH_AFTER_PAPER',                'YieldType',                'YIELD_FAITH'),
+    ('TEMPLE_POP_FAITH_AFTER_PAPER',                'Amount',                   '1'),
+	('TEMPLE_POP_FAITH_BASE',                       'YieldType',                'YIELD_FAITH'),
+    ('TEMPLE_POP_FAITH_BASE',                       'Amount',                   '1'),
     ('TEMPLE_SETTLER_PURCHASE',                     'Tag',                      'CLASS_SETTLER'),
     
     ('BARRACKS_UNIT_PRODUCTION',                    'Amount',                   '4'),
@@ -533,6 +542,9 @@ values
 
     ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'YieldType',                'YIELD_SCIENCE'),
     ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'Amount',                   '0.5'),
+	
+	('LIBRARY_POP_SCIENCE_BASE',             		'YieldType',                'YIELD_SCIENCE'),
+    ('LIBRARY_POP_SCIENCE_BASE',             		'Amount',                   '0.5'),
 
     ('UNIVERSITY_DISTRICT_SCIENCE',                 'YieldType',                'YIELD_SCIENCE'),
     ('UNIVERSITY_DISTRICT_SCIENCE',                 'Amount',                   '1'),
@@ -577,8 +589,11 @@ values
     ('GOV_CONQUEST_CITY_UNITY',                     'Key',                      'PROP_UNITY_SOURCE_GOVERNMENT_BUILDING'),
     ('GOV_CONQUEST_CITY_UNITY',                     'Amount',                   1),
 
-    ('AMPHITHEATER_POP_CULTURE',                    'YieldType',                'YIELD_CULTURE'),
-    ('AMPHITHEATER_POP_CULTURE',                    'Amount',                   '0.5'),
+    ('AMPHITHEATER_POP_CULTURE_AFTER_PAPER',        'YieldType',                'YIELD_CULTURE'),
+    ('AMPHITHEATER_POP_CULTURE_AFTER_PAPER',        'Amount',                   '0.5'),
+	
+	('AMPHITHEATER_POP_CULTURE_BASE',               'YieldType',                'YIELD_CULTURE'),
+    ('AMPHITHEATER_POP_CULTURE_BASE',               'Amount',                   '0.5'),
 
     ('ARENA_GIFT_CIRCUS',                           'ResourceType',             'RESOURCE_CIRCUS'),
     ('ARENA_GIFT_CIRCUS',                           'Amount',                   '1'),
