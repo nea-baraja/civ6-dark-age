@@ -345,7 +345,7 @@ end
 Utils.GetCityAmenity = function(playerID, cityID)
     local pCity = CityManager.GetCity(playerID, cityID);
     if pCity == nil then 
-        print('error in player '..playerID..' city '..cityID)
+        --print('error in player '..playerID..' city '..cityID)
         return 0; 
     end
     local pCityGrowth = pCity:GetGrowth();

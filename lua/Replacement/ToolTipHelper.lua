@@ -548,7 +548,7 @@ ToolTipHelper.GetCivicToolTip = function(civicType, playerId)
 	table.insert(toolTipLines, Locale.ToUpper(name));
 	table.insert(toolTipLines, Locale.Lookup("{1_Cost} {2_Icon} {3_Name}", cost, yield_icon, yield_name));
 	
-	if(not Locale.IsNilOrWhitespace(description)) then
+	if(not Locale.IsNilOrWhitespace(description) and string.find(Locale.Lookup(description), "LOC_") == nil) then
 		table.insert(toolTipLines, "[NEWLINE]" .. Locale.Lookup(description));
 	end
 		
@@ -1359,7 +1359,7 @@ ToolTipHelper.GetTechnologyToolTip = function(techType, playerId)
 	table.insert(toolTipLines, Locale.ToUpper(name));
 	table.insert(toolTipLines, Locale.Lookup("{1_Cost} {2_Icon} {3_Name}", cost, yield_icon, yield_name));
 
-	if(not Locale.IsNilOrWhitespace(description)) then
+	if(not Locale.IsNilOrWhitespace(description) and string.find(Locale.Lookup(description), "LOC_") == nil) then
 		table.insert(toolTipLines, "[NEWLINE]" .. Locale.Lookup(description));
 	end
 	

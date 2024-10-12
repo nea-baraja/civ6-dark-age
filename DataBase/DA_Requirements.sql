@@ -1352,31 +1352,32 @@ insert or replace into PropertyRequirements(PropertyType, Threshold, Match) valu
 	('PROP_INFRASTRUCTURE',				2, 1),
 	('PROP_DOMESTIC_INCOMING',			20, 1),
 	('PROP_DAM_FOOD',					2, 0),
-	('PROP_DAM_PRODUCTION',				2, 0);
+	('PROP_DAM_PRODUCTION',				2, 0),
+	('REST_HOUSING',					10, 0);
 
 
 
-insert or replace into Requirements (RequirementId, RequirementType)
+insert or ignore into Requirements (RequirementId, RequirementType)
 select 'REQ_'||PropertyType||'_'||numbers, 	'REQUIREMENT_PLOT_PROPERTY_MATCHES'
 from PropertyRequirements, counter where numbers > 0 and numbers <= Threshold;
 
-insert or replace into RequirementArguments (RequirementId, Name, Value)
+insert or ignore into RequirementArguments (RequirementId, Name, Value)
 select 'REQ_'||PropertyType||'_'||numbers, 'PropertyMinimum', numbers
 from PropertyRequirements, counter where numbers > 0 and numbers <= Threshold;
 
-insert or replace into RequirementArguments (RequirementId, Name, Value)
+insert or ignore into RequirementArguments (RequirementId, Name, Value)
 select 'REQ_'||PropertyType||'_'||numbers, 'PropertyName', PropertyType
 from PropertyRequirements, counter where numbers > 0 and numbers <= Threshold;
 
-insert or replace into Requirements (RequirementId, RequirementType, Inverse)
+insert or ignore into Requirements (RequirementId, RequirementType, Inverse)
 select 'REQ_'||PropertyType||'_NO_'||numbers, 	'REQUIREMENT_PLOT_PROPERTY_MATCHES', 1
 from PropertyRequirements, counter where numbers > 0 and numbers <= Threshold+1;
 
-insert or replace into RequirementArguments (RequirementId, Name, Value)
+insert or ignore into RequirementArguments (RequirementId, Name, Value)
 select 'REQ_'||PropertyType||'_NO_'||numbers, 'PropertyMinimum', numbers
 from PropertyRequirements, counter where numbers > 0 and numbers <= Threshold+1;
 
-insert or replace into RequirementArguments (RequirementId, Name, Value)
+insert or ignore into RequirementArguments (RequirementId, Name, Value)
 select 'REQ_'||PropertyType||'_NO_'||numbers, 'PropertyName', PropertyType
 from PropertyRequirements, counter where numbers > 0 and numbers <= Threshold+1;
 
@@ -1520,5 +1521,18 @@ insert or ignore into RequirementSetRequirements(RequirementSetId, RequirementId
 	'RS_'||numbers||'_GOVERNOR_TITLES',	'REQ_'||numbers||'_GOVERNOR_TITLES'
 	from counter where numbers > 0 and numbers < 9;
 
+--某地形上的非奇观 rs 
+insert or ignore into RequirementSets(RequirementSetId,	RequirementSetType) select
+	'RS_NOT_WONDER_ON_'||TerrainType, 'REQUIREMENTSET_TEST_ALL'
+	from Terrains
+	where TerrainType not in ('TERRAIN_COAST', 'TERRAIN_OCEAN');	
 
+insert or ignore into RequirementSetRequirements(RequirementSetId,	RequirementId) select
+	'RS_NOT_WONDER_ON_'||TerrainType, 'REQ_NOT_WONDER'
+	from Terrains
+	where TerrainType not in ('TERRAIN_COAST', 'TERRAIN_OCEAN');		
 
+insert or ignore into RequirementSetRequirements(RequirementSetId,	RequirementId) select
+	'RS_NOT_WONDER_ON_'||TerrainType, 'REQ_PLOT_IS_'||TerrainType
+	from Terrains
+	where TerrainType not in ('TERRAIN_COAST', 'TERRAIN_OCEAN');

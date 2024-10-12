@@ -5,16 +5,16 @@ ExposedMembers.DA = ExposedMembers.DA or {};
 ExposedMembers.DA.Utils = ExposedMembers.DA.Utils or {};
 Utils = ExposedMembers.DA.Utils;
 --DA_Boost
---轮子
+--对外贸易
 function DA_Boost_OnUnitTriggerGoodyHut(playerID,unitID,goodyHutType)
 	-- if goodyHutType ~= goodyHutType then
 	-- 	return
 	-- end
 	local pPlayer = Players[playerID]
-	DA_Boost_Adjust_Count(playerID, "TECH_THE_WHEEL", "ByTask", 1);
+	DA_Boost_Adjust_Count(playerID, "CIVIC_FOREIGN_TRADE", "ByTask", 1);
 end
 GameEvents.UnitTriggerGoodyHut.Add(DA_Boost_OnUnitTriggerGoodyHut)
---写作 --对外贸易 --政治哲学
+--写作 --轮子 --政治哲学
 function DA_Boost_OnDiplomacyMeet(playerID1,playerID2)
 	local pPlayer1 = Players[playerID1];
 	local pPlayer2 = Players[playerID2];
@@ -24,7 +24,7 @@ function DA_Boost_OnDiplomacyMeet(playerID1,playerID2)
 	end
 	if pPlayer1:IsMajor() == true then
 		if playerID2 ~= 63 then
-			DA_Boost_Adjust_Count(playerID1, "CIVIC_FOREIGN_TRADE", "ByTask", 1);
+			DA_Boost_Adjust_Count(playerID1, "TECH_THE_WHEEL", "ByTask", 1);
 		end
 		if Utils.IsMinor(playerID2) == true then
 			DA_Boost_Adjust_Count(playerID1, "CIVIC_POLITICAL_PHILOSOPHY", "ByTask", 1);
@@ -32,7 +32,7 @@ function DA_Boost_OnDiplomacyMeet(playerID1,playerID2)
 	end	
 	if pPlayer2:IsMajor() == true then
 		if playerID1 ~= 63 then
-			DA_Boost_Adjust_Count(playerID2, "CIVIC_FOREIGN_TRADE", "ByTask", 1);
+			DA_Boost_Adjust_Count(playerID2, "TECH_THE_WHEEL", "ByTask", 1);
 		end
 		if Utils.IsMinor(playerID1) then
 			DA_Boost_Adjust_Count(playerID2, "CIVIC_POLITICAL_PHILOSOPHY", "ByTask", 1);
@@ -271,7 +271,7 @@ function DA_Boost_RefreshImprovements(playerID)
 	DA_Boost_Set_Count(playerID, 'CIVIC_CRAFTSMANSHIP', "ByTask", DA_Boost['ALL_IMPROVEMENT']);
 	DA_Boost_Set_Count(playerID, 'TECH_HORSEBACK_RIDING', "ByTask", DA_Boost['IMPROVED_HORSE']);
 	DA_Boost_Set_Count(playerID, 'TECH_IRON_WORKING', "ByTask", DA_Boost['IMPROVED_IRON']);
-	DA_Boost_Set_Count(playerID, 'TECH_CELESTIAL_NAVIGATION', "ByTask", DA_Boost['IMPROVEMENT_FISHING_BOATS'] + DA_Boost['FISHERY_WITH_RESOURCE']);
+	DA_Boost_Set_Count(playerID, 'TECH_SHIPBUILDING', "ByTask", DA_Boost['IMPROVEMENT_FISHING_BOATS'] + DA_Boost['FISHERY_WITH_RESOURCE']);
 
 end
 
@@ -410,6 +410,9 @@ function DA_Boost_RefreshEveryTurn(playerID)
 	end
 	DA_Boost_Set_Count(playerID, 'CIVIC_GAMES_RECREATION', "ByTask", maxAmenity);
 
+	local pPlayerVisibility = PlayersVisibility[playerID];
+	local curExploredCount:number = pPlayerVisibility:GetNumRevealedHexes();
+	DA_Boost_Set_Count(playerID, 'TECH_CELESTIAL_NAVIGATION', "ByTask", curExploredCount/10);
 
 end
 

@@ -25,19 +25,29 @@ insert or replace into Improvement_YieldChanges(ImprovementType,	YieldType,	Yiel
 --改良产出随科技增长
 delete from Improvement_BonusYieldChanges where ImprovementType in (
 	'IMPROVEMENT_FARM',
-	--'IMPROVEMENT_PLANTATION',
+	'IMPROVEMENT_PLANTATION',
 	'IMPROVEMENT_CAMP',
 	'IMPROVEMENT_PASTURE',
-	--'IMPROVEMENT_QUARRY',
-	'IMPROVEMENT_MINE'
+	'IMPROVEMENT_QUARRY',
+	'IMPROVEMENT_MINE',
 	--'IMPROVEMENT_LUMBER_MILL',
-	--'IMPROVEMENT_FISHING_BOATS'
+	'IMPROVEMENT_FISHING_BOATS',
+	'IMPROVEMENT_FISHERY'
 	);
 
--- insert or replace into Improvement_BonusYieldChanges
--- 	(Id,	ImprovementType,						YieldType,				BonusYieldChange,	PrereqCivic,					PrereqTech)
--- values
--- 	(600,	'IMPROVEMENT_PASTURE',					'YIELD_PRODUCTION',			1,					null,						'TECH_HORSEBACK_RIDING');
+insert or replace into Improvement_BonusYieldChanges
+	(Id,	ImprovementType,						YieldType,				BonusYieldChange,	PrereqCivic,					PrereqTech)
+values
+	(600,	'IMPROVEMENT_PLANTATION',				'YIELD_GOLD',			3,					null,							'TECH_PAPER_MAKING_DA'),
+	(601,	'IMPROVEMENT_PLANTATION',				'YIELD_FOOD',			1,					'CIVIC_FEUDALISM',				null),
+	(602,	'IMPROVEMENT_PASTURE',					'YIELD_GOLD',			3,					null,							'TECH_HORSEBACK_RIDING'),
+	(603,	'IMPROVEMENT_PASTURE',					'YIELD_PRODUCTION',		1,					null,							'TECH_STIRRUPS'),
+	(604,	'IMPROVEMENT_QUARRY',					'YIELD_GOLD',			3,					'CIVIC_GAMES_RECREATION',		null),
+	(605,	'IMPROVEMENT_QUARRY',					'YIELD_PRODUCTION',		1,					null,							'TECH_CASTLES'),
+	(606,	'IMPROVEMENT_FISHING_BOATS',			'YIELD_GOLD',			3,					null,							'TECH_CELESTIAL_NAVIGATION'),
+	(607,	'IMPROVEMENT_FISHING_BOATS',			'YIELD_PRODUCTION',		1,					'CIVIC_NAVAL_TRADITION',		null);
+
+
 --改农场和矿山的无资源建造到指定科技
 update Improvement_ValidTerrains set PrereqTech = 'TECH_POTTERY' 
 	where ImprovementType = 'IMPROVEMENT_FARM' and TerrainType in ('TERRAIN_PLAINS', 'TERRAIN_GRASS');
@@ -106,152 +116,109 @@ values
 
 
 
---新改良辐射 辐射资源产出
-insert into ImprovementModifiers(ImprovementType, ModifierId) select
-	'IMPROVEMENT_FARM', 'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+-- --新改良辐射 辐射资源产出
+-- insert into ImprovementModifiers(ImprovementType, ModifierId) select
+-- 	'IMPROVEMENT_FARM', 'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
-insert into ImprovementModifiers(ImprovementType, ModifierId) select
-	'IMPROVEMENT_MINE', 'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
+-- insert into ImprovementModifiers(ImprovementType, ModifierId) select
+-- 	'IMPROVEMENT_MINE', 'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
 
-insert into ImprovementModifiers(ImprovementType, ModifierId) select
-	'IMPROVEMENT_CAMP', 'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+-- insert into ImprovementModifiers(ImprovementType, ModifierId) select
+-- 	'IMPROVEMENT_CAMP', 'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
-insert into ImprovementModifiers(ImprovementType, ModifierId) select
-	'IMPROVEMENT_FISHERY', 'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
-
-
-
-
-
-insert into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select  --rs 写在下面了
-	'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_FARM_ADJACENT_TO_OWNER'
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
-
-insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
-	'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_MINE_ADJACENT_TO_OWNER'
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
-
-insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
-	'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_CAMP_ADJACENT_TO_OWNER'
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
-
-insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
-	'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_FISHERY_ADJACENT_TO_OWNER'
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+-- insert into ImprovementModifiers(ImprovementType, ModifierId) select
+-- 	'IMPROVEMENT_FISHERY', 'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
 
 
 
---假设资源只有一种产出
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
+-- insert into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select  --rs 写在下面了
+-- 	'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_FARM_ADJACENT_TO_OWNER'
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+-- insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
+-- 	'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_MINE_ADJACENT_TO_OWNER'
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
 
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+-- insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
+-- 	'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_CAMP_ADJACENT_TO_OWNER'
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
-
-
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
-
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
-
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
-
-insert into ModifierArguments(ModifierId, Name, Value) select 
-	'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
-	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
-	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+-- insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
+-- 	'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',  'RS_PLOT_HAS_'||a.ResourceType ,'RS_FISHERY_ADJACENT_TO_OWNER'
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
 
+
+
+-- --假设资源只有一种产出
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'YieldType', YieldType
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+
+
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'FARM_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FARM' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'MINE_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_MINE' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY', 'RESOURCECLASS_STRATEGIC');
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'CAMP_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_CAMP' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
+
+-- insert into ModifierArguments(ModifierId, Name, Value) select 
+-- 	'FISHERY_SPREAD_'||a.ResourceType||'_BONUS_'||YieldType, 'Amount', YieldChange
+-- 	from Improvement_ValidResources a, Resource_YieldChanges b , Resources c where ImprovementType = 'IMPROVEMENT_FISHERY' and a.ResourceType = b.ResourceType
+-- 	and a.ResourceType = c.ResourceType and ResourceClassType in ('RESOURCECLASS_BONUS', 'RESOURCECLASS_LUXURY');
 
 
 
 
 
 
-INSERT OR REPLACE INTO DistrictModifiers (DistrictType, ModifierId) VALUES 
---('DISTRICT_CITY_CENTER', 'DA_FARM_ADJACENT_FOOD'),
---('DISTRICT_CITY_CENTER', 'DA_MINE_ADJACENT_PRODUCTION'),
-('DISTRICT_CITY_CENTER', 'DA_FISHING_BOATS_ADJACENT_FOOD'),
-('DISTRICT_CITY_CENTER', 'DA_LUMBER_MILL_ADJACENT_PRODUCTION');
-
--- INSERT INTO ImprovementModifiers (ImprovementType, ModifierId) VALUES 
--- -- ('IMPROVEMENT_FARM', 			'DA_FARM_ADJACENT_FOOD'),  --旧改良辐射  辐射固定产出 因为有新的了所以注释掉了
--- -- ('IMPROVEMENT_MINE',			'DA_MINE_ADJACENT_PRODUCTION'),
--- -- ('IMPROVEMENT_CAMP',			'DA_CAMP_ADJACENT_GOLD'),
-
--- --('IMPROVEMENT_PLANTATION', 		'PLANTATION_HOUSE_FROM_GRANARY'),
--- --('IMPROVEMENT_CAMP', 			'CAMP_HOUSE_FROM_GRANARY'),
--- --('IMPROVEMENT_PASTURE', 		'PASTURE_HOUSE_FROM_GRANARY');
--- --('IMPROVEMENT_FISHING_BOATS', 		'FISHING_BOATS_HOUSE_FROM_LIGHTHOUSE');
 
 
 
-INSERT OR REPLACE INTO Modifiers (ModifierId, ModifierType, RunOnce, Permanent, NewOnly, OwnerRequirementSetId, SubjectRequirementSetId,	SubjectStackLimit) VALUES 
-('DA_FARM_ADJACENT_FOOD', 		'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD', 0, 0, 0, 'RS_FARM_WITH_RESOURCE', 'RS_FARM_ADJACENT_TO_OWNER', 1),
-('DA_MINE_ADJACENT_PRODUCTION', 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD', 0, 0, 0, 'RS_MINE_WITH_RESOURCE', 'RS_MINE_ADJACENT_TO_OWNER', 1),
-('DA_CAMP_ADJACENT_GOLD', 		'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD', 0, 0, 0, 'RS_CAMP_WITH_RESOURCE', 'RS_CAMP_ADJACENT_TO_OWNER', 1);
 
-INSERT OR REPLACE INTO Modifiers (ModifierId, ModifierType, RunOnce, Permanent, NewOnly, OwnerRequirementSetId, SubjectRequirementSetId) VALUES 
-('DA_FISHING_BOATS_ADJACENT_FOOD', 	'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD', 0, 0, 0, NULL, 'RS_COAST_ADJACENT_TO_FISHING_BOATS'),
-('DA_LUMBER_MILL_ADJACENT_PRODUCTION', 'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD', 0, 0, 0, NULL, 'RS_FOREST_ADJACENT_TO_LUMBER_MILL'),
-('FARM_HOUSE_FROM_GRANARY', 	'MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_HOUSING', 0, 0, 0, NULL, 'RS_CITY_HAS_GRANARY'),
-('PLANTATION_HOUSE_FROM_GRANARY','MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_HOUSING', 0, 0, 0, NULL, 'RS_CITY_HAS_GRANARY'),
-('CAMP_HOUSE_FROM_GRANARY', 	'MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_HOUSING', 0, 0, 0, NULL, 'RS_CITY_HAS_GRANARY'),
-('PASTURE_HOUSE_FROM_GRANARY', 	'MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_HOUSING', 0, 0, 0, NULL, 'RS_CITY_HAS_GRANARY'),
-('FISHING_BOATS_HOUSE_FROM_LIGHTHOUSE', 'MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_HOUSING', 0, 0, 0, NULL, 'RS_CITY_HAS_LIGHTHOUSE');
 
-INSERT OR REPLACE INTO ModifierArguments (ModifierId, Name, Value) VALUES 
-('DA_FARM_ADJACENT_FOOD', 		'Amount', '1'), 
-('DA_FARM_ADJACENT_FOOD', 		'YieldType', 'YIELD_FOOD'),
-('DA_MINE_ADJACENT_PRODUCTION', 'Amount', '1'), 
-('DA_MINE_ADJACENT_PRODUCTION', 'YieldType', 'YIELD_PRODUCTION'),
-('DA_CAMP_ADJACENT_GOLD', 		'Amount', '3'), 
-('DA_CAMP_ADJACENT_GOLD', 		'YieldType', 'YIELD_GOLD'),
-('DA_FISHING_BOATS_ADJACENT_FOOD', 		'Amount', '1'), 
-('DA_FISHING_BOATS_ADJACENT_FOOD', 		'YieldType', 'YIELD_FOOD'),
-('DA_LUMBER_MILL_ADJACENT_PRODUCTION', 'Amount', '1'), 
-('DA_LUMBER_MILL_ADJACENT_PRODUCTION', 'YieldType', 'YIELD_PRODUCTION'),
-('FARM_HOUSE_FROM_GRANARY', 	'Amount', 	'1'),
-('PLANTATION_HOUSE_FROM_GRANARY', 'Amount', '1'),
-('CAMP_HOUSE_FROM_GRANARY', 	'Amount', 	'1'),
-('PASTURE_HOUSE_FROM_GRANARY', 	'Amount', 	'1'),
-('FISHING_BOATS_HOUSE_FROM_LIGHTHOUSE', 'Amount', 	'2');
+
+
 
 
 -- RequirementSets

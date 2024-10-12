@@ -6,8 +6,7 @@ update DiplomaticActions set
 	TargetPrereqCivic = 'CIVIC_POLITICAL_PHILOSOPHY'
 	where DiplomaticActionType in ('DIPLOACTION_ALLIANCE_ECONOMIC',	'DIPLOACTION_ALLIANCE_MILITARY');
 
-update Civics set Description = 'LOC_'||CivicType||'_DESCRIPTION' where CivicType in
-	('CIVIC_MILITARY_TRADITION', 'CIVIC_STATE_WORKFORCE', 'CIVIC_MEDIEVAL_FAIRES');
+update Civics set Description = 'LOC_'||CivicType||'_DESCRIPTION' where Description is null;
 
 
 --远古市政价格 25 45 75

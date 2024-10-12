@@ -7,7 +7,7 @@ values
     ("zh_Hans_CN",  "LOC_DA_BOOST_ADD_BYEUREKA",                                        "来自尤里卡或鼓舞的研究加速{1_Count}%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_ADD_BYTASK",                                          "来自实践的研究加速{1_Count}%"),
 
-    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_THE_WHEEL",                                      "每遇到一个村庄研究速度增加50%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_THE_WHEEL",                                      "每遇到一个其他文明（包括城邦）研究速度增加10%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_IRRIGATION",                                     "每造1个改良资源的农场或种植园研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_ARCHERY",                                        "每造1个营地或牧场研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_BRONZE_WORKING",                                 "每造1个矿山研究速度增加100%"),
@@ -15,10 +15,9 @@ values
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_WRITING",                                        "每遇到一个其他文明研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_ASTROLOGY",                                      "每遇到一个自然奇观研究速度增加100%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_SAILING",                                        "每造一个沿海改良或区域研究速度增加100%"),
-    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_SHIPBUILDING",                                   "每拥有一个水上单位研究速度增加50%"),
 
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_MYSTICISM",                                     "每拥有1信仰值研究速度增加2%。选择万神殿后研究速度增加60%"),
-    ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_FOREIGN_TRADE",                                 "每遇到一个其他文明（包括城邦）研究速度增加20%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_FOREIGN_TRADE",                                 "每遇到一个村庄研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_MILITARY_TRADITION",                            "每击败一个野蛮人单位研究速度增加25%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_STATE_WORKFORCE",                               "每拥有一个纪念碑/粮仓/石匠坊研究速度增加60%"),    
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_EARLY_EMPIRE",                                  "每拥有一个人口研究速度增加10%"),
@@ -29,7 +28,8 @@ values
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_CURRENCY",                                       "每有一回合金币收入，研究速度增加3%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_IRON_WORKING",                                   "每拥有一个正确改良的铁资源研究速度+100%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_HORSEBACK_RIDING",                               "每拥有一个正确改良的马资源研究速度+100%"),
-    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_CELESTIAL_NAVIGATION",                           "每拥有一个改良资源的渔场或渔船研究速度增加50%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_CELESTIAL_NAVIGATION",                           "每探明10个单元格研究速度增加1%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_SHIPBUILDING",                                   "每拥有一个改良资源的渔场或渔船研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_PAPER_MAKING_DA",                                "每拥有一种专业区域研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_MATHEMATICS",                                    "每有一回合科技值产出，研究速度增加5%"),
 

@@ -20,10 +20,8 @@ delete from TechnologyPrereqs where Technology = 'TECH_APPRENTICESHIP' and Prere
 delete from TechnologyPrereqs where Technology = 'TECH_APPRENTICESHIP' and PrereqTech = 'TECH_CURRENCY';
 delete from TechnologyPrereqs where Technology = 'TECH_CONSTRUCTION' and PrereqTech = 'TECH_HORSEBACK_RIDING';
 
-update Technologies set Description = 'LOC_'||TechnologyType||'_DESCRIPTION' where TechnologyType in
-	('TECH_ARCHERY',	 'TECH_THE_WHEEL', 'TECH_BRONZE_WORKING', 'TECH_POTTERY', 
-        'TECH_IRON_WORKING', 'TECH_HORSEBACK_RIDING');
-
+update Technologies set Description = 'LOC_'||TechnologyType||'_DESCRIPTION' where Description is NULL;
+	
 
 insert or replace into Boosts
     (BoostID,   TechnologyType,                             Boost,  TriggerDescription,                                     TriggerLongDescription,                                             Unit1Type,                   BoostClass,                                         Unit2Type,      BuildingType,       ImprovementType,              BoostingTechType,        BoostingCivicType,          ResourceType,   NumItems,   DistrictType,           RequiresResource)
@@ -56,7 +54,9 @@ CREATE TABLE "AdditionalUnlockables" (
 
 insert or replace into AdditionalUnlockables(ResearchType, ItemType) values
 	('TECH_HORSEBACK_RIDING', 'DISTRICT_ENCAMPMENT'),
-        ('CIVIC_GAMES_RECREATION', 'DISTRICT_BATH');
+        ('CIVIC_GAMES_RECREATION', 'DISTRICT_BATH'),
+        ('CIVIC_EARLY_EMPIRE', 'DISTRICT_GOVERNMENT');
+       
 
 
 

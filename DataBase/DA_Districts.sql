@@ -121,10 +121,10 @@ update Districts set CostProgressionModel = 'NO_COST_PROGRESSION', CostProgressi
 
 update Districts set Cost = 60 where DistrictType = 'DISTRICT_GOVERNMENT';
 update Districts set Cost = 60 where DistrictType = 'DISTRICT_DIPLOMATIC_QUARTER';
-update Districts set Cost = 90 where DistrictType = 'DISTRICT_HARBOR';
+update Districts set Cost = 50 where DistrictType = 'DISTRICT_HARBOR';
 update Districts set Cost = 90 where DistrictType = 'DISTRICT_AQUEDUCT';
 update Districts set Cost = 75 where DistrictType = 'DISTRICT_PRESERVE';
-update Districts set CostProgressionModel = 'COST_PROGRESSION_PREVIOUS_COPIES', CostProgressionParam1 = 0, Cost = 60 where DistrictType in 
+update Districts set CostProgressionModel = 'COST_PROGRESSION_PREVIOUS_COPIES', CostProgressionParam1 = 0, Cost = 40 where DistrictType in 
 (select CivUniqueDistrictType from DistrictReplaces where
 	ReplacesDistrictType = 'DISTRICT_AQUEDUCT'
 	or ReplacesDistrictType = 'DISTRICT_HARBOR'
@@ -142,6 +142,10 @@ update Districts set Cost = 150 where DistrictType = 'DISTRICT_AERODROME';
 update Districts set Cost = 200 where DistrictType = 'DISTRICT_CANAL';
 update Districts set Cost = 200 where DistrictType = 'DISTRICT_DAM';
 
+
+update Districts set PrereqTech = 'TECH_SAILING' where DistrictType = 'DISTRICT_HARBOR' or DistrictType in 
+(select CivUniqueDistrictType from DistrictReplaces where
+ ReplacesDistrictType = 'DISTRICT_HARBOR');
 
 -- Happiness adjust
 update Districts set Entertainment = 3 where DistrictType = 'DISTRICT_ENTERTAINMENT_COMPLEX' or DistrictType = 'DISTRICT_WATER_ENTERTAINMENT_COMPLEX';
@@ -217,7 +221,7 @@ values
 update Districts set RequiresPopulation = 0 where DistrictType = 'DISTRICT_GOVERNMENT'
 	or DistrictType in (select CivUniqueDistrictType from DistrictReplaces where ReplacesDistrictType = 'DISTRICT_GOVERNMENT');
 
-
+--骑马也解锁军营  同时在DA_Techs.sql也有AdditionalUnlockables表
 insert or replace into TechnologyModifiers(TechnologyType, ModifierId) select
 	'TECH_HORSEBACK_RIDING', 'UNLOCK_'||DistrictType
 	from Districts where DistrictType = 'DISTRICT_ENCAMPMENT' 
@@ -247,6 +251,34 @@ from Districts where DistrictType = 'DISTRICT_ENCAMPMENT'
 	 where ReplacesDistrictType = 'DISTRICT_ENCAMPMENT');
 
 
+--帝国初期也解锁市政广场  同时在DA_Techs.sql也有AdditionalUnlockables表
+insert or replace into CivicModifiers(CivicType, ModifierId) select
+	'CIVIC_EARLY_EMPIRE', 'UNLOCK_'||DistrictType
+	from Districts where DistrictType = 'DISTRICT_GOVERNMENT' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_GOVERNMENT');
+
+insert or replace into Modifiers(ModifierId, ModifierType) select
+	'UNLOCK_'||DistrictType, 'MODIFIER_PLAYER_ADJUST_DISTRICT_UNLOCK'
+from Districts where DistrictType = 'DISTRICT_GOVERNMENT' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_GOVERNMENT');
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'UNLOCK_'||DistrictType, 'DistrictType', 	DistrictType
+from Districts where DistrictType = 'DISTRICT_GOVERNMENT' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_GOVERNMENT');
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'UNLOCK_'||DistrictType, 'CivicType', 	'CIVIC_EARLY_EMPIRE'
+from Districts where DistrictType = 'DISTRICT_GOVERNMENT' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_GOVERNMENT');
 
 
 insert or replace into DistrictModifiers(DistrictType,				ModifierId) values

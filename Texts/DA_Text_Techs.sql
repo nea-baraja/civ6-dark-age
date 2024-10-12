@@ -20,19 +20,25 @@ values
 
     ("zh_Hans_CN",  "LOC_TECH_POTTERY_DESCRIPTION",                                         "允许在平原，草原和沙漠泛滥平原上建造农场。允许收获由农场改良的资源。"),
     ("zh_Hans_CN",  "LOC_TECH_IRRIGATION_DESCRIPTION",                                      "允许在平原丘陵和草原丘陵上建造农场。允许清理沼泽和收获由种植园改良的资源。与每2个农场改良设施相邻时，农场提供的 [ICON_FOOD] 食物+1。"),
-    ("zh_Hans_CN",  "LOC_TECH_MASONRY_DESCRIPTION",                                         "允许收获由采石场改良的资源。"),
-    ("zh_Hans_CN",  "LOC_TECH_BRONZE_WORKING_DESCRIPTION",                                  "允许在平原丘陵和草原丘陵上建造矿山。"),
-    ("zh_Hans_CN",  "LOC_TECH_HORSEBACK_RIDING_DESCRIPTION",                                "允许在冻土和沙漠上建造营地。与每1个营地改良设施相邻时，营地提供的 [ICON_GOLD] 金币+2。"),
-
-
-    ("zh_Hans_CN",  "LOC_TECH_IRON_WORKING_DESCRIPTION",                                    "允许在平原和草原上建造矿山。与每2个矿山改良设施相邻时，矿山提供的 [ICON_PRODUCTION] 生产力+1。"),
-    ("zh_Hans_CN",  "LOC_TECH_MATHEMATICS_DESCRIPTION",                                     "所有海军单位+1 [ICON_MOVEMENT] 移动力。购买单元格所需 [ICON_GOLD] 金币-50%。"),
-    ("zh_Hans_CN",  "LOC_TECH_APPRENTICESHIP_DESCRIPTION",                                  "与每1个矿山改良设施相邻时，矿山提供的 [ICON_PRODUCTION] 生产力+1。"),
-    
-    ("zh_Hans_CN",  "LOC_TECH_ARCHERY_DESCRIPTION",                                         "允许在森林，雨林，各类泛滥平原和沼泽上建造营地。"),
+    ("zh_Hans_CN",  "LOC_TECH_ARCHERY_DESCRIPTION",                                         "允许在森林，雨林，各类泛滥平原和沼泽上建造营地。与每1个营地改良设施相邻时，营地提供的 [ICON_GOLD] 金币+2。"),
     ("zh_Hans_CN",  "LOC_TECH_MINING_DESCRIPTION",                                          "允许砍伐树林和收获由矿山改良的资源。"),
-    ("zh_Hans_CN",  "LOC_TECH_ANIMAL_HUSBANDRY_DESCRIPTION",                                "允许收获由牧场或营地改良的资源。");
+    ("zh_Hans_CN",  "LOC_TECH_ANIMAL_HUSBANDRY_DESCRIPTION",                                "允许收获由牧场或营地改良的资源。"),
+    ("zh_Hans_CN",  "LOC_TECH_MASONRY_DESCRIPTION",                                         "允许收获由采石场改良的资源。"),
+    ("zh_Hans_CN",  "LOC_TECH_BRONZE_WORKING_DESCRIPTION",                                  "允许在平原丘陵和草原丘陵上建造矿山。与每2个矿山改良设施相邻时，矿山提供的 [ICON_PRODUCTION] 生产力+1。"),
+    ("zh_Hans_CN",  "LOC_TECH_ASTROLOGY_DESCRIPTION",                                       "与每2个渔场改良设施相邻时，渔场提供的 [ICON_FOOD] 食物+1。"),
+
+
+    ("zh_Hans_CN",  "LOC_TECH_IRON_WORKING_DESCRIPTION",                                    "允许在平原和草原上建造矿山。"),
+    ("zh_Hans_CN",  "LOC_TECH_MATHEMATICS_DESCRIPTION",                                     "所有海军单位+1 [ICON_MOVEMENT] 移动力。购买单元格所需 [ICON_GOLD] 金币-50%。"),
+    ("zh_Hans_CN",  "LOC_TECH_HORSEBACK_RIDING_DESCRIPTION",                                "牧场改良设施提供的 [ICON_GOLD] 金币+3。允许在冻土和沙漠上建造营地。"),
+    ("zh_Hans_CN",  "LOC_TECH_PAPER_MAKING_DA_DESCRIPTION",                                 "种植园改良设施提供的 [ICON_GOLD] 金币+3。"),
+    ("zh_Hans_CN",  "LOC_TECH_CELESTIAL_NAVIGATION_DESCRIPTION",                            "渔船改良设施提供的 [ICON_GOLD] 金币+3。"),
+
+    ("zh_Hans_CN",  "LOC_TECH_APPRENTICESHIP_DESCRIPTION",                                  "与每1个矿山改良设施相邻时，矿山提供的 [ICON_PRODUCTION] 生产力+1。"),
+    ("zh_Hans_CN",  "LOC_TECH_STIRRUPS_DESCRIPTION",                                        "牧场改良设施提供的 [ICON_PRODUCTION] 生产力+1。"),
+    ("zh_Hans_CN",  "LOC_TECH_CASTLES_DESCRIPTION",                                         "采石场改良设施提供的 [ICON_PRODUCTION] 生产力+1。");
+
 --    ("zh_Hans_CN",  "LOC_TECH_HORSEBACK_RIDING_DESCRIPTION",                                "牧场+1 [ICON_Production] 生产力。"),
-\
+
 
 

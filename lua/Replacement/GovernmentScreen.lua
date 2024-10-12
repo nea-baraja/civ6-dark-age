@@ -237,6 +237,7 @@ function RemoveActivePolicyAtSlotIndex( nSlotIndex:number )
   m_ActivePoliciesByType[tSlotData.GC_PolicyType] = nil;
   tSlotData.GC_PolicyType = EMPTY_POLICY_TYPE;
   m_isPoliciesChanged = true;
+  --RealizeActivePoliciesRows()
 end
 function SetActivePolicyAtSlotIndex( nSlotIndex:number, strPolicyType:string )
   local tSlotData :table = m_ActivePoliciesBySlot[nSlotIndex+1];
@@ -245,6 +246,7 @@ function SetActivePolicyAtSlotIndex( nSlotIndex:number, strPolicyType:string )
   m_ActivePoliciesByType[tSlotData.GC_PolicyType] = nil;
   tSlotData.GC_PolicyType = strPolicyType;
   m_isPoliciesChanged = true;
+  --RealizeActivePoliciesRows()
 end
 function GetFirstFreeSlotIndex( nRowIndex:number )
   for _,tSlotData in ipairs(m_ActivePolicyRows[nRowIndex].SlotArray) do
@@ -1384,20 +1386,31 @@ function RealizeActivePoliciesRows()
           table.insert( DA_Copy_CardHiddenSlots[nRowIndex].ShowSlots, tSlotData.GC_SlotIndex)
           cardInst.Button:RegisterCallback( Mouse.eRClick, function()
             if DA_Copy_Card.Active and DA_Copy_Card.Card ~= -1 then
-			  RemoveActivePolicyAtSlotIndex( DA_Copy_ActiveCard[policyType].Card );
-			  DA_Copy_ActiveCard[policyType] = {Active = false, Card = -1}
-			  RealizePolicyCatalog();
-			  RealizeActivePoliciesRows();
-			else
-			  if GetFreeSlotCountForRow(nRowIndex) >= 1 then
+              RemoveActivePolicyAtSlotIndex( DA_Copy_ActiveCard[policyType].Card );
+              DA_Copy_ActiveCard[policyType] = {Active = false, Card = -1}
+              RealizePolicyCatalog();
+              RealizeActivePoliciesRows();
+			      else
+              if GetFreeSlotCountForRow(nRowIndex) >= 1 then
                 AddToNextAvailRow(tempTable, policyType);
-			  end
-		    end
+              end
+		        end
           end );
           if DA_Copy_ActiveCard[policyType].Active then
-			cardInst.PKDoubleBackground:SetShow(true)
-			cardInst.PKDoubleIcon:SetShow(true)
-		  end
+            cardInst.PKDoubleBackground:SetShow(true)
+            cardInst.PKDoubleIcon:SetShow(true)
+            cardInst.DoubleButton:SetShow(false)
+          else
+            cardInst.PKDoubleBackground:SetShow(false)
+            cardInst.PKDoubleIcon:SetShow(false)
+            if GetFreeSlotCountForRow(nRowIndex) >= 1 then
+              cardInst.DoubleButton:SetShow(true)
+              -- cardInst.DoubleButton:RegisterCallback( Mouse.eLClick, function()
+              --   AddToNextAvailRow(tempTable, policyType);
+              --   print("Add to next avail row")
+              -- end)
+            end
+          end
         else
           DA_Copy_CardHiddenSlots[nRowIndex].HiddenSlotNum = DA_Copy_CardHiddenSlots[nRowIndex].HiddenSlotNum + 1
           DA_Copy_ActiveCard[policyType:sub(9)] = {Active = true, Card = tSlotData.GC_SlotIndex}

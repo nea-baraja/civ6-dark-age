@@ -54,7 +54,7 @@ update Buildings set RequiresAdjacentRiver = 0 where BuildingType = 'BUILDING_WA
 
 update Buildings set Entertainment = 1 where BuildingType = 'BUILDING_TRIUMPHAL';
 update Buildings set Entertainment = 1, Housing = 1 where BuildingType = 'BUILDING_TINGTAI';
-
+update Buildings set PrereqTech = 'TECH_SAILING' where BuildingType = 'BUILDING_LIGHTHOUSE';
 
 update Buildings set MustPurchase = 1 ,InternalOnly = 0 
     where BuildingType in ('BUILDING_FLAG_ONE_DISTRICT', 'BUILDING_FLAG_TWO_DISTRICT', 'BUILDING_FLAG_THREE_DISTRICT');
@@ -169,7 +169,7 @@ values
     ('BUILDING_PAPER_MAKER',        'YIELD_CULTURE',        1),
 
     ('BUILDING_TINGTAI',            'YIELD_CULTURE',        1),
-    ('BUILDING_TINGTAI',            'YIELD_FAITH',          2),
+    ('BUILDING_TINGTAI',            'YIELD_SCIENCE',        1),
 
     ('BUILDING_ZHISUO',             'YIELD_GOLD',           9),
 
@@ -227,7 +227,7 @@ update Buildings set Maintenance = 5,   Cost = 125   where BuildingType = 'BUILD
 update Buildings set Maintenance = 3,   Cost = 80   where BuildingType = 'BUILDING_BARRACKS';
 update Buildings set Maintenance = 3,   Cost = 80   where BuildingType = 'BUILDING_STABLE';
 
-update Buildings set Maintenance = 4,   Cost = 100   where BuildingType = 'BUILDING_LIGHTHOUSE';
+update Buildings set Maintenance = 3,   Cost = 80   where BuildingType = 'BUILDING_LIGHTHOUSE';
 
 update Buildings set Maintenance = 4,   Cost = 100   where BuildingType = 'BUILDING_ARENA';
 
@@ -327,7 +327,9 @@ values
     ('BUILDING_MARKET',             'MARKET_TRADE_ROUTE_CAPACITY'),
     ('BUILDING_MARKET',             'MARKET_POP_GOLD'),
     ('BUILDING_LIGHTHOUSE',         'LIGHTHOUSE_TRADE_ROUTE_CAPACITY'),
-    ('BUILDING_LIGHTHOUSE',         'LIGHTHOUSE_FOOD_FOR_FISHING_BOATS');
+    ('BUILDING_LIGHTHOUSE',         'LIGHTHOUSE_FOOD_FOR_FISHING_BOATS'),
+    ('BUILDING_LIGHTHOUSE',         'LIGHTHOUSE_PRODUCTION_FOR_FISHING_BOATS');
+
    
 insert or replace into TraitModifiers
     (TraitType,                         ModifierId)
@@ -385,6 +387,7 @@ values
 
     ('LIGHTHOUSE_TRADE_ROUTE_CAPACITY',             'MODIFIER_PLAYER_ADJUST_TRADE_ROUTE_CAPACITY',                  NULL),
     ('LIGHTHOUSE_FOOD_FOR_FISHING_BOATS',           'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',                  'RS_PLOT_HAS_IMPROVEMENT_FISHING_BOATS'),
+    ('LIGHTHOUSE_PRODUCTION_FOR_FISHING_BOATS',     'MODIFIER_CITY_PLOT_YIELDS_ADJUST_PLOT_YIELD',                  'RS_PLOT_HAS_IMPROVEMENT_FISHING_BOATS'),
     
 
     ('MONUMENT_CULTURE_WITH_WONDER',                'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD',                   'RS_CITY_HAS_WONDER'),
@@ -509,6 +512,8 @@ values
     ('LIGHTHOUSE_TRADE_ROUTE_CAPACITY',             'Amount',                   '1'),
     ('LIGHTHOUSE_FOOD_FOR_FISHING_BOATS',           'YieldType',                'YIELD_FOOD'),
     ('LIGHTHOUSE_FOOD_FOR_FISHING_BOATS',           'Amount',                   '1'),
+    ('LIGHTHOUSE_PRODUCTION_FOR_FISHING_BOATS',     'YieldType',                'YIELD_PRODUCTION'),
+    ('LIGHTHOUSE_PRODUCTION_FOR_FISHING_BOATS',     'Amount',                   '1'),
 
     ('MONUMENT_CULTURE_WITH_WONDER',                'YieldType',                'YIELD_CULTURE'),
     ('MONUMENT_CULTURE_WITH_WONDER',                'Amount',                   2),
@@ -611,7 +616,7 @@ values
     -- ('WATER_MILL_NOT_SP_DISTRICTS_PRODUCTION',      'Amount',                   '1'),
     -- ('WATER_MILL_NOT_SP_DISTRICTS_PRODUCTION',      'YieldType',                'YIELD_FOOD'),
 
-    ('FORGING_IMPROVED_RESOURCE_PRODUCTION',         'Amount',                   '1'),
+    ('FORGING_IMPROVED_RESOURCE_PRODUCTION',         'Amount',                   '2'),
     ('FORGING_IMPROVED_RESOURCE_PRODUCTION',         'YieldType',                'YIELD_PRODUCTION'),
     ('FORGING_IMPROVED_NO_RESOURCE_PRODUCTION',      'Amount',                   '1'),
     ('FORGING_IMPROVED_NO_RESOURCE_PRODUCTION',      'YieldType',                'YIELD_PRODUCTION'),

@@ -382,7 +382,8 @@
           </Grid>
       <!-- END ARISTOS -->
           <Label      ID="NewIcon"            Anchor="R,T" Offset="-4,-4" String="[ICON_New]" ToolTip="LOC_GOVT_NEW_POLICY" Hidden="1" />
-          <Label Hidden="1" ID="PKDoubleIcon"         Anchor="L,T" Offset="0,1" String="[ICON_PressureHigh]" ToolTip="LOC_DA_PK_DOUBLE_POLICY_CARD" />
+          <Label Hidden="1" ID="PKDoubleIcon"         Anchor="L,T" Offset="0,1" String="[ICON_PressureHigh]" ToolTip="LOC_DA_PK_DOUBLED_POLICY_CARD" />
+          <Label String="[ICON_New]" Hidden="1"  ID="DoubleButton"       Anchor="L,T" Offset="0,1"  ToolTip="LOC_DA_PK_TO_DOUBLE_POLICY_CARD_TITLE" />
         </Image>
       </Drag>
     </Container>

@@ -139,11 +139,13 @@ insert or replace into Improvement_Adjacencies
   VALUES
     ('IMPROVEMENT_FARM',           'DA_FARM_FARM_IRRIGATION'),
     ('IMPROVEMENT_FARM',           'DA_FARM_FARM_FEUDALISM'),
-    ('IMPROVEMENT_MINE',           'DA_MINE_MINE_IRON_WORKING'),
+    ('IMPROVEMENT_MINE',           'DA_MINE_MINE_BRONZE_WORKING'),
     ('IMPROVEMENT_MINE',           'DA_MINE_MINE_APPRENTICESHIP'),
-    ('IMPROVEMENT_CAMP',           'DA_CAMP_CAMP_HORSE_RIDING'),
-    ('IMPROVEMENT_CAMP',           'DA_CAMP_CAMP_MEDIEVAL');
-    
+    ('IMPROVEMENT_CAMP',           'DA_CAMP_CAMP_ARCHERY'),
+    ('IMPROVEMENT_CAMP',           'DA_CAMP_CAMP_MEDIEVAL'),
+    ('IMPROVEMENT_FISHERY',        'DA_FISHERY_FISHERY_ASTROLOGY'),
+    ('IMPROVEMENT_FISHERY',        'DA_FISHERY_FISHERY_NAVAL_TRADITION');
+   
 
 --YIELD_FOOD食物，YIELD_PRODUCTION生产力，YIELD_SCIENCE科技值，YIELD_CULTURE文化值，YIELD_FAITH信仰值，YIELD_GOLD金币 
 
@@ -231,12 +233,16 @@ insert or replace into Adjacency_YieldChanges
     -- 灌溉解锁农场小相邻 封建主义解锁大相邻
     ('DA_FARM_FARM_IRRIGATION',    'Placeholder',    'YIELD_FOOD',  '1', '2', 'IMPROVEMENT_FARM', null, 'TECH_IRRIGATION', 'CIVIC_FEUDALISM', null),
     ('DA_FARM_FARM_FEUDALISM',     'Placeholder',     'YIELD_FOOD', '1', '1', 'IMPROVEMENT_FARM', 'CIVIC_FEUDALISM', null, null, null),
-   --炼铁术解锁矿山小相邻 学徒制解锁大相邻
-    ('DA_MINE_MINE_IRON_WORKING', 'Placeholder', 'YIELD_PRODUCTION', '1', '2', 'IMPROVEMENT_MINE', null, 'TECH_IRON_WORKING', null, 'TECH_APPRENTICESHIP'),
+   --炼铜术解锁矿山小相邻 学徒制解锁大相邻
+    ('DA_MINE_MINE_BRONZE_WORKING', 'Placeholder', 'YIELD_PRODUCTION', '1', '2', 'IMPROVEMENT_MINE', null, 'TECH_BRONZE_WORKING', null, 'TECH_APPRENTICESHIP'),
     ('DA_MINE_MINE_APPRENTICESHIP', 'Placeholder', 'YIELD_PRODUCTION', '1', '1', 'IMPROVEMENT_MINE', null,'TECH_APPRENTICESHIP', null, null),
-   --骑马解锁营地小相邻 中世纪集市解锁大相邻
-    ('DA_CAMP_CAMP_HORSE_RIDING', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', null, 'TECH_HORSEBACK_RIDING', null, null),
-    ('DA_CAMP_CAMP_MEDIEVAL', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', 'CIVIC_MEDIEVAL_FAIRES', null, null, null);
+   --箭术解锁营地小相邻 中世纪集市解锁大相邻
+    ('DA_CAMP_CAMP_ARCHERY', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', null, 'TECH_ARCHERY', null, null),
+    ('DA_CAMP_CAMP_MEDIEVAL', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', 'CIVIC_MEDIEVAL_FAIRES', null, null, null),
+    --占星术解锁渔场小相邻，海军传统解锁2金币相邻
+    ('DA_FISHERY_FISHERY_ASTROLOGY', 'Placeholder', 'YIELD_FOOD', '1', '2', 'IMPROVEMENT_FISHERY', null, 'TECH_ASTROLOGY', null, null),
+    ('DA_FISHERY_FISHERY_NAVAL_TRADITION', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_FISHERY', 'CIVIC_NAVAL_TRADITION', null, null, null);
+
 
 
 

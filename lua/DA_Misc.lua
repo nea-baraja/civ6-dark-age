@@ -636,33 +636,52 @@ end
 Events.CityAddedToMap.Add(StrategicCityAddedToMap);
 
 --马格努斯 母城
-function MetropolisBuff(playerID, unitID)
+-- function MetropolisBuff(playerID, unitID)
+--     if bLoadScreenFinished == false then return; end
+--     local pUnit = UnitManager.GetUnit(playerID, unitID);
+--     local pPlayer = Players[playerId];
+--     if GameInfo.Units[pUnit:GetType()].UnitType ~= 'UNIT_SETTLER' then return end
+--     local pPlot = Map.GetPlot(pUnit:GetX(), pUnit:GetY());
+--     local pCity = Cities.GetPlotPurchaseCity(pPlot);
+--     if pCity == nil then return; end
+--     local iProperty = pCity:GetProperty('PROP_METROPOLIS') or 0;
+--     if iProperty == 0 then return end
+--     -- local pGovernorMagnus = pPlayer:GetGovernors():GetGovernor(GameInfo.Governors['GOVERNOR_THE_RESOURCE_MANAGER'].Hash);
+--     -- if pGovernorMagnus then
+--     --     local currentCity:table = governor:GetAssignedCity();
+--     --     if currentCity == nil then return end
+--     --     if pCity:GetID() == currentCity:GetID() and pGovernorMagnus:HasPromotion(GameInfo.GovernorPromotions['GOVERNOR_THE_RESOURCE_MANAGER'].Hash)
+--     -- print('ok')
+--     pCity:AttachModifierByID('METROPOLIS_GRANT_HOUSING');
+--     pCity:AttachModifierByID('METROPOLIS_GRANT_AMENITY');
+--     pCity:AttachModifierByID('METROPOLIS_GRANT_EXPANSION');
+-- end
+
+function MetropolisBuff(playerID, cityID)
     if bLoadScreenFinished == false then return; end
-    local pUnit = UnitManager.GetUnit(playerID, unitID);
-    local pPlayer = Players[playerId];
-    if GameInfo.Units[pUnit:GetType()].UnitType ~= 'UNIT_SETTLER' then return end
-    local pPlot = Map.GetPlot(pUnit:GetX(), pUnit:GetY());
-    local pCity = Cities.GetPlotPurchaseCity(pPlot);
+    local pCity = CityManager.GetCity(playerID, cityID);
     if pCity == nil then return; end
-    local iProperty = pCity:GetProperty('PROP_METROPOLIS') or 0;
-    if iProperty == 0 then return end
-    -- local pGovernorMagnus = pPlayer:GetGovernors():GetGovernor(GameInfo.Governors['GOVERNOR_THE_RESOURCE_MANAGER'].Hash);
-    -- if pGovernorMagnus then
-    --     local currentCity:table = governor:GetAssignedCity();
-    --     if currentCity == nil then return end
-    --     if pCity:GetID() == currentCity:GetID() and pGovernorMagnus:HasPromotion(GameInfo.GovernorPromotions['GOVERNOR_THE_RESOURCE_MANAGER'].Hash)
-    -- print('ok')
-    pCity:AttachModifierByID('METROPOLIS_GRANT_HOUSING');
-    pCity:AttachModifierByID('METROPOLIS_GRANT_AMENITY');
-    pCity:AttachModifierByID('METROPOLIS_GRANT_EXPANSION');
+    local pPlayer = Players[playerID];
+	local pPlayerCities:table = pPlayer:GetCities();
+	for i, pLoopCity in pPlayerCities:Members() do
+		local iProperty = pLoopCity:GetProperty('PROP_METROPOLIS') or 0;
+        if iProperty > 0 then
+            pLoopCity:AttachModifierByID('METROPOLIS_GRANT_HOUSING');
+            pLoopCity:AttachModifierByID('METROPOLIS_GRANT_AMENITY');
+            pLoopCity:ChangePopulation(1);
+        end
+	end 
 end
+
+
 
 function OnLoadScreenClose_All()
     bLoadScreenFinished = true;
 end
 
 
-Events.UnitAddedToMap.Add(MetropolisBuff);
+--Events.UnitAddedToMap.Add(MetropolisBuff);
+Events.CityAddedToMap.Add(MetropolisBuff);
 Events.LoadScreenClose.Add(OnLoadScreenClose_All)
 
 

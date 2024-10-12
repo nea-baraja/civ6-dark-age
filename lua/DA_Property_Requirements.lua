@@ -3,7 +3,7 @@ include("SupportFunctions")
 GameEvents = ExposedMembers.GameEvents
 Utils = ExposedMembers.DA.Utils
 
-function AmenityPropertyManager(playerID, cityID)
+function CityPropertyManager(playerID, cityID)
 	local player = Players[playerID]
     local pCity = CityManager.GetCity(playerID, cityID)
     if pCity == nil then 
@@ -15,10 +15,13 @@ function AmenityPropertyManager(playerID, cityID)
     local plotID = CityPlot:GetIndex()
     local pCityGrowth = pCity:GetGrowth()
     local pAmenity = pCityGrowth:GetAmenities() - pCityGrowth:GetAmenitiesNeeded()
+    local pHousing = pCityGrowth:GetHousing() - pCity:GetPopulation()
+    local PROP_REST_HOUSING = 'REST_HOUSING'
     local PROP_AMENITY = 'CITY_AMENITY'
 
     if pAmenity ~= nil then 
     	GameEvents.SetPlotProperty.Call(plotID, PROP_AMENITY, pAmenity)
+        GameEvents.SetPlotProperty.Call(plotID, PROP_REST_HOUSING, pHousing)
     --	print(playerID..':'..cityID..':amenity is '..Utils.GetPlotProperty(CityPlot, PROP_AMENITY))
     end
 end
@@ -135,7 +138,7 @@ function OnTurnBegin()
         AdjacencyManager(player:GetID())
         --GovernmentLegacyManager(player:GetID())
 		for _, city in player:GetCities():Members() do
-			AmenityPropertyManager(player:GetID(), city:GetID())
+			CityPropertyManager(player:GetID(), city:GetID())
 		end
 	end
 end
@@ -157,7 +160,7 @@ end
 
 Events.TurnEnd.Add(OnTurnEnd);
 Events.TurnBegin.Add(OnTurnBegin);
-Events.CityAddedToMap.Add(AmenityPropertyManager)
+Events.CityAddedToMap.Add(CityPropertyManager)
 
 
 

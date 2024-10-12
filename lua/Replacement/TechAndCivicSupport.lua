@@ -305,28 +305,29 @@ function PopulateUnlockablesForCivic(playerID:number, civicID:number, kItemIM:ta
 		end
 		
 	end
+	if kCivicData.Description and hideDescriptionIcon ~= true then
+		local sCivicDescription = Locale.Lookup(kCivicData.Description);
+		if string.find(sCivicDescription, "LOC_") == nil then
+			local unlockIcon:table	= kItemIM:GetInstance();
+			unlockIcon.Icon:SetHide(true); -- foreground icon unnecessary in this case
+			local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_TECHUNLOCK_13",38);
+			if textureSheet ~= nil then
+				unlockIcon.UnlockIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
+			end
+			unlockIcon.UnlockIcon:LocalizeAndSetToolTip(kCivicData.Description);
+			if callback ~= nil then		
+				unlockIcon.UnlockIcon:RegisterCallback(Mouse.eLClick, callback);
+			else
+				unlockIcon.UnlockIcon:ClearCallback(Mouse.eLClick);
+			end
 
-	if (kCivicData.Description and hideDescriptionIcon ~= true) then
-		local unlockIcon:table	= kItemIM:GetInstance();
-		unlockIcon.Icon:SetHide(true); -- foreground icon unnecessary in this case
-		local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_TECHUNLOCK_13",38);
-		if textureSheet ~= nil then
-			unlockIcon.UnlockIcon:SetTexture(textureOffsetX, textureOffsetY, textureSheet);
+			if(not IsTutorialRunning()) then
+				unlockIcon.UnlockIcon:RegisterCallback(Mouse.eRClick, function() 
+					LuaEvents.OpenCivilopedia(civicType);
+				end);
+			end
+			numIcons = numIcons + 1;
 		end
-		unlockIcon.UnlockIcon:LocalizeAndSetToolTip(kCivicData.Description);
-		if callback ~= nil then		
-			unlockIcon.UnlockIcon:RegisterCallback(Mouse.eLClick, callback);
-		else
-			unlockIcon.UnlockIcon:ClearCallback(Mouse.eLClick);
-		end
-
-		if(not IsTutorialRunning()) then
-			unlockIcon.UnlockIcon:RegisterCallback(Mouse.eRClick, function() 
-				LuaEvents.OpenCivilopedia(civicType);
-			end);
-		end
-
-		numIcons = numIcons + 1;
 	end
 
 	kItemIM.m_ParentControl:CalculateSize();
@@ -387,7 +388,7 @@ function PopulateUnlockablesForTech(playerID:number, techID:number, instanceMana
 		numIcons = numIcons + 1;
 	end
 
-	if kTechData.Description then
+	if kTechData.Description and string.find(Locale.Lookup(kTechData.Description), "LOC_") == nil then
 		local unlockIcon:table	= instanceManager:GetInstance();
 		unlockIcon.Icon:SetHide(true); -- foreground icon unnecessary in this case
 		local textureOffsetX, textureOffsetY, textureSheet = IconManager:FindIconAtlas("ICON_TECHUNLOCK_13",38);

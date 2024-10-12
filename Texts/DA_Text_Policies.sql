@@ -17,7 +17,7 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_CAPITAL_DESCRIPTION",                       "首都建造区域时+25%  [ICON_PRODUCTION] 生产力，若此时首都没有专业区域则额外+25%  [ICON_PRODUCTION] 生产力。"),
     ("zh_Hans_CN",  "LOC_POLICY_AGOGE_DESCRIPTION",                         "生产远古和古典时代的陆军单位加速+20%，城市拥有军营时或每有一级军营建筑时多10%。"),
     ("zh_Hans_CN",  "LOC_POLICY_CORVEE_DESCRIPTION",                        "+15%远古和古典奇观建造速度，若城市拥有纪念碑则再+15%建造速度。"),
-    ("zh_Hans_CN",  "LOC_POLICY_OFFICIAL_CRAFTS_DESCRIPTION",               "市中心的 [ICON_FOOD] 食物与 [ICON_PRODUCTION] 生产力相邻加成+50%，若城市拥有奇观则翻倍"),
+    ("zh_Hans_CN",  "LOC_POLICY_OFFICIAL_CRAFTS_DESCRIPTION",               "市中心的 [ICON_FOOD] 食物与 [ICON_PRODUCTION] 生产力相邻加成+50%，若城市拥有总督则翻倍"),
     ("zh_Hans_CN",  "LOC_POLICY_TAX_DESCRIPTION",                           "拥有总督的城市每个 [icon_citizen] 公民 +1 [ICON_Gold] 金币。政策卡翻倍后改为+5 [ICON_Gold] 金币（而非常规的+2）"),
     ("zh_Hans_CN",  "LOC_POLICY_PRIEST_DESCRIPTION",                        "冻土上的改良设施+6 [ICON_Faith] 信仰值，沙漠上的改良设施+8 [ICON_Faith] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_COLONIZATION_DESCRIPTION",                  "+15%开拓者建造速度，若城市至少拥有5人口则再+15%建造速度。"),
@@ -67,11 +67,13 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_TRANSLATION_NAME",                  "翻译"),
     ("zh_Hans_CN",  "LOC_POLICY_ARMY_FARM_NAME",                    "军屯"),
     ("zh_Hans_CN",  "LOC_POLICY_TRAIN_NAME",                        "操练"),
+    ("zh_Hans_CN",  "LOC_POLICY_LOUGE_NAME",                        "楼阁"),
     ("zh_Hans_CN",  "LOC_POLICY_EQUESTRIAN_ORDERS_NAME",            "战略储备"),
     ("zh_Hans_CN",  "LOC_POLICY_CAPITAL_NAME",                      "都城"),
     ("zh_Hans_CN",  "LOC_POLICY_COOPERATIVE_COMBAT_NAME",           "协同作战"),
 
-    ("zh_Hans_CN",  "LOC_DA_PK_DOUBLE_POLICY_CARD",                 "双倍效果");
+    ("zh_Hans_CN",  "LOC_DA_PK_DOUBLED_POLICY_CARD",                 "该政策卡已开启双倍效果，右键点击政策卡关闭，释放占用的额外槽位"),
+    ("zh_Hans_CN",  "LOC_DA_PK_TO_DOUBLE_POLICY_CARD_TITLE",         "你有额外的政策槽位，右键点击该政策卡开启双倍政策卡效果");
 
 insert or replace into LocalizedText
     (Language,      Tag,                                                    Text)

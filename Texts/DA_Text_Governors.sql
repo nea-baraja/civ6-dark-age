@@ -45,7 +45,7 @@ values
     ("zh_Hans_CN",  "LOC_UNIT_FAITHBUILDER_NO_FAITH",                                   "[COLOR_Red]需要至少拥有{1_amount} [icon_faith] 信仰值完成建造[ENDCOLOR]"),
 
     ("zh_Hans_CN",  "LOC_UNITCOMMAND_APOSTLE_FAITH_NAME",                               "举行祝圣仪式"),
-    ("zh_Hans_CN",  "LOC_UNITCOMMAND_APOSTLE_FAITH_DESCRIPTION",                        "本单位进入已完成的区域所在单元格后，可以消耗宗教传播次数，使其相邻加成提供等量的 [icon_faith] 信仰值"),
+    ("zh_Hans_CN",  "LOC_UNITCOMMAND_APOSTLE_FAITH_DESCRIPTION",                        "本单位进入已完成的区域所在单元格后，可以消耗宗教传播次数，使其提供 [icon_science] 科技值，[icon_culture] 文化值和 [icon_faith] 信仰值相邻加成等量的 [icon_faith] 信仰值"),
     ("zh_Hans_CN",  "LOC_UNITCOMMAND_APOSTLE_FAITH_DISABLED",                           "[COLOR_Red]单位需要位于己方境内已完成的区域上[ENDCOLOR]"),
     ("zh_Hans_CN",  "LOC_UNITCOMMAND_APOSTLE_FAITH_USED",                               "[COLOR_Red]该区域已经进行过祝圣[ENDCOLOR]"),
 
@@ -53,7 +53,7 @@ values
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_LEADER_NAME",                       "工会首领"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_LEADER_DESCRIPTION",                "此城市中生产的所有建造者将+1 [ICON_Charges] 劳动力+2 [ICON_MOVEMENT] 移动力。"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_ZONER_NAME",                        "规划委员"),
-    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_ZONER_DESCRIPTION",                 "本城可以无视人口限制额外建造一个专业区域。城市建造区域速度+20%。"),  
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_ZONER_DESCRIPTION",                 "本城可以无视人口限制额外建造一个专业区域。城市建造区域速度+50%。"),  
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_INFRASTRUCTURE_NAME",               "基础设施"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_INFRASTRUCTURE_DESCRIPTION",        "本城生产的建造者可以花费1 [ICON_Charges] 劳动力为所在单元格+1 [ICON_Production] 生产力或+1 [icon_food] 食物（两种产出不能共存，且不可叠加）。"),  
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_BUILDER_VOLUNTARY_LABOR_NAME",              "义务劳动"),
@@ -77,7 +77,7 @@ values
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_EXPEDITION_NAME",                   "给养保障"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_EXPEDITION_DESCRIPTION",            "本城生产的开拓者不消耗 [ICON_CITIZEN] 人口，且+1 [ICON_MOVEMENT] 移动力。"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_METROPOLIS_NAME",                   "母城"),
-    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_METROPOLIS_DESCRIPTION",            "本城生产开拓者后，获得+2 [ICON_Housing] 住房，+1 [ICON_Amenities] 宜居度，+50%单元格获取速度。"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_METROPOLIS_DESCRIPTION",            "每有一座新城市建立，就让本城+1 [ICON_Citizen] 人口，+2 [ICON_Housing] 住房，+1 [ICON_Amenities] 宜居度。"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_SURPLUS_NAME",                      "盈余物流"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_SURPLUS_DESCRIPTION",               "本城每有一个非专业区域，通往本城的国内商路就+1 [ICON_Food] 食物；每有一个专业区域，通往本城的国内商路就+1 [ICON_Production] 生产力"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_FRONTIER_TOWN_NAME",                "拓荒驻地"),
