@@ -6,6 +6,8 @@ values
     ("zh_Hans_CN",  "LOC_DA_BOOST_ADD_BYOTHER",                                         "来自其他方式的研究加速{1_Count}%"),    
     ("zh_Hans_CN",  "LOC_DA_BOOST_ADD_BYEUREKA",                                        "来自尤里卡或鼓舞的研究加速{1_Count}%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_ADD_BYTASK",                                          "来自实践的研究加速{1_Count}%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_ADD_BYPIONEER",                                       "来自先驱的研究加速{1_Count}%"),
+
 
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_THE_WHEEL",                                      "每遇到一个其他文明（包括城邦）研究速度增加10%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_IRRIGATION",                                     "每造1个改良资源的农场或种植园研究速度增加50%"),

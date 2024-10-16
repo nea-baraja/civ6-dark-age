@@ -11,7 +11,9 @@ values
 
 --范蠡
    ("zh_Hans_CN",     "LOC_GREAT_PERSON_INDIVIDUAL_FAN_LI_NAME", "范蠡"),
-   ("zh_Hans_CN",     "LOC_FANLI_GOLD", "立刻获得相当于本回合金币产出四倍的 [ICON_Gold] 金币。如果当前处于古典时代则翻倍。"),
+   ("zh_Hans_CN",     "LOC_FANLI_GOLD", "立刻获得相当于本回合金币产出四倍的 [ICON_Gold] 金币。如果当前处于古典时代则翻倍。"),  --deserted
+   ("zh_Hans_CN",     "LOC_FANLI_GOLD_ADJACENCY_MODIFIER", "该商业中心+50%相邻加成。"),
+   ("zh_Hans_CN",     "LOC_FANLI_GOLD_ADJACENCY_TO_CULTURE", "该商业中心的 [icon_gold] 金币相邻加成也会提供 [icon_culture] 文化值。"),
    ("zh_Hans_CN",     "LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_FAN_LI_CHAPTER_HISTORY_PARA_1", "范蠡（fàn lǐ ）(公元前536年-公元前448年) ，字少伯，华夏族，楚国宛地三户(今南阳淅川县滔河乡)人。春秋末期政治家、军事家、经济学家和道家学者。曾献策扶助越王勾践复国，兴越灭吴，后隐去。著《范蠡》二篇，今佚。"),
    ("zh_Hans_CN",     "LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_FAN_LI_CHAPTER_HISTORY_PARA_2", "范蠡为中国早期商业理论家，楚学开拓者之一。被后人尊称为“商圣”，“南阳五圣”之一。虽出身贫贱，但是博学多才，与楚宛令文种相识、相交甚深。因不满当时楚国政治黑暗、非贵族不得入仕而一起投奔越国，之后被拜为上大夫，辅佐越国勾践。他帮助勾践兴越国，灭吴国，一雪会稽之耻，成就霸业，又被封为上将军。功成名就之后急流勇退，化名姓为鸱夷子皮，遨游于七十二峰之间。期间三次经商成巨富，三散家财。后定居于宋国陶丘(今山东省菏泽市定陶区南)，自号“陶朱公”。"),
    ("zh_Hans_CN",     "LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_FAN_LI_CHAPTER_HISTORY_PARA_3", "世人誉之:“忠以为国;智以保身;商以致富，成名天下。”后代许多生意人皆供奉他的塑像，尊之为财神。范蠡是范姓始祖范武子的玄孙，并被视为顺阳范氏之先祖。"),
@@ -79,7 +81,7 @@ values
    ("zh_Hans_CN",     "LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_VITRUVIUS_CHAPTER_HISTORY_PARA_3", "由于维特鲁威在《建筑十书》首次将人体比例引入建筑学，达芬奇根据《建筑十书》绘出的完美比例人体素描也被称为《维特鲁威人》。尽管维特鲁威在建筑学上有较高的地位，但他只建造过一座现已消失的法诺大教堂。《建筑十书》在中世纪一度失传，后被发现于1414年在瑞士圣迦尔修道院，影响了文艺复兴时期的建筑风格。"),
 
 --欧几里得
-   ('zh_Hans_CN',     'LOC_GREATPERSON_EUCLID_ACTIVE', '为本城学院+100%相邻加成（不可叠加）'),
+   ('zh_Hans_CN',     'LOC_GREATPERSON_EUCLID_ACTIVE', '该学院+100%相邻加成（本效果不可在同一个学院叠加）'),
 --张衡
    ('zh_Hans_CN',     'LOC_GREATPERSON_ZHANG_HENG_ACTIVE', '本城学院6个单元格内的自然灾害（排除林火）会为该学院永久+2相邻加成'),
 --祖冲之
@@ -95,7 +97,8 @@ values
    ('zh_Hans_CN',     'LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_ARCHIMEDES_CHAPTER_HISTORY_PARA_2', '阿基米德确立了静力学和流体静力学的基本原理。给出许多求几何图形重心，包括由一抛物线和其网平行弦线所围成图形的重心的方法。阿基米德证明物体在液体中所受浮力等于它所排开液体的重量，这一结果后被称为阿基米德原理。他还给出正抛物旋转体浮在液体中平衡稳定的判据。阿基米德发明的机械有引水用的水螺旋，能牵动满载大船的杠杆滑轮机械，能说明日食，月食现象的地球-月球-太阳运行模型。但他认为机械发明比纯数学低级，因而没写这方面的著作。阿基米德还采用不断分割法求椭球体、旋转抛物体等的体积，这种方法已具有积分计算的雏形。'),
    ('zh_Hans_CN',     'LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_ARCHIMEDES_CHAPTER_HISTORY_PARA_3', '相传叙拉古赫农王让工匠替他做了一顶纯金的王冠。但是在做好后，国王疑心工匠做的金冠并非纯金，工匠私吞了黄金，但又不能破坏王冠，而这顶金冠确又与当初交给金匠的纯金一样重。这个问题难倒了国王和诸位大臣。经一大臣建议，国王请来阿基米德来检验皇冠。最初阿基米德对这个问题无计可施。有一天，他在家洗澡，当他坐进澡盆里时，看到水往外溢，突然想到可以用测定固体在水中排水量的办法，来确定金冠的体积。他兴奋地跳出澡盆，连衣服都顾不得穿上就跑了出去，大声喊着“尤里卡！尤里卡！”（ερηκα，意思是“找到了”。）他经过了进一步的实验以后，便来到了王宫，他把王冠和同等重量的纯金放在盛满水的两个盆里，比较两盆溢出来的水，发现放王冠的盆里溢出来的水比另一盆多。这就说明王冠的体积比相同重量的纯金的体积大，密度不相同，所以证明了王冠里掺进了其他金属。这次试验的意义远远大过查出金匠欺骗国王，阿基米德从中发现了浮力定律（阿基米德原理）：物体在液体中所获得的浮力，等于它所排出液体的重量。（即广为人知的排水法）'),
    ('zh_Hans_CN',     'LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_ARCHIMEDES_CHAPTER_HISTORY_PARA_4', '公元前212年，古罗马军队入侵叙拉古，阿基米德被罗马士兵杀死，终年七十五岁。阿基米德的遗体葬在西西里岛，墓碑上刻着一个圆柱内切球的图形，以纪念他在几何学上的卓越贡献。'),
-   ('zh_Hans_CN',     'LOC_GREAT_PERSON_INDIVIDUAL_ARCHIMEDES_ACTIVE',                                        '尤里卡额外提供相当于本城学院相邻加成25%科技进度（最多当相邻加成为28时，增加7%尤里卡的科技进度）'),
+   --('zh_Hans_CN',     'LOC_GREAT_PERSON_INDIVIDUAL_ARCHIMEDES_ACTIVE',                                        '尤里卡额外提供相当于本城学院相邻加成25%科技进度（最多当相邻加成为28时，增加7%尤里卡的科技进度）'),
+   ('zh_Hans_CN',     'LOC_GREAT_PERSON_INDIVIDUAL_ARCHIMEDES_ACTIVE',                                        '尤里卡额外提供50%的科技研究加速，随机获得一个中世纪科技的尤里卡'),
 --亚历山大里亚的希罗
    ('zh_Hans_CN',     'LOC_GREAT_PERSON_INDIVIDUAL_HERON_NAME', '亚历山大里亚的希罗'),
    ('zh_Hans_CN',     'LOC_PEDIA_GREATPEOPLE_PAGE_GREAT_PERSON_INDIVIDUAL_HERON_CHAPTER_HISTORY_PARA_1', '希罗（Heron），又称亚历山大里亚的希罗（Ἥρων ὁ Ἀλεξανδρεύς），是古罗马数学家，居住于罗马行省的亚历山大利亚。他也是一名活跃于其家乡亚历山大港的工程师。他发明了一种叫汽转球的蒸汽机。他还发明了风轮，是最早利用风能的设备。一般认为他也是一位原子论者。他的一些思想乃源自克特西比乌斯（Ctesibius）的著作。'),

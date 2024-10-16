@@ -893,7 +893,21 @@ insert or ignore into RequirementSetRequirements
 select	'RS_PLOT_APPEAL_AT_LEAST_' || numbers,			'REQ_PLOT_APPEAL_AT_LEAST_' || numbers
 from counter where numbers >= -4 and numbers <= 20;
 
+--单元格魅力值且不是奇观 REQ/RS
+insert or ignore into RequirementSets
+    (RequirementSetId,                                  RequirementSetType)
+select	'RS_PLOT_APPEAL_AT_LEAST_' || numbers || '_AND_NOT_WONDER',			'REQUIREMENTSET_TEST_ALL'
+from counter where numbers >= -4 and numbers <= 20;
 
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+select	'RS_PLOT_APPEAL_AT_LEAST_' || numbers || '_AND_NOT_WONDER',			'REQ_PLOT_APPEAL_AT_LEAST_' || numbers
+from counter where numbers >= -4 and numbers <= 20;
+
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+select	'RS_PLOT_APPEAL_AT_LEAST_' || numbers || '_AND_NOT_WONDER',			'REQ_NOT_WONDER'
+from counter where numbers >= -4 and numbers <= 20;
 
 
 -- PLOT_ADJACENT_TO_RIVER_REQUIREMENTS

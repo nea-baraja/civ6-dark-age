@@ -393,3 +393,55 @@ Utils.GetTotalUnity = function(playerID)
         return totalUnity;
     end
 end
+
+Utils.GetItemBoost = function(playerID, itemID)
+    if Players == nil then return 0 end
+    local pPlayer = Players[playerID];
+    local totalBoostValue = 0;
+    local boost = pPlayer:GetProperty("DA_Boost_"..itemID) or {};
+    for _, boostValue in pairs(boost) do
+        totalBoostValue = totalBoostValue + boostValue;
+    end
+    
+    --MANNUAL
+    local boostByPioneer = Utils.GetBoostByPioneer(playerID, itemID);
+    totalBoostValue = totalBoostValue + boostByPioneer;
+    
+    return totalBoostValue;
+end
+
+Utils.GetItemEra = function(itemID)
+    local itemInfo = GameInfo.Technologies[itemID] or GameInfo.Civics[itemID];
+    return itemInfo.EraType;
+end
+
+Utils.GetBoostByPioneer = function(playerID, itemID)
+    if playerID == nil or playerID == -1 then
+        return 0;
+    end
+    if Players == nil then return 0 end
+    local pPlayer = Players[playerID];
+    local boostByPioneer = 0;
+    if GameInfo.Technologies[itemID] ~= nil then
+        boostByPioneer = pPlayer:GetProperty('DA_Boost_By_Pioneer_Tech') or 0;
+    elseif GameInfo.Civics[itemID] ~= nil then
+        boostByPioneer = pPlayer:GetProperty('DA_Boost_By_Pioneer_Civic') or 0;
+    end
+    if boostByPioneer > 0 then
+        local iEra = GameInfo.Eras[Utils.GetItemEra(itemID)].ChronologyIndex;
+        if iEra <= 2 then
+            return boostByPioneer;
+        elseif iEra <= 4 then
+            return boostByPioneer / 2;
+        elseif iEra <= 6 then
+            return boostByPioneer / 4;
+        elseif iEra <= 8 then
+            return boostByPioneer / 8;
+        else
+            return boostByPioneer / 16;
+        end
+    end
+    return 0;
+end
+    
+

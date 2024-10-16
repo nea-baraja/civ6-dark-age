@@ -11,7 +11,7 @@
 -------------------------------------------------------------------------------
 include("TechAndCivicUnlockables")
 include("SupportFunctions");
-
+Utils = ExposedMembers.DA.Utils;
 ToolTipHelper = {};
 
 -- Utility function for presenting adjacency bonuses.
@@ -580,6 +580,10 @@ ToolTipHelper.GetCivicToolTip = function(civicType, playerId)
 		local CivicBoostTriggerByEureka = (pPlayer:GetProperty("DA_Boost_"..civicType) or {})['ByEureka'] or 0;		
 		if CivicBoostTriggerByEureka~= 0 then
 			table.insert(toolTipLines, Locale.Lookup("LOC_DA_BOOST_ADD_BYEUREKA", CivicBoostTriggerByEureka * 100))
+		end
+		local CivicBoostByPioneer = Utils.GetBoostByPioneer and  Utils.GetBoostByPioneer(playerId, civicType) or 0;
+		if CivicBoostByPioneer ~= 0 then
+			table.insert(toolTipLines, Locale.Lookup("LOC_DA_BOOST_ADD_BYPIONEER", Round(CivicBoostByPioneer * 100)))
 		end
 	end
 	-- Darkage changes end
@@ -1385,6 +1389,10 @@ ToolTipHelper.GetTechnologyToolTip = function(techType, playerId)
 		local TechBoostTriggerByEureka = (pPlayer:GetProperty("DA_Boost_"..techType) or {})['ByEureka'] or 0;		
 		if TechBoostTriggerByEureka~= 0 then
 			table.insert(toolTipLines, Locale.Lookup("LOC_DA_BOOST_ADD_BYEUREKA", TechBoostTriggerByEureka * 100))
+		end
+		local TechBoostTriggerByPioneer = Utils.GetBoostByPioneer(playerId, techType) or 0;
+		if TechBoostTriggerByPioneer ~= 0 then
+			table.insert(toolTipLines, Locale.Lookup("LOC_DA_BOOST_ADD_BYPIONEER", Round(TechBoostTriggerByPioneer * 100)))
 		end
 	end
 	-- Darkage changes end

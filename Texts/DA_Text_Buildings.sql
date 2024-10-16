@@ -33,10 +33,10 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_FLAG_TWO_DISTRICT_DESCRIPTION",               "一些建筑需要城市至少拥有两个专业区域方可建造，如锻造坊和造纸坊。"),  
     ("zh_Hans_CN",  "LOC_BUILDING_WATER_MILL_DESCRIPTION",                      "需要城市拥有至少一个专业区域方可建造。所有专业区域+1 [ICON_Food] 食物，研究“工程”“科技后再+1 [icon_production] 生产力。"),
     ("zh_Hans_CN",  "LOC_BUILDING_OBSERVATORY_DESCRIPTION",                     "需要城市拥有至少一个专业区域方可建造。若城市拥有自然奇观则+2 [ICON_SCIENCE] 科技值。研究“数学”科技后，在城市相邻海岸和城市相邻山脉时+2 [ICON_SCIENCE] 科技值。可以使用信仰值购买。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_TRIUMPHAL_DESCRIPTION",                       "需要城市拥有至少一个专业区域方可建造。使市中心获得等于 [icon_promotion] 驻扎单位等级的 [ICON_Culture] 文化值相邻加成。[NEWLINE]仅限一次，允许军事单位使用“凯旋”行动，立刻回到最近的未使用过该行动的凯旋门，并获得一项 [icon_promotion] 升级。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_TRIUMPHAL_DESCRIPTION",                       "需要城市拥有至少一个专业区域方可建造。凯旋门会获得等于 [icon_promotion] 驻扎单位等级的 [ICON_Culture] 文化值相邻加成。[NEWLINE]仅限一次，允许军事单位使用“凯旋”行动，立刻回到最近的未使用过该行动的凯旋门，并获得一项 [icon_promotion] 升级。"),
     ("zh_Hans_CN",  "LOC_BUILDING_PAPER_MAKER_DESCRIPTION",                     "需要城市拥有至少两个专业区域方可建造。学院，圣地，剧院广场+1对应基础相邻加成。"),
     ("zh_Hans_CN",  "LOC_BUILDING_FORGING_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。改良资源的单元格+2 [ICON_PRODUCTION] 生产力。研究“机械”科技后，没有资源的改良单元格+1 [ICON_PRODUCTION] 生产力。"),    
-    ("zh_Hans_CN",  "LOC_BUILDING_TINGTAI_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。魅力值达到“迷人”的区域+1 [ICON_Housing] 住房，为亭台+1 [icon_science] 科技值。达到“惊艳”的区域+2 [ICON_Amenities] 宜居度，为亭台+1 [icon_culture] 文化值。"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_TINGTAI_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。魅力值达到“迷人”的区域+1 [ICON_Housing] 住房，为亭台+1 [icon_science] 科技值。达到“惊艳”的区域+1 [ICON_Amenities] 宜居度，为亭台+1 [icon_culture] 文化值。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_ZHISUO_DESCRIPTION",                          "需要城市拥有至少三个专业区域方可建造。额外产出等于市中心建筑维护费的 [ICON_Gold] 金币"),    
     
     ("zh_Hans_CN",  "LOC_BUILDING_GOV_WIDE_DESCRIPTION",                        "奖励1个 [ICON_GOVERNOR] 总督头衔。每拥有一座自己建造的城市，每回合+1凝聚力，若该城市有总督任职则再+1凝聚力。"),    
@@ -74,12 +74,15 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_ARENA_EXPANSION1_DESCRIPTION",                "提供“马戏”奢侈资源，城市在拥有圣地或军营后，也提供对应的奢侈资源（均提供4宜居度）"),
 
     ("zh_Hans_CN",  "LOC_BUILDING_PYRAMIDS_DESCRIPTION",                        "建造者+1 [ICON_Charges] 行动次数并+1 [ICON_MOVEMENT] 移动速度，花费 [ICON_Charges] 行动次数后立刻恢复其 [ICON_MOVEMENT] 移动力。"),    
-    ("zh_Hans_CN",  "LOC_BUILDING_TEMPLE_ARTEMIS_DESCRIPTION",                  "6个单元格内可以建造营地的单元格立刻获得营地。赠送一个远程单位，使其获得相当于6个单元格内营地数量1/3的 [ICON_Strength] 战斗力"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_TEMPLE_ARTEMIS_DESCRIPTION",                  "6个单元格内可以建造营地的单元格立刻获得营地。建造者建造营地后会返还 [ICON_Charges] 劳动力。赠送一个远程单位，使其获得相当于6个单元格内营地数量1/3的 [ICON_Strength] 战斗力"),    
     ("zh_Hans_CN",  "LOC_BUILDING_GREAT_BATH_DESCRIPTION",                      "沿河的区域+1 [ICON_Amenities] 宜居度。所在河流洪水不再造成灾害，洪水带来的产出减半，但每次洪水都会为本城的泛滥平原+1 [ICON_FAITH] 信仰值。6个单元格内的洪水会为你触发“洪水之后”事件。"),    
-    ("zh_Hans_CN",  "LOC_BUILDING_ORACLE_DESCRIPTION",                          "招募伟人会提供其 [ICON_GreatPerson] 伟人点数要求一半的 [ICON_Faith] 信仰值。"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_ORACLE_DESCRIPTION",                          "招募伟人会提供等于其 [ICON_GreatPerson] 伟人点数要求的 [ICON_Faith] 信仰值。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_HANGING_GARDENS_DESCRIPTION",                 "所有城市获得等于其空余 [icon_housing] 住房数量的 [icon_food] 食物（最多+10）"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_ETEMENANKI_DESCRIPTION",                      "每遇到一个主要文明+2 [icon_science] 科技值，每遇到一个城邦+1 [icon_science] 科技值。"),    
+
 
     ("zh_Hans_CN",  "LOC_BUILDING_MACHU_PICCHU_DESCRIPTION",                    "山脉单元格为所有城市的专业区域提供标准的相邻加成。"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_GREAT_LIBRARY_DESCRIPTION",                   "获得远古和古典所有科技的 [icon_techboosted] 尤里卡，如果已经获得则立刻完成该科技。招募大科学家后获得大科学家所属时代的 [icon_techboosted] 随机尤里卡"),    
     ("zh_Hans_CN",  "LOC_BUILDING_JEBEL_BARKAL_DESCRIPTION",                    "沙漠类单元格为专业区域提供标准的 [icon_faith] 信仰值相邻加成"),    
     ("zh_Hans_CN",  "LOC_BUILDING_PETRA_DESCRIPTION",                           "沙漠类单元格上的区域+1 [ICON_Food] 食物，若是专业区域则为起源于区域所在城市或以该城市为终点的国内商路+1份区域对应产出"),    
     ("zh_Hans_CN",  "LOC_BUILDING_COLOSSEUM_DESCRIPTION",                       "提供“马戏”奢侈资源，城市在拥有圣地或军营后，也提供对应的奢侈资源（奥林匹克和角斗）。这些奢侈资源可以为同一城市多次提供 [ICON_Amenities] 宜居度"),    

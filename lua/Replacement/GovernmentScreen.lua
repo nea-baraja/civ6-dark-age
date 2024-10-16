@@ -1396,6 +1396,10 @@ function RealizeActivePoliciesRows()
               end
 		        end
           end );
+          if DA_Copy_ActiveCard[policyType] == nil then
+            DA_Copy_ActiveCard[policyType] = {Active = false, Card = -1}
+            print("DA_Copy_ActiveCard["..policyType.."] is nil")
+          end
           if DA_Copy_ActiveCard[policyType].Active then
             cardInst.PKDoubleBackground:SetShow(true)
             cardInst.PKDoubleIcon:SetShow(true)
@@ -1453,7 +1457,7 @@ function RealizeActivePoliciesRows()
       local iGoody = pPlayer:GetProperty('PROP_TRIBE_GOODY_COUNT') or 0;
       if iBarb < 2 then
         local lockCardInst = {};
-        ContextPtr:BuildInstanceForControl("LockCard", lockCardInst, Controls.StackMilitary);
+        ContextPtr:BuildInstanceForControl("ckCard", lockCardInst, Controls.StackMilitary);
         lockCardInst.DragPolicyLabel:SetHide(true);
         lockCardInst.TypeIcon:SetTexture(GetEmptyPolicySlotTexture(1));
         lockCardInst[KEY_DRAG_TARGET_CONTROL] = lockCardInst.Content;
@@ -1627,6 +1631,11 @@ end
 
 function EnsureRowContentsFit( nRowIndex:number, tStack:table )
   local tSlotArray :table = m_ActivePolicyRows[nRowIndex].SlotArray;
+  if DA_Copy_CardHiddenSlots[nRowIndex] == nil then
+    DA_Copy_CardHiddenSlots[nRowIndex] = {ShowSlots = {}, HiddenSlotNum = 0};
+    print("DA_Copy_CardHiddenSlots["..nRowIndex.."] is nil, so pospone to ensure row contents fit")
+    return 0;
+  end
   local nSlots :number = #tSlotArray - DA_Copy_CardHiddenSlots[nRowIndex].HiddenSlotNum;
   if ( nSlots == 0 ) then
     return; -- that was easy
@@ -1647,10 +1656,15 @@ function EnsureRowContentsFit( nRowIndex:number, tStack:table )
 
   for _,index in ipairs(DA_Copy_CardHiddenSlots[nRowIndex].ShowSlots) do
     local inst :table = m_ActiveCardInstanceArray[index+1];
-    inst.Content:SetOffsetX( nextX );
-    nextX = nextX + step;
+    if (inst ~= nil) then
+      inst.Content:SetOffsetX( nextX );
+      nextX = nextX + step;
+    else
+      print("modder Error: Could not find instance for slot index ".. index);
+    end
   end
 end
+
 function EnsureRowContentsOverlapProperly( nRowIndex:number, tStack:table )
   for _,tSlotData in ipairs(m_ActivePolicyRows[nRowIndex].SlotArray) do
     local inst :table = m_ActiveCardInstanceArray[tSlotData.GC_SlotIndex+1];

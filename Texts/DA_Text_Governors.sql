@@ -86,9 +86,22 @@ values
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_WAREHOUSE_DESCRIPTION",             "通往本城的 [ICON_TradeRoute] 国内商路占用 [ICON_TradeRoute] 商路容量减半（向上取整），每有一条通往本城的 [ICON_TRADEROUTE] 国内商路，就为本城每位公民+0.5 [ICON_food] 食物。"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_FINAL_NAME",                        "最终能力"),
     ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_MANAGER_FINAL_DESCRIPTION",                 "很厉害的最终能力，但还没有做"),
-
-
     ("zh_Hans_CN",  "LOC_UNITCOMMAND_SETTLER_GETPLOT_NAME",                             "扩建城市"),
-    ("zh_Hans_CN",  "LOC_UNITCOMMAND_SETTLER_GETPLOT_DESCRIPTION",                      "消耗该开拓者，为本城增加1 [ICON_CITIZEN] 人口，并允许本城市可以无视人口限制额外建造一个专业区域，本城+50%单元格获取速度。"),
-    ("zh_Hans_CN",  "LOC_UNITCOMMAND_SETTLER_GETPLOT_DESCRIPTION_DISABLED",             "[COLOR_Red]你必须位于你所拥有的城市的市中心[ENDCOLOR]");
+    ("zh_Hans_CN",  "LOC_UNITCOMMAND_SETTLER_GETPLOT_DESCRIPTION",                      "消耗该开拓者，为本城增加1 [ICON_CITIZEN] 人口，并允许本城市可以无视人口限制额外建造一个专业区域，本城+50%单元格获取速度。（每座城市只能使用一次）"),
+    ("zh_Hans_CN",  "LOC_UNITCOMMAND_SETTLER_GETPLOT_DESCRIPTION_DISABLED",             "[COLOR_Red]你必须位于你所拥有的城市的市中心[ENDCOLOR]"),
+
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS_NAME",                  "图书馆员"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS_DESCRIPTION",           "本城每位公民+0.5 [icon_culture] 文化值+0.5 [icon_science] 科技值"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_RESEARCHERS_NAME",                 "研究员"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_RESEARCHERS_DESCRIPTION",          "本城+50% [icon_science] 科技值"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_CONNOISSEURS_NAME",                "鉴赏家"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_CONNOISSEURS_DESCRIPTION",         "本城+50% [icon_culture] 文化值"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_PROFESSOR_NAME",                   "教授"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_PROFESSOR_DESCRIPTION",            "本城+100%产出的 [ICON_GreatPerson] 伟人点数"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_PIONEER_NAME",                     "先驱"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_PIONEER_DESCRIPTION",              "本城每产出1 [icon_science] 科技值或 [icon_culture] 文化值，就对远古科技或市政+1%研究速度，该效果对每过两个时代的科技和市政都减半一次"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_FINAL_NAME",                       "最终能力"),
+    ("zh_Hans_CN",  "LOC_GOVERNOR_PROMOTION_EDUCATOR_FINAL_DESCRIPTION",                "很厉害的最终能力，但还没有做");
+
+   
 

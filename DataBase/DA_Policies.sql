@@ -69,9 +69,9 @@ values
 	('POLICY_GOD_KING',					'GOD_KING_FAITH'),  
 
 	('POLICY_SURVEY',					'SURVEY_ADJUST_SIGHT'),   --调查侦察单位+1视野
-	('POLICY_CARAVANSARIES',			'CARAVANSARIES_CITY_GOLD'),   --商队旅馆 改为所有城市+3金币
-	('POLICY_CARAVANSARIES',			'CARAVANSARIES_HARBOR_GOLD'),   --商队旅馆 追加港口+3金币
-	('POLICY_CARAVANSARIES',			'CARAVANSARIES_COMMERCIAL_GOLD'),   --商队旅馆 追加商业中心+3金币
+	--('POLICY_CARAVANSARIES',			'CARAVANSARIES_CITY_GOLD'),   --商队旅馆 改为所有城市+3金币
+	('POLICY_CARAVANSARIES',			'CARAVANSARIES_COAST_ADJACENCY_GOLD'),   --改名盐业 获得海岸的+8金相邻加成
+
 	('POLICY_ILKUM',					'ILKUM_BUILDERPRODUCTION_EXTRA'), --服役建造者加速 50改为15 有专业区域再+10
 	--('POLICY_CORVEE',					'CORVEE_SUB_AMENITY'),   --强迫劳役减2宜居度
 	('POLICY_CORVEE',					'CORVEE_EXTRA_PRODUCTION'), --劳役 有纪念碑额外加速10%
@@ -107,9 +107,9 @@ values
 	('DISCIPLINE_EXTRA_BARBARIANCOMBAT_MOD',		'MODIFIER_PLAYER_UNITS_ADJUST_BARBARIAN_COMBAT',		'RS_OBJECT_WITHIN_6_TILES'),
 	('DISCIPLINE_EXTRA_BARBARIANCOMBAT_2',			'MODIFIER_PLAYER_UNITS_ADJUST_BARBARIAN_COMBAT',		'RS_PLAYER_HAS_CIVIC_MILITARY_TRADITION'),
 	('SURVEY_ADJUST_SIGHT',							'MODIFIER_PLAYER_UNITS_ADJUST_SIGHT',					'RS_IS_PROMOTION_CLASS_RECON'),
-	('CARAVANSARIES_CITY_GOLD',						'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_CHANGE',		NULL),
-	('CARAVANSARIES_HARBOR_GOLD',					'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_CHANGE',		'RS_PLOT_HAS_DISTRICT_HARBOR'),
-	('CARAVANSARIES_COMMERCIAL_GOLD',				'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_CHANGE',		'RS_PLOT_HAS_DISTRICT_COMMERCIAL_HUB'),
+	--('CARAVANSARIES_CITY_GOLD',						'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_CHANGE',		NULL),
+	('CARAVANSARIES_COAST_ADJACENCY_GOLD',			'MODIFIER_PLAYER_CITIES_TERRAIN_ADJACENCY',				NULL),
+	
 	('CORVEE_EXTRA_PRODUCTION',						'MODIFIER_PLAYER_CITIES_ADJUST_WONDER_ERA_PRODUCTION',	'RS_CITY_HAS_BUILDING_MONUMENT'),
 	--('CORVEE_SUB_AMENITY',							'MODIFIER_PLAYER_CITIES_ADJUST_POLICY_AMENITY',			NULL),
 	('COLONIZATION_SETTLERPRODUCTION_PLUS',			'MODIFIER_PLAYER_CITIES_ADJUST_UNIT_PRODUCTION',			'RS_CITY_HAS_5_POPULATION'),   
@@ -162,12 +162,14 @@ values
 	('GOD_KING_FAITH',										'Amount',				2),
 	('GOD_KING_FAITH',										'YieldType',			'YIELD_FAITH'),
 
-	('CARAVANSARIES_CITY_GOLD',								'Amount',				3),
-	('CARAVANSARIES_CITY_GOLD',								'YieldType',			'YIELD_GOLD'),
-	('CARAVANSARIES_HARBOR_GOLD',							'Amount',				6),
-	('CARAVANSARIES_HARBOR_GOLD',							'YieldType',			'YIELD_GOLD'),
-	('CARAVANSARIES_COMMERCIAL_GOLD',						'Amount',				6),
-	('CARAVANSARIES_COMMERCIAL_GOLD',						'YieldType',			'YIELD_GOLD'),
+	-- ('CARAVANSARIES_CITY_GOLD',								'Amount',				3),
+	-- ('CARAVANSARIES_CITY_GOLD',								'YieldType',			'YIELD_GOLD'),
+    ('CARAVANSARIES_COAST_ADJACENCY_GOLD',                 'DistrictType',             'DISTRICT_CITY_CENTER'),
+    ('CARAVANSARIES_COAST_ADJACENCY_GOLD',                 'Amount',                   4),
+    ('CARAVANSARIES_COAST_ADJACENCY_GOLD',                 'TerrainType',              'TERRAIN_COAST'),
+    ('CARAVANSARIES_COAST_ADJACENCY_GOLD',                 'YieldType',                'YIELD_GOLD'),
+    ('CARAVANSARIES_COAST_ADJACENCY_GOLD',                 'Description',              'LOC_COAST_ADJACENCY_GOLD'),
+    ('CARAVANSARIES_COAST_ADJACENCY_GOLD',                 'TilesRequired',            1),
 	--('CORVEE_SUB_AMENITY',								'Amount',				-2),
 	('CORVEE_EXTRA_PRODUCTION',								'Amount',				'15'),
 	('CORVEE_EXTRA_PRODUCTION',								'EndEra',				'ERA_CLASSICAL'),
@@ -208,7 +210,6 @@ values
 	-- ('POLICY_BLOOD_SACRIFICE',				'KIND_POLICY'), --血祭传统
 	-- ('POLICY_LOCAL_MAP',					'KIND_POLICY'), --本地地图
 	('POLICY_LAND_MEASURE',					'KIND_POLICY'), --丈量土地
-	('POLICY_CELEBRATION',					'KIND_POLICY'), --庆典
 	-- ('POLICY_HERB_PLANT',					'KIND_POLICY'), --草药种植
 
 	('POLICY_CAPITAL',						'KIND_POLICY'), --都城
@@ -226,6 +227,8 @@ values
 	--('POLICY_HEDONISM',						'KIND_POLICY'),	--享乐主义
 	('POLICY_TRANSLATION',					'KIND_POLICY'),	--翻译
 	('POLICY_TRAIN',						'KIND_POLICY'),	--操练
+	('POLICY_CELEBRATION',					'KIND_POLICY'), --庆典
+	('POLICY_BREAD_AND_CIRCUSES',			'KIND_POLICY'), --面包与马戏
 	('POLICY_ARMY_FARM',					'KIND_POLICY'),	--军屯
 	('POLICY_LOUGE',						'KIND_POLICY');	--楼阁
 
@@ -235,7 +238,6 @@ values
 	-- ('POLICY_BLOOD_SACRIFICE',				'LOC_POLICY_BLOOD_SACRIFICE_NAME',				'LOC_POLICY_BLOOD_SACRIFICE_DESCRIPTION',				'CIVIC_NATIVE_LAND',						null,						'SLOT_MILITARY'),
 	-- ('POLICY_LOCAL_MAP',					'LOC_POLICY_LOCAL_MAP_NAME',					'LOC_POLICY_LOCAL_MAP_DESCRIPTION',						'CIVIC_NATIVE_LAND',						null,						'SLOT_MILITARY'),
     ('POLICY_LAND_MEASURE',           		'LOC_POLICY_LAND_MEASURE_NAME',           		'LOC_POLICY_LAND_MEASURE_DESCRIPTION',            		'CIVIC_CODE_OF_LAWS',               		null,                       'SLOT_ECONOMIC'),
-    ('POLICY_CELEBRATION',           		'LOC_POLICY_CELEBRATION_NAME',           		'LOC_POLICY_CELEBRATION_DESCRIPTION',            		'CIVIC_GAMES_RECREATION',               null,                       	'SLOT_ECONOMIC'),
     -- ('POLICY_HERB_PLANT',           		'LOC_POLICY_HERB_PLANT_NAME',           		'LOC_POLICY_HERB_PLANT_DESCRIPTION',            		'CIVIC_SORCERY_AND_HERB',               	null,                       'SLOT_ECONOMIC'),
 
 
@@ -255,7 +257,10 @@ values
     ('POLICY_COASTAL_SURVEY',           	'LOC_POLICY_COASTAL_SURVEY_NAME',           	'LOC_POLICY_COASTAL_SURVEY_DESCRIPTION',            	'CIVIC_FOREIGN_TRADE',                 		null,                       'SLOT_MILITARY'),
     ('POLICY_TRANSLATION',           		'LOC_POLICY_TRANSLATION_NAME',           		'LOC_POLICY_TRANSLATION_DESCRIPTION',            		'CIVIC_DRAMA_POETRY',                 		null,                       'SLOT_DIPLOMATIC'),
     ('POLICY_TRAIN',           				'LOC_POLICY_TRAIN_NAME',           				'LOC_POLICY_TRAIN_DESCRIPTION',            				'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
-    ('POLICY_ARMY_FARM',           			'LOC_POLICY_ARMY_FARM_NAME',           			'LOC_POLICY_ARMY_FARM_DESCRIPTION',            			'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
+    ('POLICY_CELEBRATION',           		'LOC_POLICY_CELEBRATION_NAME',           		'LOC_POLICY_CELEBRATION_DESCRIPTION',            		'CIVIC_GAMES_RECREATION',               null,                       	'SLOT_ECONOMIC'),
+    ('POLICY_BREAD_AND_CIRCUSES',           'LOC_POLICY_BREAD_AND_CIRCUSES_NAME',           'LOC_POLICY_BREAD_AND_CIRCUSES_DESCRIPTION',            'CIVIC_GAMES_RECREATION',               null,                       	'SLOT_ECONOMIC'),
+  
+	('POLICY_ARMY_FARM',           			'LOC_POLICY_ARMY_FARM_NAME',           			'LOC_POLICY_ARMY_FARM_DESCRIPTION',            			'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
 	('POLICY_LOUGE',           				'LOC_POLICY_LOUGE_NAME',           				'LOC_POLICY_LOUGE_DESCRIPTION',            				null,                 						'TECH_CONSTRUCTION',        'SLOT_ECONOMIC');
 
 
@@ -281,10 +286,12 @@ values
 
 	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_FOOD_ADJACENCY'),   --工匠 市中心食物相邻50
 	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY'),   --工匠 市中心生产相邻50
+	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_GOLD_ADJACENCY'),  --工匠 市中心黄金相邻50
 	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA'), --工匠 市中心食物相邻100
 	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA'),   --工匠 市中心生产相邻100
+	('POLICY_OFFICIAL_CRAFTS',					'OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA'),   --工匠 市中心黄金相邻100
 
-	('POLICY_TAX',						'TAX_POP_GOLD'),   --税收 总督城人口税1
+	('POLICY_TAX',						'TAX_POP_GOLD'),   --税收 总督城人口税2
 	('POLICY_PRIEST',					'PRIEST_IMPROVED_TUNDRA_FAITH'),   --祭司 改良冻土加信仰
 	('POLICY_PRIEST',					'PRIEST_IMPROVED_DESERT_FAITH'),   --祭司 改良沙漠加信仰
 	
@@ -329,10 +336,13 @@ values
 
 	('OFFICIAL_CRAFTS_FOOD_ADJACENCY',					'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
 	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',				'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY',					'MODIFIER_PLAYER_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
 	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA',				'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',					'RS_1_GOVERNOR_TITLES'),
 	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA',		'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',					'RS_1_GOVERNOR_TITLES'),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA',				'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',					'RS_1_GOVERNOR_TITLES'),
 	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD',			'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
 	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD',	'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA_MOD',			'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_MODIFIER',			'RS_PLOT_HAS_DISTRICT_CITY_CENTER'),
 
 	('TAX_POP_GOLD',								'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_PER_POPULATION',	'RS_1_GOVERNOR_TITLES'),
 	('PRIEST_IMPROVED_TUNDRA_FAITH',				'MODIFIER_PLAYER_IMPROVEMENTS',								'RS_PLOT_IS_TERRAIN_CLASS_TUNDRA'),
@@ -392,14 +402,22 @@ values
 
 	('OFFICIAL_CRAFTS_FOOD_ADJACENCY',							'YieldType',				'YIELD_FOOD'),
 	('OFFICIAL_CRAFTS_FOOD_ADJACENCY',							'Amount',					50),
-	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',						'YieldType',				'YIELD_PRODUCTION'),
-	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',						'Amount',					50),
-	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA',						'ModifierId',				'OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD'),
-	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA',				'ModifierId',				'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD'),
-	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD',					'Amount',					50),
-	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD',			'Amount',					50),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',					'YieldType',				'YIELD_PRODUCTION'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY',					'Amount',					50),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY',							'YieldType',				'YIELD_GOLD'),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY',							'Amount',					50),
 
-	('TAX_POP_GOLD',										'Amount',					1),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA',						'ModifierId',				'OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA',					'ModifierId',				'OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD'),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA',						'ModifierId',				'OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA_MOD'),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD',					'Amount',					50),
+	('OFFICIAL_CRAFTS_FOOD_ADJACENCY_EXTRA_MOD',					'YieldType',				'YIELD_FOOD'),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD',				'Amount',					50),
+	('OFFICIAL_CRAFTS_PRODUCTION_ADJACENCY_EXTRA_MOD',				'YieldType',				'YIELD_PRODUCTION'),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA_MOD',					'Amount',					50),
+	('OFFICIAL_CRAFTS_GOLD_ADJACENCY_EXTRA_MOD',					'YieldType',				'YIELD_GOLD'),
+
+	('TAX_POP_GOLD',										'Amount',					2),
 	('TAX_POP_GOLD',										'YieldType',				'YIELD_GOLD'),
 	('PRIEST_IMPROVED_TUNDRA_FAITH',						'YieldType',				'YIELD_FAITH'),
 	('PRIEST_IMPROVED_TUNDRA_FAITH',						'Amount',					1),
@@ -414,9 +432,9 @@ values
 	('AUTHORITARIAN_LEADER_UNITY',							'Amount',				5),
 	('AUTHORITARIAN_LEADER_LOYALTY',						'Amount',				5),
 	('TRIBUTE_SCIENCEPERTRIBUTARY',							'YieldType',			'YIELD_SCIENCE'),
-	('TRIBUTE_SCIENCEPERTRIBUTARY',							'Amount',				1),
+	('TRIBUTE_SCIENCEPERTRIBUTARY',							'Amount',				4),
 	('TRIBUTE_CULTUREPERTRIBUTARY',							'YieldType',			'YIELD_CULTURE'),
-	('TRIBUTE_CULTUREPERTRIBUTARY',							'Amount',				1),
+	('TRIBUTE_CULTUREPERTRIBUTARY',							'Amount',				4),
 	--('TRIUMPH_OWNER_ENTERTAINING_CITY_AMENITY',				'Amount',				2),
 	--('TRIUMPH_NOT_OWNER_CITY_LESS_AMENITY',					'Amount',				-2),
 	('HEDONISM_ENTERTAINMENT_PRODUCTION',	 				'DistrictType',			'DISTRICT_ENTERTAINMENT_COMPLEX'),
@@ -516,6 +534,30 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) select
 	'LOUGE_BUFF_'||BuildingType||'_CULTURE',	'Amount', 50
 	from Buildings where PrereqDistrict == 'DISTRICT_CITY_CENTER';
 
+--面包与马戏卡 宜居度加成城市造区域和建筑
+insert or replace into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_BREAD_AND_CIRCUSES',	'BREAD_AND_CIRCUSES_BUFF_BUILDING_'||numbers
+    from counter where numbers > 0 and numbers < 11;
+
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'BREAD_AND_CIRCUSES_BUFF_BUILDING_'||numbers, 'MODIFIER_PLAYER_CITIES_ADJUST_BUILDING_PRODUCTION_CHANGE', 'RS_AT_LEAST_'||numbers||'_AMENITIES'
+    from counter where numbers > 0 and numbers < 11;
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'BREAD_AND_CIRCUSES_BUFF_BUILDING_'||numbers,	'Amount', 1
+	from counter where numbers > 0 and numbers < 11;
+
+insert or replace into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_BREAD_AND_CIRCUSES',	'BREAD_AND_CIRCUSES_BUFF_DISTRICT_'||numbers
+    from counter where numbers > 0 and numbers < 11;
+
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'BREAD_AND_CIRCUSES_BUFF_DISTRICT_'||numbers, 'MODIFIER_PLAYER_CITIES_ADJUST_DISTRICT_PRODUCTION_CHANGE', 'RS_AT_LEAST_'||numbers||'_AMENITIES'
+    from counter where numbers > 0 and numbers < 11;
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'BREAD_AND_CIRCUSES_BUFF_DISTRICT_'||numbers,	'Amount', 1
+	from counter where numbers > 0 and numbers < 11;
 
 
 
@@ -882,20 +924,20 @@ insert or ignore into CivilopediaPageExcludes(SectionId,   PageId) select
 
 
 
--- 特殊政策卡翻倍效果
-insert or ignore into PolicyModifiers(PolicyType, ModifierId) 
-values
---税收 翻倍额外+3
-	('DA_COPY_POLICY_TAX',				'TAX_COPY_EXTRA_GOLD');
+-- -- 特殊政策卡翻倍效果
+-- insert or ignore into PolicyModifiers(PolicyType, ModifierId) 
+-- values
+-- --税收 翻倍额外+3
+-- 	('DA_COPY_POLICY_TAX',				'TAX_COPY_EXTRA_GOLD');
 
-insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) 
-	values
-	('TAX_COPY_EXTRA_GOLD',			'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_PER_POPULATION',	'RS_1_GOVERNOR_TITLES');
+-- insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) 
+-- 	values
+-- 	('TAX_COPY_EXTRA_GOLD',			'MODIFIER_PLAYER_CITIES_ADJUST_CITY_YIELD_PER_POPULATION',	'RS_1_GOVERNOR_TITLES');
 
-insert or ignore into ModifierArguments(ModifierId, Name, Value) 
-	values
-	('TAX_COPY_EXTRA_GOLD',			'Amount',		'3'),
-	('TAX_COPY_EXTRA_GOLD',			'YieldType',	'YIELD_GOLD');
+-- insert or ignore into ModifierArguments(ModifierId, Name, Value) 
+-- 	values
+-- 	('TAX_COPY_EXTRA_GOLD',			'Amount',		'3'),
+-- 	('TAX_COPY_EXTRA_GOLD',			'YieldType',	'YIELD_GOLD');
 
 
 

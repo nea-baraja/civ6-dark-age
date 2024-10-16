@@ -289,6 +289,13 @@ GameEvents.DA_TriumphToTriumphalArch.Add(function(playerID : number, unitID : nu
     end
 end)
 
+--新增行动都耗尽行动力
+GameEvents.ConsumeMove.Add(function(playerID : number, unitID : number)
+    local pUnit = UnitManager.GetUnit(playerID, unitID);
+    local iMoves = pUnit:GetMovesRemaining();
+    pUnit:ChangeMovesRemaining(-iMoves);
+end)
+
 
 
 

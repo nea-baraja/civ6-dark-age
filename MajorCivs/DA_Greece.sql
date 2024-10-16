@@ -264,6 +264,32 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) select
 	'DA_DISTRICT_ACROPOLIS_INFLUENCE_FROM_ADJACENCY_'||numbers, 'Amount', 1	
 	from counter where numbers > 0 and numbers < 16;
 
+--卫城 丘陵上加速建筑建造 可以建在任何地形
+delete from District_ValidTerrains where DistrictType = 'DISTRICT_ACROPOLIS';
+
+insert or replace into TraitModifiers(TraitType, ModifierId) select
+	'TRAIT_CIVILIZATION_DISTRICT_ACROPOLIS',		'ACROPOLIS_HILL_FASTER_'||BuildingType
+	from Buildings where PrereqDistrict = 'DISTRICT_THEATER';
+
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'ACROPOLIS_HILL_FASTER_'||BuildingType,	'MODIFIER_PLAYER_DISTRICTS_ATTACH_MODIFIER',	'RS_PLOT_HAS_DISTRICT_THEATER'
+	from Buildings where PrereqDistrict = 'DISTRICT_THEATER';
+
+insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId) select
+	'ACROPOLIS_HILL_FASTER_'||BuildingType||'_MODIFIER',	'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_PRODUCTION',	'RS_PLOT_IS_TERRAIN_CLASS_HILLS'
+	from Buildings where PrereqDistrict = 'DISTRICT_THEATER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'ACROPOLIS_HILL_FASTER_'||BuildingType||'_MODIFIER',	'BuildingType',		BuildingType
+	from Buildings where PrereqDistrict = 'DISTRICT_THEATER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'ACROPOLIS_HILL_FASTER_'||BuildingType||'_MODIFIER',	'Amount',		50
+	from Buildings where PrereqDistrict = 'DISTRICT_THEATER';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'ACROPOLIS_HILL_FASTER_'||BuildingType, 'ModifierId', 'ACROPOLIS_HILL_FASTER_'||BuildingType||'_MODIFIER'
+	from Buildings where PrereqDistrict = 'DISTRICT_THEATER';
 
 --理想国 加前置需求
 update Modifiers set SubjectRequirementSetId = 'RS_PLAYER_HAS_CIVIC_POLITICAL_PHILOSOPHY' where ModifierId = 'TRAIT_WILDCARD_GOVERNMENT_SLOT';

@@ -228,10 +228,10 @@ function BASE_GetUnitActionsTable( pUnit )
                             
                             local improvement       = GameInfo.Improvements[eImprovement];
 
-                            -- Lag fix - start
+                            -- Lag fix - start   CLOSED
 
-                            bCanStart, tResults = UnitManager.CanStartOperation(pUnit, actionHash, nil, tParameters, false, false);
-                            
+                            bCanStart, tResults = UnitManager.CanStartOperation(pUnit, actionHash, nil, tParameters, true);
+                            --bCanStart, tResults = UnitManager.CanStartOperation(pUnit, actionHash, nil, tParameters, false, false);
                             -- Lag fix - end
                             
                             local isDisabled        = not bCanStart;
@@ -436,7 +436,11 @@ function GetUnitActionsTable(pUnit : object)
                         local tParameters = {};
                         tParameters[UnitCommandTypes.PARAM_NAME] = pCommandTable.EventName or "";
                         UnitManager.RequestCommand(pSelectedUnit, UnitCommandTypes.EXECUTE_SCRIPT, tParameters);
-
+                        if (pCommandTable.NoMovementCost == nil) or (pCommandTable.NoMovementCost ~= true) then
+                            local tParameters1 = {};
+                            tParameters1[UnitCommandTypes.PARAM_NAME] = "ConsumeMove";
+                            UnitManager.RequestCommand(pSelectedUnit, UnitCommandTypes.EXECUTE_SCRIPT, tParameters1);
+                        end
 						--if (pCommandTable.DoNotDelete == nil) or (pCommandTable.DoNotDelete ~= true) then
 	                        --UnitManager.RequestCommand(pSelectedUnit, UnitCommandTypes.DELETE);
 						--end

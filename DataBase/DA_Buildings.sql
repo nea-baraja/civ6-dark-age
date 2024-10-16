@@ -396,11 +396,11 @@ values
     ('PAPER_MAKER_CAMPUS_ADJACENCY',                'MODIFIER_CITY_DISTRICTS_ADJUST_BASE_YIELD_CHANGE',             'RS_PLOT_HAS_DISTRICT_CAMPUS'),
     ('PAPER_MAKER_HOLY_SITE_ADJACENCY',             'MODIFIER_CITY_DISTRICTS_ADJUST_BASE_YIELD_CHANGE',             'RS_PLOT_HAS_DISTRICT_HOLY_SITE'),
     ('PAPER_MAKER_THERTER_ADJACENCY',               'MODIFIER_CITY_DISTRICTS_ADJUST_BASE_YIELD_CHANGE',             'RS_PLOT_HAS_DISTRICT_THEATER'),
-    ('TINGTAI_APPEAL_HOUSING',                      'MODIFIER_CITY_DISTRICTS_ADJUST_DISTRICT_HOUSING',              'RS_PLOT_APPEAL_AT_LEAST_2'),
-    ('TINGTAI_APPEAL_AMENITY',                      'MODIFIER_CITY_DISTRICTS_ADJUST_DISTRICT_AMENITY',              'RS_PLOT_APPEAL_AT_LEAST_4'),
-    ('TINGTAI_APPEAL_TINGTAI_CULTURE',              'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_PLOT_APPEAL_AT_LEAST_2'),
+    ('TINGTAI_APPEAL_HOUSING',                      'MODIFIER_CITY_DISTRICTS_ADJUST_DISTRICT_HOUSING',              'RS_PLOT_APPEAL_AT_LEAST_2_AND_NOT_WONDER'),
+    ('TINGTAI_APPEAL_AMENITY',                      'MODIFIER_CITY_DISTRICTS_ADJUST_DISTRICT_AMENITY',              'RS_PLOT_APPEAL_AT_LEAST_4_AND_NOT_WONDER'),
+    ('TINGTAI_APPEAL_TINGTAI_CULTURE',              'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_PLOT_APPEAL_AT_LEAST_2_AND_NOT_WONDER'),
     ('TINGTAI_APPEAL_TINGTAI_CULTURE_MOD',          'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD',                   NULL),
-    ('TINGTAI_APPEAL_TINGTAI_SCIENCE',              'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_PLOT_APPEAL_AT_LEAST_4'),
+    ('TINGTAI_APPEAL_TINGTAI_SCIENCE',              'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_PLOT_APPEAL_AT_LEAST_4_AND_NOT_WONDER'),
     ('TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD',          'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD',                   NULL),
     ('TRIUMPHAL_ENABLE_TRIUMPH',                    'MODIFIER_PLAYER_ADJUST_PROPERTY',                              NULL),
     ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
@@ -631,13 +631,15 @@ values
     ('PAPER_MAKER_THERTER_ADJACENCY',                'Amount',                   '1'),
 
     ('TINGTAI_APPEAL_HOUSING',                       'Amount',                   '1'),
-    ('TINGTAI_APPEAL_AMENITY',                       'Amount',                   '2'),
-    ('TINGTAI_APPEAL_TINGTAI_CULTURE',               'Amount',                   '1'),
-    ('TINGTAI_APPEAL_TINGTAI_CULTURE',               'YieldType',                'YIELD_CULTURE'),
-    ('TINGTAI_APPEAL_TINGTAI_CULTURE',               'BuildingType',             'BUILDING_TINGTAI'),
-    ('TINGTAI_APPEAL_TINGTAI_SCIENCE',              'Amount',                   '1'),
-    ('TINGTAI_APPEAL_TINGTAI_SCIENCE',              'YieldType',                'YIELD_SCIENCE'),
-    ('TINGTAI_APPEAL_TINGTAI_SCIENCE',              'BuildingType',             'BUILDING_TINGTAI'),
+    ('TINGTAI_APPEAL_AMENITY',                       'Amount',                   '1'),
+    ('TINGTAI_APPEAL_TINGTAI_CULTURE_MOD',               'Amount',                   '1'),
+    ('TINGTAI_APPEAL_TINGTAI_CULTURE_MOD',               'YieldType',                'YIELD_CULTURE'),
+    ('TINGTAI_APPEAL_TINGTAI_CULTURE_MOD',               'BuildingType',             'BUILDING_TINGTAI'),
+    ('TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD',              'Amount',                   '1'),
+    ('TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD',              'YieldType',                'YIELD_SCIENCE'),
+    ('TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD',              'BuildingType',             'BUILDING_TINGTAI'),
+    ('TINGTAI_APPEAL_TINGTAI_CULTURE',                'ModifierId',                   'TINGTAI_APPEAL_TINGTAI_CULTURE_MOD'),
+    ('TINGTAI_APPEAL_TINGTAI_SCIENCE',               'ModifierId',                   'TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD'),
 
     ('GRANARY_ADJACENT_GRASS_FOOD',                 'DistrictType',             'DISTRICT_CITY_CENTER'),
     ('GRANARY_ADJACENT_GRASS_FOOD',                 'Amount',                   1),
@@ -772,21 +774,25 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) select
     'BARRACK_UNIT_PRODUCTION_ADJACENCY_'||numbers, 'Amount', 1
     from counter where numbers > 0 and numbers < 21;
 
---凯旋门 单位等级加市中心文化值相邻
+--凯旋门 单位等级加凯旋门文化值
 insert or replace into BuildingModifiers(BuildingType, ModifierId) select
-    'BUILDING_TRIUMPHAL', 'TRIUMPHAL_GARRISON_ADJACENCY_'||numbers
+    'BUILDING_TRIUMPHAL', 'TRIUMPHAL_GARRISON_CULTURE_'||numbers
     from counter where numbers > 0 and numbers < 8;
 
 insert or replace into Modifiers(ModifierId, ModifierType, OwnerRequirementSetId, SubjectRequirementSetId) select
-    'TRIUMPHAL_GARRISON_ADJACENCY_'||numbers, 'MODIFIER_CITY_DISTRICTS_ADJUST_BASE_YIELD_CHANGE', 'RS_GARRISON_LEVEL_IS_'||numbers, 'RS_PLOT_HAS_DISTRICT_CITY_CENTER'
+    'TRIUMPHAL_GARRISON_CULTURE_'||numbers, 'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD', 'RS_GARRISON_LEVEL_IS_'||numbers, 'RS_PLOT_HAS_DISTRICT_CITY_CENTER'
     from counter where numbers > 0 and numbers < 8;
 
 insert or replace into ModifierArguments(ModifierId, Name, Value) select
-    'TRIUMPHAL_GARRISON_ADJACENCY_'||numbers, 'YieldType', 'YIELD_CULTURE'
+    'TRIUMPHAL_GARRISON_CULTURE_'||numbers, 'YieldType', 'YIELD_CULTURE'
     from counter where numbers > 0 and numbers < 8;
 
 insert or replace into ModifierArguments(ModifierId, Name, Value) select
-    'TRIUMPHAL_GARRISON_ADJACENCY_'||numbers, 'Amount', numbers
+    'TRIUMPHAL_GARRISON_CULTURE_'||numbers, 'Amount', numbers
+    from counter where numbers > 0 and numbers < 8;
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+    'TRIUMPHAL_GARRISON_CULTURE_'||numbers, 'BuildingType', 'BUILDING_TRIUMPHAL'
     from counter where numbers > 0 and numbers < 8;
 
 --王座厅加凝聚力

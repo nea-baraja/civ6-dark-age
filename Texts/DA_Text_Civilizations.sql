@@ -23,7 +23,7 @@ values
     --("zh_Hans_CN",  "LOC_UNIT_AZTEC_EAGLE_WARRIOR_DESCRIPTION",                 "阿兹特克远古时代特色近战单位，阿兹特克国土内每种改良的奢侈品资源将为其额外+1 [ICON_STRENGTH] 战斗力。"),
     --罗马
     ("zh_Hans_CN",  "LOC_TRAIT_CIVILIZATION_ALL_ROADS_TO_ROME_DESCRIPTION",     "所有您创建或攻占的城市一开始便拥有贸易站。如果位于您 [ICON_CAPITAL] 首都的 [ICON_TRADEROUTE] 贸易路线范围内，城市自动建立一条通至罗马的路。单位从市中心开始回合时，额外获得+2 [ICON_MOVEMENT] 移动力，如果是从罗马出发则再+2 [ICON_MOVEMENT] 移动力。"),
-    ("zh_Hans_CN",  "LOC_TRAIT_LEADER_TRAJANS_COLUMN_DESCRIPTION",              "建造已经建造过的建筑时加速+25%，如果是市中心建筑则翻倍。"),
+    ("zh_Hans_CN",  "LOC_TRAIT_LEADER_TRAJANS_COLUMN_DESCRIPTION",              "建造已经建造过的建筑时加速+25%，如果是市中心建筑则改为+100%。"),
     ("zh_Hans_CN",  "LOC_DISTRICT_BATH_EXPANSION2_ALT_DESCRIPTION",             "罗马特有的城市的水利区域，不占用城市可建造的区域总数，由建造者花费2 [ICON_Charges] 劳动力建造。区域从相邻河流、湖泊、绿洲或山脉引水，将水源供的 [ICON_Housing] 住房提升至6。若与地热裂缝相邻，提供+1 [ICON_Amenities] 宜居度。浴场额外提供+2 [ICON_Housing] 住房和+3 [ICON_Amenities] 宜居度。干旱时可防止 [ICON_Food] 食物损失。"),
 
 --交换描述 看的更清楚
@@ -61,7 +61,7 @@ values
     ("zh_Hans_CN",  "LOC_GIVE_TWO_FREETOKEN",                                   "[COLOR_Green]在{1_pPlotOwnerName}增加{2_SendEnvoyNumber}个[ICON_ENVOY]使者[ENDCOLOR]"),
     ("zh_Hans_CN",  "LOC_CLICK_INVALID_PLOT",                                   "[COLOR_Red]该地块无效[ENDCOLOR]"),
     ("zh_Hans_CN",  "LOC_DA_ACROPOLIS_DISTRICT_CULTURE_DESCRIPTION",            "+{1_num} [ICON_CULTURE] 文化值来自相邻区域"),
-    ("zh_Hans_CN",  "LOC_DISTRICT_ACROPOLIS_EXPANSION2_DESCRIPTION",            "希腊特色文化传播区域，替代剧院广场，建造费用更低。每回合获得相当于相邻加成50%的影响力点数（最多15点）。[NEWLINE][NEWLINE]从相邻区域获得大量 [ICON_Culture] 相邻加成，但只能建在丘陵上。"),
+    ("zh_Hans_CN",  "LOC_DISTRICT_ACROPOLIS_EXPANSION2_DESCRIPTION",            "希腊特色文化传播区域，替代剧院广场，建造费用更低。每回合获得相当于相邻加成50%的影响力点数（最多15点）。[NEWLINE][NEWLINE]从相邻区域获得大量 [ICON_Culture] 相邻加成，如果建造在丘陵上，则为其中的建筑+50%建造速度。"),
    --努比亚
     ("zh_Hans_CN",  "LOC_TRAIT_LEADER_KANDAKE_OF_MEROE_NAME",                   "麦罗埃女王"),
     ("zh_Hans_CN",  "LOC_TRAIT_CIVILIZATION_TA_SETI_NAME",                      "强弓之土"),

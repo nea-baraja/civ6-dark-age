@@ -18,7 +18,7 @@ insert or replace into ModifierArguments(ModifierId,	Name,	Value) select
 	from Buildings;	
 
 insert or replace into ModifierArguments(ModifierId,	Name,	Value) select
-	'TRAJANS_COLUMN_PRODUCTION_FOR_SECOND_'||BuildingType,	'Amount',		50
+	'TRAJANS_COLUMN_PRODUCTION_FOR_SECOND_'||BuildingType,	'Amount',		100
 	from Buildings where PrereqDistrict = 'DISTRICT_CITY_CENTER';	
 
 --条条大路通罗马

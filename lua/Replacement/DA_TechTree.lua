@@ -1,6 +1,7 @@
 
 include( "TechTree_Expansion2" );
 include("SupportFunctions");
+Utils = ExposedMembers.DA.Utils;
 
 BASE_PopulateNode = PopulateNode;
 
@@ -71,11 +72,13 @@ function PopulateNode(uiNode, playerTechData)
 		if GameInfo.DA_Boosts[uiNode.Type] ~= nil then
 			local pPlayer = Players[playerTechData[DATA_FIELD_PLAYERINFO].Player]
 			local TechID = GameInfo.Technologies[uiNode.Type].Index
-			local TechBoostTriggerByOther = (pPlayer:GetProperty("DA_Boost_"..uiNode.Type) or {})['ByOther'] or 0
-			local TechBoostTriggerByEureka = (pPlayer:GetProperty("DA_Boost_"..uiNode.Type) or {})['ByEureka'] or 0;		
-			local TechBoostTriggerByTask = (pPlayer:GetProperty("DA_Boost_"..uiNode.Type) or {})['ByTask'] or 0
+			local iBoost = 0;
+			if Utils.GetItemBoost ~= nil then
+				iBoost = Utils.GetItemBoost(playerTechData[DATA_FIELD_PLAYERINFO].Player, uiNode.Type);
+			end
+
 			local CurrentTechYield = pPlayer:GetTechs():GetScienceYield()
-			local Turns = (pPlayer:GetTechs():GetResearchCost(TechID) - pPlayer:GetTechs():GetResearchProgress(TechID)) / (CurrentTechYield * (1 + TechBoostTriggerByOther + TechBoostTriggerByEureka + TechBoostTriggerByTask))
+			local Turns = (pPlayer:GetTechs():GetResearchCost(TechID) - pPlayer:GetTechs():GetResearchProgress(TechID)) / (CurrentTechYield * (1 + iBoost))
 			Turns = math.ceil(Turns)
 			if Turns < 1 then
 				Turns = 1
@@ -83,8 +86,8 @@ function PopulateNode(uiNode, playerTechData)
 			TurnsText = Locale.Lookup("LOC_TECH_TREE_TURNS",Turns)
 		
 		
-			if TechBoostTriggerByOther ~= 0 or TechBoostTriggerByTask ~= 0 or TechBoostTriggerByEureka ~= 0 then
-				TurnsText = Locale.Lookup("LOC_DA_BOOST_ADD",Round((TechBoostTriggerByOther + TechBoostTriggerByEureka + TechBoostTriggerByTask) * 100))..TurnsText
+			if iBoost ~= 0 then
+				TurnsText = Locale.Lookup("LOC_DA_BOOST_ADD",Round(iBoost * 100))..TurnsText
 			end
 		end
 		
@@ -101,26 +104,50 @@ function PopulateNode(uiNode, playerTechData)
 		uiNode.BoostText:SetColor( artInfo.TextColor1, 1 );
 
 		local boostText:string;
-		if live.IsBoosted then
-			boostText = TXT_BOOSTED.." "..item.BoostText;
-			uiNode.BoostIcon:SetTexture( PIC_BOOST_ON );
-			uiNode.BoostMeter:SetHide( true );
-			uiNode.BoostedBack:SetHide( false );
-		else
-			boostText = TXT_TO_BOOST.." "..item.BoostText;
-			---DA_Boost----------------------------------------
+		-- if live.IsBoosted then
+		-- 	boostText = TXT_BOOSTED.." "..item.BoostText;
+		-- 	uiNode.BoostIcon:SetTexture( PIC_BOOST_ON );
+		-- 	uiNode.BoostMeter:SetHide( true );
+		-- 	uiNode.BoostedBack:SetHide( false );
+		-- else
+		-- 	boostText = TXT_TO_BOOST.." "..item.BoostText;
+		-- 	---DA_Boost----------------------------------------
 			
-			if GameInfo.DA_Boosts[uiNode.Type] ~= nil then
-				boostText = Locale.Lookup("LOC_DA_BOOST_ADD_REP")..Locale.Lookup(GameInfo.DA_Boosts[uiNode.Type].Text);
-			end
-			----------------------------------------------------
+		-- 	if GameInfo.DA_Boosts[uiNode.Type] ~= nil and GameInfo.DA_Boosts[uiNode.Type].ModifierValue ~= 0 then
+		-- 		boostText = Locale.Lookup("LOC_DA_BOOST_ADD_REP")..Locale.Lookup(GameInfo.DA_Boosts[uiNode.Type].Text);
+		-- 	end
+		-- 	----------------------------------------------------
+		-- 	uiNode.BoostedBack:SetHide( true );
+		-- 	uiNode.BoostIcon:SetTexture( PIC_BOOST_OFF );
+		-- 	uiNode.BoostMeter:SetHide( false );
+		-- 	local boostAmount = (item.BoostAmount*.01) + (live.Progress/ live.Cost);
+		-- 	uiNode.BoostMeter:SetPercent( boostAmount );
+		-- end
+		-- TruncateStringWithTooltip(uiNode.BoostText, MAX_BEFORE_TRUNC_TO_BOOST, boostText);
+
+		if GameInfo.DA_Boosts[uiNode.Type] ~= nil and GameInfo.DA_Boosts[uiNode.Type].ModifierValue ~= 0 then
+			boostText = Locale.Lookup("LOC_DA_BOOST_ADD_REP")..Locale.Lookup(GameInfo.DA_Boosts[uiNode.Type].Text);
 			uiNode.BoostedBack:SetHide( true );
 			uiNode.BoostIcon:SetTexture( PIC_BOOST_OFF );
-			uiNode.BoostMeter:SetHide( false );
+			uiNode.BoostMeter:SetHide( true );
+		else
+			if live.IsBoosted then
+				boostText = TXT_BOOSTED.." "..item.BoostText;
+				uiNode.BoostIcon:SetTexture( PIC_BOOST_ON );
+				uiNode.BoostMeter:SetHide( true );
+				uiNode.BoostedBack:SetHide( false );
+			else
+				boostText = TXT_TO_BOOST.." "..item.BoostText;
+				uiNode.BoostedBack:SetHide( true );
+				uiNode.BoostIcon:SetTexture( PIC_BOOST_OFF );
+				uiNode.BoostMeter:SetHide( false );
+			end
 			local boostAmount = (item.BoostAmount*.01) + (live.Progress/ live.Cost);
 			uiNode.BoostMeter:SetPercent( boostAmount );
 		end
 		TruncateStringWithTooltip(uiNode.BoostText, MAX_BEFORE_TRUNC_TO_BOOST, boostText);
+
+
 	else
 		uiNode.BoostIcon:SetHide( true );
 		uiNode.BoostText:SetHide( true );

@@ -32,8 +32,8 @@ function OnCityProdComp_ArtemisBuildCamps(playerID, cityID, iConstructionType, i
 	local iX = pCity:GetX();
 	local iY = pCity:GetY();
 	local tPlots = GetValidPlotsInRadiusR(iX, iY, 6);
-	local iForest = GameInfo.Features['FEATURE_FOREST'].Index;
-	local iJungle = GameInfo.Features['FEATURE_JUNGLE'].Index;
+	-- local iForest = GameInfo.Features['FEATURE_FOREST'].Index;
+	-- local iJungle = GameInfo.Features['FEATURE_JUNGLE'].Index;
 	local iCamp = GameInfo.Improvements["IMPROVEMENT_CAMP"].Index;
 	local campCount = 0;
 	
@@ -53,6 +53,14 @@ function OnCityProdComp_ArtemisBuildCamps(playerID, cityID, iConstructionType, i
 				if iFeature ~= -1 then
 					for row in GameInfo.Improvement_ValidFeatures() do
 						if row.ImprovementType == 'IMPROVEMENT_CAMP' and row.FeatureType == GameInfo.Features[iFeature].FeatureType then
+							bValid = true;
+							break;
+						end
+					end
+				else
+					local iTerrain = pPickPlot:GetTerrainType();
+					for row in GameInfo.Improvement_ValidTerrains() do
+						if row.ImprovementType == 'IMPROVEMENT_CAMP' and row.TerrainType == GameInfo.Terrains[iTerrain].TerrainType then
 							bValid = true;
 							break;
 						end
@@ -92,10 +100,46 @@ function OnCityProdComp_ArtemisBuildCamps(playerID, cityID, iConstructionType, i
 		Strength = strengthBuffCount
 	})
 	--print("002")
-
+	Events.ImprovementAddedToMap.Add( OnImprovementAddedToMap );
 end
 
 
+--阿尔特密斯神庙建造营地返还劳动力
+function OnImprovementAddedToMap( iX, iY, eImprovement, playerID )
+	local iCamp = GameInfo.Improvements["IMPROVEMENT_CAMP"].Index;
+	if playerID == nil then return end
+	local pPlayer = Players[playerID];
+	if pPlayer == nil then return end
+	local bArtemis = pPlayer:GetProperty('PROP_ARTEMIS') or 0;
+	if bArtemis == 0 then return end
+	local pPlot = Map.GetPlot(iX, iY);
+	if pPlot == 0 then return end
+
+
+	if eImprovement == iCamp then
+		local unitList = Units.GetUnitsInPlot(iX, iY);
+		for i, pUnit in ipairs(unitList) do
+            local unitType = GameInfo.Units[pUnit:GetType()].UnitType
+            if unitType == "UNIT_BUILDER" then
+            	GameEvents.AddBuildCharge.Call(playerID, pUnit:GetID());
+            	return
+            end
+        end
+    end
+end
+
+
+function OnLoadScreenClose_Artemis()
+	for _, player in ipairs(PlayerManager.GetAliveMajors()) do
+		local bArtemis = player:GetProperty('PROP_ARTEMIS') or 0;
+		if bArtemis ~= 0 then
+			Events.ImprovementAddedToMap.Add( OnImprovementAddedToMap );
+			break
+		end
+	end
+end
+
+Events.LoadScreenClose.Add(OnLoadScreenClose_Artemis)
 
 
 --神谕返还伟人点数50%的信仰值  --copied from hd
@@ -106,7 +150,7 @@ function UnitGreatPersonCreatedWatOracle(playerId, unitId, greatPersonClassId, g
         local greatPerson = GameInfo.GreatPersonIndividuals[greatPersonIndividualId];
         local era = GameInfo.Eras[greatPerson.EraType];
         local cost = era.GreatPersonBaseCost;
-        local percent = 50 / 100; --变现比例
+        local percent = 100 / 100; --变现比例
         GameEvents.RequestChangeFaithBalance.Call(playerId, cost * percent);
     end
 end
@@ -127,6 +171,72 @@ end
 Events.LoadGameViewStateDone.Add(function()
 	Events.UnitChargesChanged.Add(BuilderResumeWithPryamid);
 end)
+
+--艾特曼安吉神庙 遇见主要文明+2科技 遇到城邦+1科技
+function DA_EtemenankiMeet(playerID1, playerID2)
+	print(playerID1..'met'..playerID2)
+	local pPlayer1 = Players[playerID1];
+	local pPlayer2 = Players[playerID2];
+	local iEtemenanki = GameInfo.Buildings['BUILDING_ETEMENANKI'].Index;
+	if not (Utils.PlayerHasWonder (playerID1, iEtemenanki) or Utils.PlayerHasWonder (playerID2, iEtemenanki)) then return; end
+	if pPlayer1:IsMajor() == true and pPlayer2:IsMajor() == true then	
+		for _, city in pPlayer1:GetCities():Members() do
+			if city:GetBuildings():HasBuilding(iEtemenanki) then
+				GameEvents.CityAttachModifierByID.Call(playerID1, city:GetID(), 'ETEMENANKI_CAMP_MAIN_CIV_TECH');
+			end
+		end
+		for _, city in pPlayer2:GetCities():Members() do
+			if city:GetBuildings():HasBuilding(iEtemenanki) then
+				GameEvents.CityAttachModifierByID.Call(playerID2, city:GetID(), 'ETEMENANKI_CAMP_MAIN_CIV_TECH');
+			end
+		end
+	end
+	if pPlayer1:IsMajor() == true then
+		if Utils.IsMinor(playerID2) == true then
+			for _, city in pPlayer1:GetCities():Members() do
+				if city:GetBuildings():HasBuilding(iEtemenanki) then
+					GameEvents.CityAttachModifierByID.Call(playerID1, city:GetID(), 'ETEMENANKI_CAMP_CITYSTATE_TECH');
+				end
+			end
+		end
+	end	
+	if pPlayer2:IsMajor() == true then
+		if Utils.IsMinor(playerID1) then
+			for _, city in pPlayer2:GetCities():Members() do
+				if city:GetBuildings():HasBuilding(iEtemenanki) then
+					GameEvents.CityAttachModifierByID.Call(playerID2, city:GetID(), 'ETEMENANKI_CAMP_CITYSTATE_TECH');
+				end
+			end
+		end
+	end			
+end
+Events.DiplomacyMeet.Add(DA_EtemenankiMeet)
+
+function OnCityProdComp_Etemanki(playerID, cityID, iConstructionType, itemID, bCancelled)
+	if iConstructionType ~= 1 then return; end
+	if itemID ~= GameInfo.Buildings['BUILDING_ETEMENANKI'].Index then return; end
+
+	local pCity = CityManager.GetCity(playerID, cityID);
+	local pPlayer = Players[playerID];
+	for _, player in ipairs(PlayerManager.GetAliveMajors()) do
+		if playerID ~= player:GetID() then
+			if player:GetDiplomacy():HasMet(playerID) then
+				GameEvents.CityAttachModifierByID.Call(playerID, cityID, 'ETEMENANKI_CAMP_MAIN_CIV_TECH');
+				print(playerID..'met'..player:GetID())
+			end
+		end
+	end
+	for _, player in ipairs(PlayerManager.GetAliveMinors()) do
+		if playerID ~= player:GetID() and player:GetID() ~= 62 then
+			if player:GetDiplomacy():HasMet(playerID) then
+				GameEvents.CityAttachModifierByID.Call(playerID, cityID, 'ETEMENANKI_CAMP_CITYSTATE_TECH');
+				print(playerID..'met'..player:GetID())
+			end
+		end
+	end
+end
+
+
 
 
 --大浴场触发事件
@@ -201,6 +311,16 @@ function OnCityProdComp_StatueOfZeus(playerID, cityID, iConstructionType, itemID
 	end
 end
 
+--大图书馆 招募大科学家触发对应时代鼓舞  感谢hd开源
+local SCIENTIST_INDEX = GameInfo.GreatPersonClasses["GREAT_PERSON_CLASS_SCIENTIST"].Index;
+function GreatLibraryUnitGreatPersonCreated(playerId, unitId, greatPersonClassId, greatPersonIndividualId)
+	local player = Players[playerId];
+    if (greatPersonClassId == SCIENTIST_INDEX) and (player:GetProperty('PROP_GREAT_LIBRARY') ~= nil) then
+        local greatPerson = GameInfo.GreatPersonIndividuals[greatPersonIndividualId];
+		GameEvents.PlayerAttachModifierByID.Call(playerId, 'GRANT_TECH_' .. greatPerson.EraType .. '_BOOST');
+    end
+end
+
 
 
 
@@ -208,7 +328,8 @@ function Initialize()
 	Events.CityProductionCompleted.Add( OnCityProdComp_ArtemisBuildCamps );
 	Events.CityProductionCompleted.Add( OnCityProdComp_TerraCotta );
 	Events.CityProductionCompleted.Add( OnCityProdComp_StatueOfZeus );
-	
+	Events.CityProductionCompleted.Add(OnCityProdComp_Etemanki)
+	Events.UnitGreatPersonCreated.Add(GreatLibraryUnitGreatPersonCreated);
 end
 Events.LoadGameViewStateDone.Add(Initialize)
 --print("DA artemis ui script activated!");

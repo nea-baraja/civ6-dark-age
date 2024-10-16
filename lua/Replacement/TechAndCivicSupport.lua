@@ -5,6 +5,7 @@
 include("InstanceManager");
 include("SupportFunctions");
 include("Civ6Common");
+Utils = ExposedMembers.DA.Utils;
 
 
 -- ===========================================================================
@@ -464,22 +465,40 @@ function RealizeMeterAndBoosts( kControl:table, kData:table )
 		end
 		local boostString :string = "[NEWLINE]" .. Locale.Lookup(DA_BoostString);
 		--------------------------------------------------
-		if  kData.BoostTriggered then
-			boostString = Locale.Lookup("LOC_TECH_HAS_BEEN_BOOSTED") .. boostString;	-- Same whether tech/civic
-			kControl.IconHasBeenBoosted:SetToolTipString(boostString);
-			progress = math.clamp( progress, 0, 1.0 );
+		-- if  kData.BoostTriggered then
+		-- 	boostString = Locale.Lookup("LOC_TECH_HAS_BEEN_BOOSTED") .. boostString;	-- Same whether tech/civic
+		-- 	kControl.IconHasBeenBoosted:SetToolTipString(boostString);
+		-- 	progress = math.clamp( progress, 0, 1.0 );
+		-- else
+		-- 	--DA_Boost----------------------------------------
+		-- 	if Is_DA_BoostType then
+		-- 		boostString = Locale.Lookup("LOC_DA_BOOST_ADD_REP")..boostString
+		-- 	else
+		-- 		boostString = Locale.Lookup("LOC_TECH_CAN_BE_BOOSTED") .. boostString;		-- Same whether tech/civic
+		-- 	end
+		-- 	---------------------------------------------------
+		-- 	kControl.IconCanBeBoosted:SetToolTipString( boostString );
+		-- 	local boostAmount = math.min( (kData.Progress + kData.BoostAmount ), 1.0 );
+		-- 	kControl.BoostMeter:SetPercent( boostAmount );
+		-- end
+
+		if Is_DA_BoostType then
+			boostString = Locale.Lookup("LOC_DA_BOOST_ADD_REP")..boostString
+			kControl.BoostMeter:SetHide(true)
 		else
-			--DA_Boost----------------------------------------
-			if Is_DA_BoostType then
-				boostString = Locale.Lookup("LOC_DA_BOOST_ADD_REP")..boostString
+			kControl.BoostMeter:SetHide(false)
+			if kData.BoostTriggered then
+				boostString = Locale.Lookup("LOC_TECH_HAS_BEEN_BOOSTED") .. boostString;	-- Same whether tech/civic
+				kControl.IconHasBeenBoosted:SetToolTipString(boostString);
+				progress = math.clamp( progress, 0, 1.0 );
 			else
 				boostString = Locale.Lookup("LOC_TECH_CAN_BE_BOOSTED") .. boostString;		-- Same whether tech/civic
+				kControl.IconCanBeBoosted:SetToolTipString( boostString );
+				local boostAmount = math.min( (kData.Progress + kData.BoostAmount ), 1.0 );
+				kControl.BoostMeter:SetPercent( boostAmount );
 			end
-			---------------------------------------------------
-			kControl.IconCanBeBoosted:SetToolTipString( boostString );
-			local boostAmount = math.min( (kData.Progress + kData.BoostAmount ), 1.0 );
-			kControl.BoostMeter:SetPercent( boostAmount );
 		end
+
 		
 		TruncateStringWithTooltip(kControl.BoostLabel, MAX_BEFORE_TRUNC_BOOST_MSG, Locale.Lookup(DA_BoostString) )
 	end	
@@ -520,10 +539,8 @@ function RealizeTurnsLeft( kControl:table, kData:table)
 	if kData ~= nil and kData.TechType ~= nil and GameInfo.DA_Boosts[kData.TechType] ~= nil then
 		local pPlayer = Players[Game.GetLocalPlayer()]
 		local CurrentTechYield = pPlayer:GetTechs():GetScienceYield()
-		local TechBoostTriggerByOther = (pPlayer:GetProperty("DA_Boost_"..kData.TechType) or {})['ByOther'] or 0
-		local TechBoostTriggerByEureka = (pPlayer:GetProperty("DA_Boost_"..kData.TechType) or {})['ByEureka'] or 0;				
-		local TechBoostTriggerByTask = (pPlayer:GetProperty("DA_Boost_"..kData.TechType) or {})['ByTask'] or 0
-		turnsLeft = (pPlayer:GetTechs():GetResearchCost(kData.ID) - pPlayer:GetTechs():GetResearchProgress(kData.ID)) / (CurrentTechYield * (1 + TechBoostTriggerByOther + TechBoostTriggerByEureka + TechBoostTriggerByTask))
+		local iBoost = Utils.GetItemBoost(Game.GetLocalPlayer(), kData.TechType);
+		turnsLeft = (pPlayer:GetTechs():GetResearchCost(kData.ID) - pPlayer:GetTechs():GetResearchProgress(kData.ID)) / (CurrentTechYield * (1 + iBoost))
 		turnsLeft = math.ceil(turnsLeft)
 		if turnsLeft < 1 then
 			turnsLeft = 1
@@ -532,11 +549,9 @@ function RealizeTurnsLeft( kControl:table, kData:table)
 		local pPlayer = Players[Game.GetLocalPlayer()]
 		local ModifierValueByOther = 1
 		local CurrentCivicYield = pPlayer:GetCulture():GetCultureYield()
-		local CivicBoostTriggerByOther = (pPlayer:GetProperty("DA_Boost_"..kData.CivicType) or {})['ByOther'] or 0
-		local CivicBoostTriggerByEureka = (pPlayer:GetProperty("DA_Boost_"..kData.CivicType) or {})['ByEureka'] or 0;				
-		local CivicBoostTriggerByTask = (pPlayer:GetProperty("DA_Boost_"..kData.CivicType) or {})['ByTask'] or 0
+		local iBoost = Utils.GetItemBoost(Game.GetLocalPlayer(), kData.CivicType);
 		local ModifierValue = GameInfo.DA_Boosts[kData.CivicType].ModifierValue
-		turnsLeft = (pPlayer:GetCulture():GetCultureCost(kData.ID) - pPlayer:GetCulture():GetCulturalProgress(kData.ID)) / (CurrentCivicYield * (1 + CivicBoostTriggerByOther + CivicBoostTriggerByEureka + CivicBoostTriggerByTask))
+		turnsLeft = (pPlayer:GetCulture():GetCultureCost(kData.ID) - pPlayer:GetCulture():GetCulturalProgress(kData.ID)) / (CurrentCivicYield * (1 + iBoost))
 		turnsLeft = math.ceil(turnsLeft)
 		if turnsLeft < 1 then
 			turnsLeft = 1

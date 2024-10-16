@@ -393,17 +393,17 @@ insert or ignore into CitizenBonus(ItemType,		BonusType, 		Amount) select
 
 
 insert or ignore into DistrictModifiers(DistrictType,	ModifierId) select
-	ItemType,		'DISTRICT_'||numbers||'_WORKER_AMENITY_'||Amount
+	ItemType,		'DISTRICT_'||numbers||'_WORKER_AMENITY'
 	from counter, CitizenBonus where numbers >= 1 and numbers <= 8 and BonusType = 'CITIZEN_AMENITY'
 	and ItemType in (select DistrictType from Districts);
 
 insert or ignore into Modifiers(ModifierId,	ModifierType, SubjectRequirementSetId) select
-	'DISTRICT_'||numbers||'_WORKER_AMENITY_'||Amount,	'MODIFIER_PLAYER_DISTRICT_ADJUST_DISTRICT_AMENITY',	'RS_PLOT_HAS_'||numbers||'_WORKERS'
+	'DISTRICT_'||numbers||'_WORKER_AMENITY',	'MODIFIER_PLAYER_DISTRICT_ADJUST_DISTRICT_AMENITY',	'RS_PLOT_HAS_'||numbers||'_WORKERS'
 	from counter, CitizenBonus where numbers >= 1 and numbers <= 8 and BonusType = 'CITIZEN_AMENITY'
 	and ItemType in (select DistrictType from Districts);
 
 insert or ignore into ModifierArguments(ModifierId,	Name, Value) select
-	'DISTRICT_'||numbers||'_WORKER_AMENITY_'||Amount,	'Amount',	Amount
+	'DISTRICT_'||numbers||'_WORKER_AMENITY',	'Amount',	Amount
 	from counter, CitizenBonus where numbers >= 1 and numbers <= 8 and BonusType = 'CITIZEN_AMENITY'
 	and ItemType in (select DistrictType from Districts);
 

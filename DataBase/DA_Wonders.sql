@@ -52,6 +52,17 @@ insert or ignore into ModifierArguments(ModifierId, Name, Value) select
 	'HANGING_GARDENS_FOOD_FROM_REST_HOUSING_'||numbers, 'YieldType', 'YIELD_FOOD'
 	from counter where numbers <= 10 and numbers > 0;
 
+--阿尔特弥斯神庙 建造者造营地返还劳动力
+insert or ignore into BuildingModifiers(BuildingType, ModifierId) values
+	('BUILDING_TEMPLE_ARTEMIS', 'ARTEMIS_CAMP_RETURN_WORKERS_CHARGE');
+
+insert or ignore into Modifiers(ModifierId, ModifierType) values
+	('ARTEMIS_CAMP_RETURN_WORKERS_CHARGE', 'MODIFIER_PLAYER_ADJUST_PROPERTY');
+
+insert or ignore into ModifierArguments(ModifierId, Name, Value) values
+	('ARTEMIS_CAMP_RETURN_WORKERS_CHARGE', 'Amount', 1),
+	('ARTEMIS_CAMP_RETURN_WORKERS_CHARGE', 'Key', 'PROP_ARTEMIS');
+
 
 --阿尔特弥斯神庙单位能力
 insert or replace into Types
@@ -92,6 +103,21 @@ insert or replace into ModifierStrings
 (ModifierId,										Context,			Text)
 values
 	('RANGED_UNIT_DA_ARTEMIS_CAMP_STRENGTH',		'Preview',			'LOC_ABILITY_DA_ARTEMIS_CAMP_STRENGTH_PREVIEW');
+
+--艾特曼安吉神庙 遇见主要文明+2科技 遇到城邦+1科技
+delete from BuildingModifiers where BuildingType = 'BUILDING_ETEMENANKI';
+insert or ignore into Modifiers(ModifierId, ModifierType) values
+	('ETEMENANKI_CAMP_MAIN_CIV_TECH', 'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD'),
+	('ETEMENANKI_CAMP_CITYSTATE_TECH', 'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD');
+
+insert or ignore into ModifierArguments(ModifierId, Name, Value) values
+	('ETEMENANKI_CAMP_MAIN_CIV_TECH', 'BuildingType', 'BUILDING_ETEMENANKI'),
+	('ETEMENANKI_CAMP_MAIN_CIV_TECH', 'YieldType', 'YIELD_SCIENCE'),
+	('ETEMENANKI_CAMP_MAIN_CIV_TECH', 'Amount', 2),
+	('ETEMENANKI_CAMP_CITYSTATE_TECH', 'BuildingType', 'BUILDING_ETEMENANKI'),
+	('ETEMENANKI_CAMP_CITYSTATE_TECH', 'YieldType', 'YIELD_SCIENCE'),
+	('ETEMENANKI_CAMP_CITYSTATE_TECH', 'Amount', 1);
+
 
 --马丘比丘全山脉相邻
 insert or replace into BuildingModifiers(BuildingType, ModifierId) select
@@ -302,3 +328,33 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) values
 	('STATUE_OF_ZEUS_GRANT_ANTI_CAVALRY',		'UnitPromotionClassType',			'PROMOTION_CLASS_ANTI_CAVALRY'),
 	('STATUE_OF_ZEUS_GRANT_LIGHT_CAVALRY',		'UnitPromotionClassType',			'PROMOTION_CLASS_LIGHT_CAVALRY'),
 	('STATUE_OF_ZEUS_GRANT_HEAVY_CAVALRY',		'UnitPromotionClassType',			'PROMOTION_CLASS_HEAVY_CAVALRY');
+
+--大图书馆
+delete from BuildingModifiers where BuildingType = 'BUILDING_GREAT_LIBRARY';
+insert or replace into BuildingModifiers(BuildingType, ModifierId) select
+	'BUILDING_GREAT_LIBRARY',	'GREAT_LIBRARY_BOOST_'||TechnologyType
+	from Technologies where EraType = 'ERA_ANCIENT' or EraType = 'ERA_CLASSICAL';
+
+insert or replace into Modifiers(ModifierId, ModifierType) select
+	'GREAT_LIBRARY_BOOST_'||TechnologyType, 'MODIFIER_PLAYER_GRANT_SPECIFIC_TECH_BOOST'
+	from Technologies where EraType = 'ERA_ANCIENT' or EraType = 'ERA_CLASSICAL';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'GREAT_LIBRARY_BOOST_'||TechnologyType, 'GrantTechIfBoosted', 1
+	from Technologies where EraType = 'ERA_ANCIENT' or EraType = 'ERA_CLASSICAL';
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'GREAT_LIBRARY_BOOST_'||TechnologyType, 'TechType', TechnologyType
+	from Technologies where EraType = 'ERA_ANCIENT' or EraType = 'ERA_CLASSICAL';
+
+insert or replace into BuildingModifiers(BuildingType, ModifierId) values
+	('BUILDING_GREAT_LIBRARY', 'BUILDING_GREAT_LIBRARY_ADJUST_PROPERTY');
+
+insert or replace into Modifiers(ModifierId, ModifierType) values
+	('BUILDING_GREAT_LIBRARY_ADJUST_PROPERTY', 'MODIFIER_PLAYER_ADJUST_PROPERTY');
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) values
+	('BUILDING_GREAT_LIBRARY_ADJUST_PROPERTY', 'Key', 'PROP_GREAT_LIBRARY'),
+	('BUILDING_GREAT_LIBRARY_ADJUST_PROPERTY', 'Amount', 1);
+
+

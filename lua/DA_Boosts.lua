@@ -83,7 +83,7 @@ function DA_Boost_OnCivicBoostTriggered(playerID,iBoostedCivic)
 	local pPlayer = Players[playerID];
 	
 	local CivicCurrentResearchProgress = Utils.DA_GetCulturalProgress(playerID,iBoostedCivic);
-	pPlayer:GetCulture():ReverseBoost(iBoostedCivic);
+	--pPlayer:GetCulture():ReverseBoost(iBoostedCivic);
 	pPlayer:GetCulture():SetCulturalProgress(iBoostedCivic,CivicCurrentResearchProgress);
 	
 
@@ -100,7 +100,7 @@ function DA_Boost_OnTechBoostTriggered(playerID,iBoostedTech)
 	local pPlayer = Players[playerID];
 	
 	local TechCurrentResearchProgress = pPlayer:GetTechs():GetResearchProgress(iBoostedTech);
-	pPlayer:GetTechs():ReverseBoost(iBoostedTech);
+	--pPlayer:GetTechs():ReverseBoost(iBoostedTech);
 	pPlayer:GetTechs():SetResearchProgress(iBoostedTech,TechCurrentResearchProgress);
 	
 	local BoostTriggerCount = (pPlayer:GetProperty("DA_Boost_"..TechnologyType) or {})['ByEureka'] or 0;
@@ -212,7 +212,11 @@ function DA_Boost_Set_Count(playerID, ItemType, way, count, ModifierValue)
 		if way == 'ByTask' then
 			ModifierValue = GameInfo.DA_Boosts[ItemType].ModifierValue;
 		elseif way == 'ByEureka' then
-			ModifierValue = 1;
+			if pPlayer:GetProperty('PROP_ARCHIMEDES') ~= nil and GameInfo.Technologies[ItemType] ~= nil then
+				ModifierValue = 1.5;
+			else
+				ModifierValue = 1;
+			end
 		elseif way == 'ByOther' then
 			ModifierValue = 1;
 		else
@@ -411,8 +415,20 @@ function DA_Boost_RefreshEveryTurn(playerID)
 	DA_Boost_Set_Count(playerID, 'CIVIC_GAMES_RECREATION', "ByTask", maxAmenity);
 
 	local pPlayerVisibility = PlayersVisibility[playerID];
-	local curExploredCount:number = pPlayerVisibility:GetNumRevealedHexes();
+	local curExploredCount:number = pPlayerVisibility:GetNumRevealedHexes() or 0;
 	DA_Boost_Set_Count(playerID, 'TECH_CELESTIAL_NAVIGATION', "ByTask", curExploredCount/10);
+
+	--总督平旮旯 先驱 所在城市科技值为科技加速
+	for _, pCity in pPlayer:GetCities():Members() do
+		local bPioneer = pCity:GetProperty("PROP_PIONEER") or 0;
+		if bPioneer ~= 0 then
+			local iScience = pCity:GetYield(GameInfo.Yields.YIELD_SCIENCE.Index);
+			local iCulture = pCity:GetYield(GameInfo.Yields.YIELD_CULTURE.Index);
+			pPlayer:SetProperty('DA_Boost_By_Pioneer_Tech', iScience / 100);
+			pPlayer:SetProperty('DA_Boost_By_Pioneer_Civic', iCulture / 100);
+			break;
+		end
+	end
 
 end
 

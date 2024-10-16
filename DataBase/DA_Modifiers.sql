@@ -260,7 +260,48 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) select
 	'GIFT_'||ResourceType||'_AFTER_UNLOCK', 'Amount', 3
 	from Resources where ResourceClassType = 'RESOURCECLASS_STRATEGIC' and (PrereqTech is not null or PrereqCivic is not null);
 
-
+--送某时代尤里卡
+insert or replace into Modifiers
+	(ModifierId,										ModifierType)
+select
+	'GRANT_CIVIC_' || EraType || '_BOOST',		'MODIFIER_PLAYER_GRANT_RANDOM_CIVIC_BOOST_BY_ERA'
+from Eras;
+insert or replace into ModifierArguments
+	(ModifierId,										Name,				Value)
+select
+	'GRANT_CIVIC_' || EraType || '_BOOST',		'StartEraType',		EraType
+from Eras;
+insert or replace into ModifierArguments
+	(ModifierId,										Name,				Value)
+select
+	'GRANT_CIVIC_' || EraType || '_BOOST',		'EndEraType',		EraType
+from Eras;
+insert or replace into ModifierArguments
+	(ModifierId,										Name,				Value)
+select
+	'GRANT_CIVIC_' || EraType || '_BOOST',		'Amount',			1
+from Eras;
+--------
+insert or replace into Modifiers
+	(ModifierId,										ModifierType)
+select
+	'GRANT_TECH_' || EraType || '_BOOST',		'MODIFIER_PLAYER_GRANT_RANDOM_TECHNOLOGY_BOOST_BY_ERA'
+from Eras;
+insert or replace into ModifierArguments
+	(ModifierId,										Name,				Value)
+select
+	'GRANT_TECH_' || EraType || '_BOOST',		'StartEraType',		EraType
+from Eras;
+insert or replace into ModifierArguments
+	(ModifierId,										Name,				Value)
+select
+	'GRANT_TECH_' || EraType || '_BOOST',		'EndEraType',		EraType
+from Eras;
+insert or replace into ModifierArguments
+	(ModifierId,										Name,				Value)
+select
+	'GRANT_TECH_' || EraType || '_BOOST',		'Amount',			1
+from Eras;
 
 
 

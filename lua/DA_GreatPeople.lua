@@ -42,18 +42,18 @@ GameEvents.GreatPersonHandleActivation.Add(function(unitOwner, unitID, greatPers
     end
 end)
 
---范蠡
-GameEvents.GreatPersonHandleActivation.Add(function(unitOwner, unitID, greatPersonIndividualID)
-    local owner = Players[unitOwner];
-    if greatPersonIndividualID == FAN_LI_INDEX then
-        local pPlayerTreasury = owner:GetTreasury();
-        local iGoldBonus = pPlayerTreasury:GetGoldYield() - pPlayerTreasury:GetTotalMaintenance();
-        if GameInfo.Eras[Game.GetEras():GetCurrentEra()].EraType == 'ERA_CLASSICAL' then
-            iGoldBonus = iGoldBonus * 2;
-        end
-        pPlayerTreasury:ChangeGoldBalance(iGoldBonus * 4);
-    end
-end)
+--范蠡  deserted
+-- GameEvents.GreatPersonHandleActivation.Add(function(unitOwner, unitID, greatPersonIndividualID)
+--     local owner = Players[unitOwner];
+--     if greatPersonIndividualID == FAN_LI_INDEX then
+--         local pPlayerTreasury = owner:GetTreasury();
+--         local iGoldBonus = pPlayerTreasury:GetGoldYield() - pPlayerTreasury:GetTotalMaintenance();
+--         if GameInfo.Eras[Game.GetEras():GetCurrentEra()].EraType == 'ERA_CLASSICAL' then
+--             iGoldBonus = iGoldBonus * 2;
+--         end
+--         pPlayerTreasury:ChangeGoldBalance(iGoldBonus * 4);
+--     end
+-- end)
 
 --科莱欧司
 GameEvents.GreatPersonHandleActivation.Add(function(unitOwner, unitID, greatPersonIndividualID)
@@ -124,16 +124,16 @@ end
 Events.RandomEventOccurred.Add(OnNaturalCalamityEventOccurred)
 
 --阿基米德
-GameEvents.GreatPersonHandleActivation.Add(function(unitOwner, unitID, greatPersonIndividualID)
-    local owner = Players[unitOwner];
-    if greatPersonIndividualID == ARCHIMEDES_INDEX then
-        local unit = UnitManager.GetUnit(unitOwner, unitID);
-        local unitPlot = Map.GetPlot(unit:GetX(), unit:GetY());
-        local pDistrict = CityManager.GetDistrictAt(unitPlot);
-        local pCity = pDistrict:GetCity();
-        for i = 1, 7, 1 do 
-            pCity:AttachModifierByID('DA_ARCHIMEDES_EURAKE_FROM_ADJACENCY_'..i);
-        end
-    end
-end)
+-- GameEvents.GreatPersonHandleActivation.Add(function(unitOwner, unitID, greatPersonIndividualID)
+--     local owner = Players[unitOwner];
+--     if greatPersonIndividualID == ARCHIMEDES_INDEX then
+--         local unit = UnitManager.GetUnit(unitOwner, unitID);
+--         local unitPlot = Map.GetPlot(unit:GetX(), unit:GetY());
+--         local pDistrict = CityManager.GetDistrictAt(unitPlot);
+--         local pCity = pDistrict:GetCity();
+--         for i = 1, 7, 1 do 
+--             pCity:AttachModifierByID('DA_ARCHIMEDES_EURAKE_FROM_ADJACENCY_'..i);
+--         end
+--     end
+-- end)
 
