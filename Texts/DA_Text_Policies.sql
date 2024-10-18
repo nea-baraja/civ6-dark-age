@@ -4,7 +4,6 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_BLOOD_SACRIFICE_DESCRIPTION",               "每击杀1个战斗单位即可获得等于其战斗力50%的 [ICON_Faith] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_LOCAL_MAP_DESCRIPTION",                     "单位在城市5格范围内开始回合时，无视地形和地貌的额外 [ICON_MOVEMENT] 移动力消耗。"),
     ("zh_Hans_CN",  "LOC_POLICY_LAND_MEASURE_DESCRIPTION",                  "所有城市+1 [ICON_FOOD] 食物。丘陵上的城市+1 [ICON_FOOD] 食物。"),
-    ("zh_Hans_CN",  "LOC_POLICY_CELEBRATION_DESCRIPTION",                   "所有城市+1 [ICON_Amenities] 宜居度，拥有娱乐中心的城市额外+1 [ICON_Amenities] 宜居度。"),
     ("zh_Hans_CN",  "LOC_POLICY_URBAN_PLANNING_DESCRIPTION",                "所有城市+1  [ICON_PRODUCTION] 生产力。平坦地形上的城市+1 [ICON_PRODUCTION] 生产力。"),
     ("zh_Hans_CN",  "LOC_POLICY_HERB_PLANT_DESCRIPTION",                    "首都+1 [ICON_SCIENCE] 科技值。"),
 
@@ -35,7 +34,8 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_LITERARY_TRADITION_DESCRIPTION",            "+20% [ICON_GREATWRITER] 大作家点数。"),
     ("zh_Hans_CN",  "LOC_POLICY_TRANSLATION_DESCRIPTION",                   "学院，剧院广场的相邻加成也会产生对应的 [ICON_TOURISM] 旅游业绩。你的城市若拥有学院或剧院广场，则为通往本城的外国商路提供+1 [ICON_SCIENCE] 科技值或+1 [ICON_CULTURE] 文化值。"),
     ("zh_Hans_CN",  "LOC_POLICY_TRAIN_DESCRIPTION",                         "驻扎在军营的单位每回合获得等于军营相邻加成的经验值，直到拥有三项晋升。"),
-    ("zh_Hans_CN",  "LOC_POLICY_BREAD_AND_CIRCUSES_DESCRIPTION",            "城市每有1 [icon_amenity] 宜居度，就+1建造建筑和区域的 [icon_production] 生产力（最多+10）"),    
+    ("zh_Hans_CN",  "LOC_POLICY_BREAD_AND_CIRCUSES_DESCRIPTION",            "城市每有1 [icon_amenities] 宜居度，就+1建造建筑和区域的 [icon_production] 生产力（最多+10）"),    
+    ("zh_Hans_CN",  "LOC_POLICY_CELEBRATION_DESCRIPTION",                   "所有城市+2 [ICON_Amenities] 宜居度，拥有娱乐中心的城市额外+2 [ICON_Amenities] 宜居度。"),    
     ("zh_Hans_CN",  "LOC_POLICY_LOUGE_DESCRIPTION",                         "市中心建筑直接产出的 [icon_science] 科技值和 [icon_culture] 文化值+50%"),
     ("zh_Hans_CN",  "LOC_POLICY_ARMY_FARM_DESCRIPTION",                     "+75%军营相邻加成。军营驻军每有一项晋升就额外+25%相邻加成。"),
     ("zh_Hans_CN",  "LOC_POLICY_SCRIPTURE_DESCRIPTION",                     "+100%圣地相邻加成，若城市拥有造纸坊则额外+50%。"),

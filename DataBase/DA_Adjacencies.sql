@@ -236,9 +236,9 @@ insert or replace into Adjacency_YieldChanges
    --炼铜术解锁矿山小相邻 学徒制解锁大相邻
     ('DA_MINE_MINE_BRONZE_WORKING', 'Placeholder', 'YIELD_PRODUCTION', '1', '2', 'IMPROVEMENT_MINE', null, 'TECH_BRONZE_WORKING', null, 'TECH_APPRENTICESHIP'),
     ('DA_MINE_MINE_APPRENTICESHIP', 'Placeholder', 'YIELD_PRODUCTION', '1', '1', 'IMPROVEMENT_MINE', null,'TECH_APPRENTICESHIP', null, null),
-   --箭术解锁营地小相邻 中世纪集市解锁大相邻
+   --箭术解锁营地小相邻 马镫解锁大相邻
     ('DA_CAMP_CAMP_ARCHERY', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', null, 'TECH_ARCHERY', null, null),
-    ('DA_CAMP_CAMP_MEDIEVAL', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', 'CIVIC_MEDIEVAL_FAIRES', null, null, null),
+    ('DA_CAMP_CAMP_MEDIEVAL', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', null, 'TECH_STIRRUPS', null, null),
     --占星术解锁渔场小相邻，海军传统解锁2金币相邻
     ('DA_FISHERY_FISHERY_ASTROLOGY', 'Placeholder', 'YIELD_FOOD', '1', '2', 'IMPROVEMENT_FISHERY', null, 'TECH_ASTROLOGY', null, null),
     ('DA_FISHERY_FISHERY_NAVAL_TRADITION', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_FISHERY', 'CIVIC_NAVAL_TRADITION', null, null, null);

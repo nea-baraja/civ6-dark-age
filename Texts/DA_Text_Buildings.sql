@@ -35,7 +35,7 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_OBSERVATORY_DESCRIPTION",                     "需要城市拥有至少一个专业区域方可建造。若城市拥有自然奇观则+2 [ICON_SCIENCE] 科技值。研究“数学”科技后，在城市相邻海岸和城市相邻山脉时+2 [ICON_SCIENCE] 科技值。可以使用信仰值购买。"),
     ("zh_Hans_CN",  "LOC_BUILDING_TRIUMPHAL_DESCRIPTION",                       "需要城市拥有至少一个专业区域方可建造。凯旋门会获得等于 [icon_promotion] 驻扎单位等级的 [ICON_Culture] 文化值相邻加成。[NEWLINE]仅限一次，允许军事单位使用“凯旋”行动，立刻回到最近的未使用过该行动的凯旋门，并获得一项 [icon_promotion] 升级。"),
     ("zh_Hans_CN",  "LOC_BUILDING_PAPER_MAKER_DESCRIPTION",                     "需要城市拥有至少两个专业区域方可建造。学院，圣地，剧院广场+1对应基础相邻加成。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_FORGING_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。改良资源的单元格+2 [ICON_PRODUCTION] 生产力。研究“机械”科技后，没有资源的改良单元格+1 [ICON_PRODUCTION] 生产力。"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_FORGING_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。改良资源的单元格+1 [ICON_PRODUCTION] 生产力。研究“机械”科技后，没有资源的改良单元格+1 [ICON_PRODUCTION] 生产力。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_TINGTAI_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。魅力值达到“迷人”的区域+1 [ICON_Housing] 住房，为亭台+1 [icon_science] 科技值。达到“惊艳”的区域+1 [ICON_Amenities] 宜居度，为亭台+1 [icon_culture] 文化值。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_ZHISUO_DESCRIPTION",                          "需要城市拥有至少三个专业区域方可建造。额外产出等于市中心建筑维护费的 [ICON_Gold] 金币"),    
     

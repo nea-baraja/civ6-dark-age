@@ -12,7 +12,7 @@ values
     ("zh_Hans_CN",  "LOC_CIVIC_GAMES_RECREATION_DESCRIPTION",                           "采石场改良设施提供的 [ICON_GOLD] 金币+3。"),
 
     ("zh_Hans_CN",  "LOC_CIVIC_FEUDALISM_DESCRIPTION",                                  "种植园改良设施提供的 [ICON_FOOD] 食物+3。与每1个农场改良设施相邻时，农场提供的 [ICON_FOOD] 食物+1。"),
-    ("zh_Hans_CN",  "LOC_CIVIC_MEDIEVAL_FAIRES_DESCRIPTION",                            "与每1个营地改良设施相邻时，营地提供的 [ICON_GOLD] 金币额外再+2。"),
+    --("zh_Hans_CN",  "LOC_CIVIC_MEDIEVAL_FAIRES_DESCRIPTION",                            "与每1个营地改良设施相邻时，营地提供的 [ICON_GOLD] 金币额外再+2。"),
     ("zh_Hans_CN",  "LOC_CIVIC_NAVAL_TRADITION_DESCRIPTION",                            "渔船改良设施提供的 [ICON_PRODUCTION] 生产力+1。与每1个渔场改良设施相邻时，渔场提供的 [ICON_GOLD] 金币额外再+2。"),
 
     ("zh_Hans_CN",  "LOC_BOOST_TRIGGER_RECORDED_HISTORY",                               "建造1个造纸坊"),

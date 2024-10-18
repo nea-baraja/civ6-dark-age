@@ -53,7 +53,7 @@ values
 update Buildings set RequiresAdjacentRiver = 0 where BuildingType = 'BUILDING_WATER_MILL';
 
 update Buildings set Entertainment = 1 where BuildingType = 'BUILDING_TRIUMPHAL';
-update Buildings set Entertainment = 1, Housing = 1 where BuildingType = 'BUILDING_TINGTAI';
+update Buildings set Entertainment = 2 where BuildingType = 'BUILDING_TINGTAI';
 update Buildings set PrereqTech = 'TECH_SAILING' where BuildingType = 'BUILDING_LIGHTHOUSE';
 
 update Buildings set MustPurchase = 1 ,InternalOnly = 0 
@@ -114,7 +114,7 @@ values
 
 
 
--- 不再从建筑本身获得伟人点 --还是先给ai吧
+
 --注意  未来可能会需要有建筑的大音乐家大艺术家点
 --delete from Building_GreatPersonPoints;
 
@@ -616,7 +616,7 @@ values
     -- ('WATER_MILL_NOT_SP_DISTRICTS_PRODUCTION',      'Amount',                   '1'),
     -- ('WATER_MILL_NOT_SP_DISTRICTS_PRODUCTION',      'YieldType',                'YIELD_FOOD'),
 
-    ('FORGING_IMPROVED_RESOURCE_PRODUCTION',         'Amount',                   '2'),
+    ('FORGING_IMPROVED_RESOURCE_PRODUCTION',         'Amount',                   '1'),
     ('FORGING_IMPROVED_RESOURCE_PRODUCTION',         'YieldType',                'YIELD_PRODUCTION'),
     ('FORGING_IMPROVED_NO_RESOURCE_PRODUCTION',      'Amount',                   '1'),
     ('FORGING_IMPROVED_NO_RESOURCE_PRODUCTION',      'YieldType',                'YIELD_PRODUCTION'),
@@ -879,6 +879,12 @@ update Building_GreatPersonPoints set PointsPerTurn = 2 where BuildingType = 'BU
 update Building_GreatPersonPoints set PointsPerTurn = 4 where BuildingType = 'BUILDING_COAL_POWER_PLANT';
 update Building_GreatPersonPoints set PointsPerTurn = 4 where BuildingType = 'BUILDING_FOSSIL_FUEL_POWER_PLANT';
 update Building_GreatPersonPoints set PointsPerTurn = 4 where BuildingType = 'BUILDING_POWER_PLANT';
+
+insert or replace into Building_GreatPersonPoints(BuildingType, GreatPersonClassType, PointsPerTurn) values
+    ('BUILDING_MASON',                      'GREAT_PERSON_CLASS_ENGINEER',          1),
+    ('BUILDING_FORGING',                    'GREAT_PERSON_CLASS_ENGINEER',          1),
+    ('BUILDING_OBSERVATORY',                'GREAT_PERSON_CLASS_SCIENTIST',         1);
+
 
 CREATE TABLE "Building_Citizen_GreatPersonPoints" (
         "BuildingType" TEXT NOT NULL,
