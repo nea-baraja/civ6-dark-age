@@ -286,6 +286,21 @@ Utils.DistrictIsPillaged = function(iX,iY)
     end
 end
 
+Utils.GetBuildingsAtPlot = function(iX, iY)
+    local pPlot = Map.GetPlot(iX, iY)
+    local pCity = Cities.GetPlotPurchaseCity(pPlot)
+    if pCity == nil then return {} end
+    local pBuildings = pCity:GetBuildings()
+    local pPlotBuildings = pBuildings:GetBuildingsAtLocation(pPlot:GetIndex())
+    local buildings = {}
+    for _, type in pairs(pPlotBuildings) do
+        table.insert(buildings, {type = type, isPillaged = pBuildings:IsPillaged(type)})
+    end
+    return buildings
+end
+
+
+
 Utils.GetCurrentlyBuildingType = function(playerID, cityID)
     local pCity = CityManager.GetCity(playerID, cityID);
     local pBuildQueue = pCity:GetBuildQueue();

@@ -1,7 +1,7 @@
 insert or replace into LocalizedText
     (Language,      Tag,                                                        Text)
 values
-
+    ("zh_Hans_CN",  "LOC_UNITOPERATION_REPAIR_DESCRIPTION",                     "修复该单元格内所有区域和建筑"),
     ("zh_Hans_CN",  "LOC_TOOLTIP_DISTRICT_CITIZEN_YIELDS_HEADER",               "每个在此区域中工作的 [ICON_Citizen] 专家收益："),
     ("zh_Hans_CN",  "LOC_CITIZEN_AMENITY",                                      "{1_Amount: number +#,###;-#,###} [ICON_Amenities] 宜居度"),
     ("zh_Hans_CN",  "LOC_TYPE_TRAIT_CITIZENSLOTS",                              "{1_Amount} [ICON_Citizen] 公民槽位"),

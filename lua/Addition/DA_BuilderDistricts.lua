@@ -28,13 +28,26 @@ Utils.CanBuildDistricts = {
 			if Utils.DistrictIsPillaged(iX, iY) then
 				return false
 			end
+			local buildingsAtPlot = Utils.GetBuildingsAtPlot(iX, iY)
+			for _, building in ipairs(buildingsAtPlot) do
+				if building.isPillaged then
+					return false
+				end
+			end
 			return true
 		end,
 		DistrictEffect = function(playerID,unitID,iX,iY)
 			local pPlot = Map.GetPlot(iX, iY)
 			local pCity = Cities.GetPlotPurchaseCity(pPlot)
+			local pBuildings = pCity:GetBuildings()
 			local pDistrict = pCity:GetDistricts():GetDistrictAtLocation(iX,iY)
 			pDistrict:SetPillaged(false)
+			local buildingsAtPlot = Utils.GetBuildingsAtPlot(iX, iY)
+			for _, building in ipairs(buildingsAtPlot) do
+				if building.isPillaged then
+					pBuildings:SetPillaged(building.type, false)
+				end
+			end
 		end,
 		DistrictIcon = "ICON_UNITOPERATION_REPAIR",
 		isDistrict = false,

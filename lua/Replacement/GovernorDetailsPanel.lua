@@ -152,7 +152,14 @@ end
 
 -- ===========================================================================
 function CreatePromotionTree(localPlayerID:number, pGovernor:table, pGovernorDef:table, pPlayerGovernors:table)
-	
+
+
+	local pLocalPlayer:table = Players[localPlayerID];
+	local pPlayerGovernors = pLocalPlayer:GetGovernors();
+	local governorPointsObtained = pPlayerGovernors:GetGovernorPoints();
+	local governorPointsSpent = pPlayerGovernors:GetGovernorPointsSpent();
+  	local hidedGovernors = pLocalPlayer:GetProperty('PROP_HIDE_GOVERNOR') or 0;
+
 	local pPromotionTreeInst:table = m_PromotionTreeIM:GetInstance();
 
 	-- Define promotion tree matrix used to determine promotion requirement lines
@@ -188,7 +195,7 @@ function CreatePromotionTree(localPlayerID:number, pGovernor:table, pGovernorDef
 
 					-- Determine if this promotion can currently be earn by this governor due to requirements, etc
 					local canEarnPromotion:boolean = pPlayerGovernors:CanEarnPromotion(pGovernorDef.Hash, kPromotion.Hash);
-
+					canEarnPromotion = canEarnPromotion and (governorPointsObtained - governorPointsSpent - hidedGovernors) > 0;
 					-- Update button state and callback depending on the promotion state
 					if (pGovernor and pGovernor:HasPromotion(kPromotion.Hash)) then
 						pPromotionInst.PromotionButton:SetDisabled(true);
