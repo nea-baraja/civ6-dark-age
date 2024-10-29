@@ -917,6 +917,9 @@ insert or ignore into PolicyModifiers(PolicyType, ModifierId) select
 	'DA_COPY_'||PolicyType, ModifierId
 	from PolicyModifiers where PolicyType like 'POLICY_%';
 
+insert or ignore into ObsoletePolicies(PolicyType, ObsoletePolicy, RequiresAvailableGreatPersonClass) select
+	'DA_COPY_'||PolicyType, ObsoletePolicy, RequiresAvailableGreatPersonClass
+	from ObsoletePolicies where PolicyType like 'POLICY_%';
 
 insert or ignore into CivilopediaPageExcludes(SectionId,   PageId) select
 	'POLICY',		'DA_COPY_'||Type

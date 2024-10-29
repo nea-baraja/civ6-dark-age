@@ -608,6 +608,51 @@ insert or ignore into RequirementSetRequirements
 select	'RS_OBJECT_WITHIN_'||numbers||'_TILES',				'REQ_OBJECT_WITHIN_'||numbers||'_TILES'
 from counter where numbers >= 1 and numbers <= 10;
 
+--对象离自己1-10格但是不包括本格 REQ/RS
+
+insert or replace into Requirements (RequirementId, RequirementType)
+select 'REQ_OBJECT_WITHIN_STRICTLY_'||numbers||'_TILES', 'REQUIREMENT_PLOT_ADJACENT_TO_OWNER'
+from counter where numbers >= 1 and numbers <= 10;
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+select 'REQ_OBJECT_WITHIN_STRICTLY_'||numbers||'_TILES', 'MinDistance', '1'
+from counter where numbers >= 1 and numbers <= 10;
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+select 'REQ_OBJECT_WITHIN_STRICTLY_'||numbers||'_TILES', 'MaxDistance', numbers
+from counter where numbers >= 1 and numbers <= 10;
+
+insert or ignore into RequirementSets
+    (RequirementSetId,                                  RequirementSetType)
+select	'RS_OBJECT_WITHIN_STRICTLY_'||numbers||'_TILES',				'REQUIREMENTSET_TEST_ALL'
+from counter where numbers >= 1 and numbers <= 10;
+
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+select	'RS_OBJECT_WITHIN_STRICTLY_'||numbers||'_TILES',				'REQ_OBJECT_WITHIN_STRICTLY_'||numbers||'_TILES'
+from counter where numbers >= 1 and numbers <= 10;
+
+--对象不是自己 REQ/RS
+
+insert or replace into Requirements (RequirementId, RequirementType)
+values ('REQ_OBJECT_NOT_OWNER', 'REQUIREMENT_PLOT_ADJACENT_TO_OWNER');
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+values ('REQ_OBJECT_NOT_OWNER', 'MinDistance', '1');
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+values ('REQ_OBJECT_NOT_OWNER', 'MaxDistance', '999');
+
+insert or ignore into RequirementSets
+    (RequirementSetId,                                  RequirementSetType)
+values	('RS_OBJECT_NOT_OWNER',						'REQUIREMENTSET_TEST_ALL');
+
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+values	('RS_OBJECT_NOT_OWNER',				'REQ_OBJECT_NOT_OWNER');
+
+
+
 
 --对象离自己严格1-10格 REQ/RS
 insert or replace into Requirements (RequirementId, RequirementType)
@@ -1504,6 +1549,10 @@ insert or ignore into Requirements(RequirementId, RequirementType) select
 
 insert or ignore into RequirementArguments(RequirementId, Name, Value) select
 	'REQ_'||GovernorPromotionType, 'GovernorPromotionType', GovernorPromotionType
+	from GovernorPromotions;
+
+insert or ignore into RequirementArguments(RequirementId, Name, Value) select
+	'REQ_'||GovernorPromotionType, 'Established', 1
 	from GovernorPromotions;
 
 insert or ignore into RequirementSets(RequirementSetId, RequirementSetType) select

@@ -151,331 +151,58 @@ insert or ignore into ModifierArguments(ModifierId,	Name,	Value)
 -- 为拥有治所的其他城市提供本城总督初始头衔
 
 
--- 先筛选出来总督的初始头衔
-create temporary table ZhiSuo_BaseGovernorPromotions
-(
-GovernorPromotionType text not null,
-primary key (GovernorPromotionType)
-);
-
-insert or ignore into ZhiSuo_BaseGovernorPromotions
-(GovernorPromotionType)
-SELECT
-GovernorPromotionType
-from GovernorPromotions	where BaseAbility = 1;
-
--- 城主
-insert into BuildingModifiers
+insert or ignore into BuildingModifiers
 (BuildingType,                  ModifierId)
 select 
 'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_REDOUBT';
+from GovernorPromotionModifiers a, GovernorPromotions b
+where a.GovernorPromotionType = b.GovernorPromotionType and b.BaseAbility = 1;
 
-insert into Modifiers
+insert or ignore into Modifiers
 	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
 SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_REDOUBT_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_REDOUBT';
+	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,    'RS_'||a.GovernorPromotionType					
+from GovernorPromotionModifiers a, GovernorPromotions b
+where a.GovernorPromotionType = b.GovernorPromotionType and b.BaseAbility = 1;
 
-insert into ModifierArguments
+insert or ignore into ModifierArguments
 	(ModifierId,					Name,			Value)
 SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_REDOUBT';
+	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_TO_ALL_'||ModifierId
+from GovernorPromotionModifiers a, GovernorPromotions b
+where a.GovernorPromotionType = b.GovernorPromotionType and b.BaseAbility = 1;
 
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
+insert or ignore into Modifiers
+	(ModifierId,					ModifierType,						SubjectRequirementSetId)
 SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_REDOUBT';
+	'ZHISUO_ATTACH_TO_ALL_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',	'RS_CITY_HAS_ZHISUO_NOT_OWNER'
+	from GovernorPromotionModifiers a, GovernorPromotions b
+where a.GovernorPromotionType = b.GovernorPromotionType and b.BaseAbility = 1;
 
-insert into ModifierArguments
+insert or ignore into ModifierArguments
 	(ModifierId,					Name,			Value)
 SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_REDOUBT';
-
--- 外交官
-insert into BuildingModifiers
-(BuildingType,                  ModifierId)
-select 
-'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_AMBASSADOR_MESSENGER';
-
-insert into Modifiers
-	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_AMBASSADOR_MESSENGER_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_AMBASSADOR_MESSENGER';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_AMBASSADOR_MESSENGER';
-
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_AMBASSADOR_MESSENGER';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_AMBASSADOR_MESSENGER';
-
--- 金融家
-insert into BuildingModifiers
-(BuildingType,                  ModifierId)
-select 
-'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MERCHANT_LAND_ACQUISITION';
-
-insert into Modifiers
-	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_MERCHANT_LAND_ACQUISITION_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MERCHANT_LAND_ACQUISITION';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MERCHANT_LAND_ACQUISITION';
-
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MERCHANT_LAND_ACQUISITION';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MERCHANT_LAND_ACQUISITION';
-
--- 红衣主教
-insert into BuildingModifiers
-(BuildingType,                  ModifierId)
-select 
-'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_CARDINAL_MENTOR';
-
-insert into Modifiers
-	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_CARDINAL_MENTOR_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_CARDINAL_MENTOR';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_CARDINAL_MENTOR';
-
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_CARDINAL_MENTOR';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_CARDINAL_MENTOR';
-
--- 测量师
-insert into BuildingModifiers
-(BuildingType,                  ModifierId)
-select 
-'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_BUILDER_LEADER';
-
-insert into Modifiers
-	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_BUILDER_LEADER_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_BUILDER_LEADER';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_BUILDER_LEADER';
-
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_BUILDER_LEADER';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_BUILDER_LEADER';
-
--- 总务官
-insert into BuildingModifiers
-(BuildingType,                  ModifierId)
-select 
-'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MANAGER_EXPEDITION';
-
-insert into Modifiers
-	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_MANAGER_EXPEDITION_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MANAGER_EXPEDITION';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MANAGER_EXPEDITION';
-
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MANAGER_EXPEDITION';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_MANAGER_EXPEDITION';
-
--- 教育家
-insert into BuildingModifiers
-(BuildingType,                  ModifierId)
-select 
-'BUILDING_ZHISUO',	'ZHISUO_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS';
-
-insert into Modifiers
-	(ModifierId,					ModifierType,						OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'MODIFIER_SINGLE_CITY_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_'||ModifierId, 	'ModifierId',	'ZHISUO_ATTACH_ATTACH_'||ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS';
-
-insert into Modifiers
-	(ModifierId,							ModifierType,									OwnerRequirementSetId,		SubjectRequirementSetId)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',		NULL,      					'REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA'
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS';
-
-insert into ModifierArguments
-	(ModifierId,					Name,			Value)
-SELECT
-	'ZHISUO_ATTACH_ATTACH_'||ModifierId, 	'ModifierId',	ModifierId
-from GovernorPromotionModifiers 
-where GovernorPromotionType='GOVERNOR_PROMOTION_EDUCATOR_LIBRARIANS';
-
--- 城市有已就职的总督头衔
-insert or ignore into RequirementSets
-    (RequirementSetId,                                  RequirementSetType)
-select
-    'REQSET_CITY_HAS_'||GovernorPromotionType||'_DA',         	'REQUIREMENTSET_TEST_ALL'
-from ZhiSuo_BaseGovernorPromotions;
-	
-insert or ignore into Requirements
-    (RequirementId,                                 RequirementType)
-select
-    'REQ_CITY_HAS_'||GovernorPromotionType||'_DA',         	'REQUIREMENT_CITY_HAS_SPECIFIC_GOVERNOR_PROMOTION_TYPE'
-from ZhiSuo_BaseGovernorPromotions;
-
-insert or ignore into RequirementArguments
-(RequirementId, 										Name, 						Value)
-select
-    'REQ_CITY_HAS_'||GovernorPromotionType||'_DA',    	'Established', 				1
-from ZhiSuo_BaseGovernorPromotions;
-
-insert or ignore into RequirementArguments
-(RequirementId, 										Name, 						Value)
-select
-    'REQ_CITY_HAS_'||GovernorPromotionType||'_DA',     	'GovernorPromotionType', 	GovernorPromotionType
-from ZhiSuo_BaseGovernorPromotions;
-
-insert or ignore into RequirementSetRequirements
-    (RequirementSetId,                                  RequirementId)
-select
-    'REQSET_CITY_HAS_'||GovernorPromotionType||'_DA',   'REQ_CITY_HAS_'||GovernorPromotionType||'_DA'
-from ZhiSuo_BaseGovernorPromotions;
+	'ZHISUO_ATTACH_TO_ALL_'||ModifierId, 	'ModifierId',	ModifierId
+	from GovernorPromotionModifiers a, GovernorPromotions b
+where a.GovernorPromotionType = b.GovernorPromotionType and b.BaseAbility = 1;
 
 
 -- 拥有建筑且1格以外
 insert or ignore into RequirementSets
     (RequirementSetId,                                  RequirementSetType)
 values
-    ('REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA',         	'REQUIREMENTSET_TEST_ALL');
+    ('RS_CITY_HAS_ZHISUO_NOT_OWNER',         	'REQUIREMENTSET_TEST_ALL');
 
-insert or ignore into Requirements
-    (RequirementId,                                 RequirementType)
-values
-    ('REQ_CITY_HAS_ZHISUO',                         'REQUIREMENT_CITY_HAS_BUILDING'),
-    ('REQ_PLOT_1_TILE_AWAY',                    	'REQUIREMENT_PLOT_ADJACENT_TO_OWNER');
-
-insert or ignore into RequirementArguments
-(RequirementId, 							Name, 				Value)
-VALUES
-    ('REQ_CITY_HAS_ZHISUO',                'BuildingType', 		'BUILDING_ZHISUO'),
-    ('REQ_PLOT_1_TILE_AWAY',               'MinDistance', 		1),
-	('REQ_PLOT_1_TILE_AWAY',               'MaxDistance', 		200);
 	
 insert or ignore into RequirementSetRequirements
     (RequirementSetId,                                  RequirementId)
 values
-    ('REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA',       'REQ_CITY_HAS_ZHISUO'),
-    ('REQSET_CITY_HAS_ZHISUO_1_TILE_AWAY_DA',       'REQ_PLOT_1_TILE_AWAY');
+    ('RS_CITY_HAS_ZHISUO_NOT_OWNER',       'REQ_OBJECT_NOT_OWNER'),
+    ('RS_CITY_HAS_ZHISUO_NOT_OWNER',       'REQ_CITY_HAS_BUILDING_ZHISUO');
 
 
 
---包容da新增的建筑
+--RS/REQ包容da新增的建筑
 insert or replace into Requirements (RequirementId, RequirementType)
 select 'REQ_CITY_HAS_'||BuildingType, 'REQUIREMENT_CITY_HAS_BUILDING'
 from Buildings;

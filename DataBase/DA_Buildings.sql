@@ -48,7 +48,7 @@ values
     'TECH_CONSTRUCTION',                null,                                     'DISTRICT_CITY_CENTER', 'YIELD_GOLD',           null),
 
     ('BUILDING_ZHISUO',                 'LOC_BUILDING_ZHISUO_NAME',                 100,    0,              'LOC_BUILDING_ZHISUO_DESCRIPTION',                
-    null,                               'CIVIC_DEFENSIVE_TACTICS',                  'DISTRICT_CITY_CENTER', 'YIELD_GOLD',           1);
+    null,                               'CIVIC_CIVIL_SERVICE',                      'DISTRICT_CITY_CENTER', 'YIELD_GOLD',           1);
 
 update Buildings set RequiresAdjacentRiver = 0 where BuildingType = 'BUILDING_WATER_MILL';
 
