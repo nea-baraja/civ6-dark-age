@@ -9,7 +9,8 @@ insert into Unity_Sources (SourceName)
 values 
     ('QIN_WATER_DISTRICT'),
     ('GOVERNMENT_BUILDING'),
-    ('POLICY');
+    ('POLICY'),
+	('ZHISUO');
 
 update Unity_Sources 
 set SourceProperty = 'PROP_UNITY_SOURCE_'||SourceName,

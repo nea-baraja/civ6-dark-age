@@ -23,6 +23,7 @@ values
     ("zh_Hans_CN",  "LOC_UNITY_SOURCE_QIN_WATER_DISTRICT_DESCRIPTION",                  "每 [ICON_Turn] 回合+ {1_Amount} 凝聚力点数，来自水利区域"),
     ("zh_Hans_CN",  "LOC_UNITY_SOURCE_GOVERNMENT_BUILDING_DESCRIPTION",                 "每 [ICON_Turn] 回合+ {1_Amount} 凝聚力点数，来自市政广场建筑"),
     ("zh_Hans_CN",  "LOC_UNITY_SOURCE_POLICY_DESCRIPTION",                              "每 [ICON_Turn] 回合+ {1_Amount} 凝聚力点数，来自政策"),
+	("zh_Hans_CN",  "LOC_UNITY_SOURCE_ZHISUO_DESCRIPTION",                              "每 [ICON_Turn] 回合+ {1_Amount} 凝聚力点数，来自治所"),
     ("zh_Hans_CN",  "LOC_TOP_PANEL_UNITY_TOOLTIP_RATE_FROM_DOUBLE_POLICY",              "每 [ICON_Turn] 回合- {1_Amount} 凝聚力点数，来自加倍使用的政策卡"),
     ("zh_Hans_CN",  "LOC_TOP_PANEL_UNITY_TOOLTIP_SOURCES_HELP",                         "政体建筑和政策是凝聚力点数的主要来源。"),
 
