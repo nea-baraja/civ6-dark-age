@@ -284,7 +284,7 @@ values
     ('BUILDING_TINGTAI',              'TINGTAI_APPEAL_TINGTAI_SCIENCE'), 
     ('BUILDING_TINGTAI',              'TINGTAI_APPEAL_TINGTAI_CULTURE'), 
 
-    --('BUILDING_ZHISUO',             'XXXXYYYYY'),   --在postProcess里
+    ('BUILDING_ZHISUO',             'ZHISUO_ADJUST_UNITY'),   --其余能力在postProcess里
 
 
     ('BUILDING_SHRINE',             'SHRINE_BUILDER_PURCHASE'),
@@ -405,6 +405,8 @@ values
     ('TRIUMPHAL_ENABLE_TRIUMPH',                    'MODIFIER_PLAYER_ADJUST_PROPERTY',                              NULL),
     ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
 	('LIBRARY_POP_SCIENCE_BASE',             		'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          NULL),
+	
+	('ZHISUO_ADJUST_UNITY',							'MODIFIER_PLAYER_ADJUST_PROPERTY',								NULL),
 
     ('UNIVERSITY_DISTRICT_SCIENCE',                 'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
     ('RESEARCH_LAB_DISTRICT_SCIENCE',               'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
@@ -566,6 +568,9 @@ values
 
     ('RESEARCH_LAB_SCIENCE_MOD_WITH_POWER',         'YieldType',                'YIELD_SCIENCE'),
     ('RESEARCH_LAB_SCIENCE_MOD_WITH_POWER',         'Amount',                   '20'),
+	
+	('ZHISUO_ADJUST_UNITY',							'Key',						'PROP_UNITY_SOURCE_ZHISUO'),
+	('ZHISUO_ADJUST_UNITY',							'Amount',					5),
 
     ('WORKSHOP_POP_PRODUCTION_AFTER_CIVIC',         'YieldType',                'YIELD_PRODUCTION'),
     ('WORKSHOP_POP_PRODUCTION_AFTER_CIVIC',         'Amount',                   '1'),

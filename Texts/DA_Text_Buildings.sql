@@ -37,7 +37,7 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_PAPER_MAKER_DESCRIPTION",                     "需要城市拥有至少两个专业区域方可建造。学院，圣地，剧院广场+1对应基础相邻加成。"),
     ("zh_Hans_CN",  "LOC_BUILDING_FORGING_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。改良资源的单元格+1 [ICON_PRODUCTION] 生产力。研究“机械”科技后，没有资源的改良单元格+1 [ICON_PRODUCTION] 生产力。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_TINGTAI_DESCRIPTION",                         "需要城市拥有至少两个专业区域方可建造。魅力值达到“迷人”的区域+1 [ICON_Housing] 住房，为亭台+1 [icon_science] 科技值。达到“惊艳”的区域+1 [ICON_Amenities] 宜居度，为亭台+1 [icon_culture] 文化值。"),    
-    ("zh_Hans_CN",  "LOC_BUILDING_ZHISUO_DESCRIPTION",                          "需要城市拥有至少三个专业区域方可建造。额外产出等于市中心建筑维护费的 [ICON_Gold] 金币"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_ZHISUO_DESCRIPTION",                          "需要城市拥有至少三个专业区域方可建造。为拥有治所的其他城市提供本城总督初始头衔的能力。"),    
     
     ("zh_Hans_CN",  "LOC_BUILDING_GOV_WIDE_DESCRIPTION",                        "奖励1个 [ICON_GOVERNOR] 总督头衔。每拥有一座自己建造的城市，每回合+1凝聚力，若该城市有总督任职则再+1凝聚力。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_GOV_TALL_DESCRIPTION",                        "奖励1个 [ICON_GOVERNOR] 总督头衔。本城的总督每有一项头衔，每回合+2凝聚力。"),    
