@@ -22,7 +22,10 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_ZHISUO_NAME",                                 "治所"),
     ("zh_Hans_CN",  "LOC_BUILDING_TINGTAI_NAME",                                "亭台"),
     ("zh_Hans_CN",  "LOC_BUILDING_GOV_TALL_NAME",                               "王座厅"),    
-    ("zh_Hans_CN",  "LOC_BUILDING_GOV_CONQUEST_NAME",                           "将军府"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_GOV_CONQUEST_NAME",                           "将军府"),
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_ACADEMY_NAME",                            "私塾"),
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_SCHOOL_NAME",                             "城市学校"),
+
 
 
     ("zh_Hans_CN",  "LOC_BUILDING_CONSTRUCT_REQUIRES_BUILDING",                 "建造该建筑需要{1_Building}。"),
@@ -45,7 +48,9 @@ values
 
 
     ("zh_Hans_CN",  "LOC_BUILDING_LIBRARY_DESCRIPTION",                         "城市中每位 [ICON_CITIZEN] 公民 +0.5 [ICON_SCIENCE] 科技值产出；研究“造纸术”科技后，变为+1 [ICON_SCIENCE] 科技值。"),
-    ("zh_Hans_CN",  "LOC_BUILDING_UNIVERSITY_DESCRIPTION",                      "研究“印刷术”科技后，城市每有一个专业区域，就为城市所有专业区域+1 [ICON_SCIENCE] 科技值"),
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_ACADEMY_DESCRIPTION",                     "本城的学院获得来自区域的标准 [ICON_SCIENCE] 科技值相邻加成。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_SCHOOL_DESCRIPTION",                      "城市中每位 [ICON_CITIZEN] 公民 +1 [ICON_SCIENCE] 科技值产出；若城市拥有至少三个专业区域，则变为+2 [ICON_SCIENCE] 科技值。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_UNIVERSITY_DESCRIPTION",                      "城市所有专家+6 [ICON_SCIENCE] 科技值产出,-1 [ICON_FOOD] 食物。"),
     ("zh_Hans_CN",  "LOC_BUILDING_RESEARCH_LAB_DESCRIPTION",                    "研究“无线电”科技后，城市每有一个专业区域，就为城市所有专业区域+2 [ICON_SCIENCE] 科技值 。研究“大众媒体”市政后，城市中每位 [ICON_CITIZEN] 公民 +1 [ICON_SCIENCE] 科技值产出，通电后城市+20% [ICON_SCIENCE] 科技值。"),
 
     ("zh_Hans_CN",  "LOC_BUILDING_AMPHITHEATER_DESCRIPTION",                    "城市中每位 [ICON_CITIZEN] 公民 +0.5 [ICON_CULTURE] 文化值产出；研究“造纸术”科技后，变为+1 [ICON_CULTURE] 文化中。"),
@@ -91,6 +96,7 @@ values
 
     ("zh_Hans_CN",  "LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_NAME",               "凯旋"),
     ("zh_Hans_CN",  "LOC_UNITCOMMAND_TRIUMPH_TRIUMPHALARCH_TOOLTIP",            "单位立刻回到 {1_cityname}，并获得一次升级"),
+    ("zh_Hans_CN",  "LOC_UNIVERSITY_BONUS_NAME",                                "大学专家加成"),
 
     ("zh_Hans_CN",  "LOC_ABILITY_TEMPLE_ARTEMIS_RANGED_STRENGTH_DA_NAME",       "阿耳忒弥斯的祝福"),    
     ("zh_Hans_CN",  "LOC_ABILITY_DA_ARTEMIS_CAMP_STRENGTH_NAME",                "阿耳忒弥斯的祝福"),    
@@ -101,6 +107,8 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_PLAINS_FOOD",                         "+{1_num} [ICON_Food] 食物来自相邻平原单元格。"),
     ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_FLOODPLAINS_FOOD",                    "+{1_num} [ICON_Food] 食物来自相邻沙漠泛滥平原单元格。"),
 
+    ("zh_Hans_CN",  "LOC_DISTRICT_SCIENCE_ADJACENCY",                           "+{1_num} [ICON_SCIENCE] 科技值来自相邻区域。"),
+   
     ("zh_Hans_CN",  "LOC_BUILDING_MACHU_PICCHU_YIELD_SCIENCE_ADJACENCY",        "+{1_num} [ICON_SCIENCE] 科技值来自相邻山脉单元格。"),
     ("zh_Hans_CN",  "LOC_BUILDING_MACHU_PICCHU_YIELD_FAITH_ADJACENCY",          "+{1_num} [ICON_FAITH] 信仰值来自相邻山脉单元格。"),
     ("zh_Hans_CN",  "LOC_BUILDING_MACHU_PICCHU_YIELD_PRODUCTION_ADJACENCY",     "+{1_num} [ICON_PRODUCTION] 生产力来自相邻山脉单元格。"),

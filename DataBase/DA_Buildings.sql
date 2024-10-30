@@ -22,7 +22,11 @@ values
 
     ('BUILDING_TINGTAI',                       'KIND_BUILDING'),
     ('BUILDING_PAPER_MAKER',                   'KIND_BUILDING'),
-    ('BUILDING_ZHISUO',                        'KIND_BUILDING');
+    ('BUILDING_ZHISUO',                        'KIND_BUILDING'),
+
+    --JNR
+    ('BUILDING_JNR_ACADEMY',                   'KIND_BUILDING'),
+    ('BUILDING_JNR_SCHOOL',                    'KIND_BUILDING');
 
 insert or replace into Buildings
     (BuildingType,                      Name,                                       Cost,   Maintenance,    Description,                                        
@@ -47,8 +51,14 @@ values
     ('BUILDING_TINGTAI',                'LOC_BUILDING_TINGTAI_NAME',                125,    5,              'LOC_BUILDING_TINGTAI_DESCRIPTION',                
     'TECH_CONSTRUCTION',                null,                                     'DISTRICT_CITY_CENTER', 'YIELD_GOLD',           null),
 
-    ('BUILDING_ZHISUO',                 'LOC_BUILDING_ZHISUO_NAME',                 100,    0,              'LOC_BUILDING_ZHISUO_DESCRIPTION',                
-    null,                               'CIVIC_CIVIL_SERVICE',                      'DISTRICT_CITY_CENTER', 'YIELD_GOLD',           1);
+    ('BUILDING_ZHISUO',                 'LOC_BUILDING_ZHISUO_NAME',                 300,    8,              'LOC_BUILDING_ZHISUO_DESCRIPTION',                
+    null,                               'CIVIC_CIVIL_SERVICE',                      'DISTRICT_CITY_CENTER', 'YIELD_GOLD',           1),
+
+    --JNR
+    ('BUILDING_JNR_ACADEMY',            'LOC_BUILDING_JNR_ACADEMY_NAME',            100,    4,              'LOC_BUILDING_JNR_ACADEMY_DESCRIPTION',                
+    'TECH_WRITING',                               null,                      'DISTRICT_CAMPUS',             'YIELD_GOLD',           null),
+    ('BUILDING_JNR_SCHOOL',             'LOC_BUILDING_JNR_SCHOOL_NAME',             400,    10,              'LOC_BUILDING_JNR_SCHOOL_DESCRIPTION',                
+    null,                               'CIVIC_GUILDS',                      'DISTRICT_CAMPUS',             'YIELD_GOLD',           1);
 
 update Buildings set RequiresAdjacentRiver = 0 where BuildingType = 'BUILDING_WATER_MILL';
 
@@ -70,7 +80,29 @@ insert or replace into BuildingPrereqs(Building,    PrereqBuilding) values
     ('BUILDING_PAPER_MAKER',            'BUILDING_FLAG_TWO_DISTRICT'),
     ('BUILDING_TINGTAI',                'BUILDING_FLAG_TWO_DISTRICT'),
 
-    ('BUILDING_ZHISUO',                 'BUILDING_FLAG_THREE_DISTRICT');
+    ('BUILDING_ZHISUO',                 'BUILDING_FLAG_THREE_DISTRICT'),
+
+    ('BUILDING_JNR_SCHOOL',             'BUILDING_LIBRARY'),
+    ('BUILDING_JNR_SCHOOL',             'BUILDING_JNR_ACADEMY'),
+    ('BUILDING_UNIVERSITY',             'BUILDING_JNR_ACADEMY'),
+    ('BUILDING_RESEARCH_LAB',           'BUILDING_JNR_SCHOOL');
+   
+insert or replace into MutuallyExclusiveBuildings(Building, MutuallyExclusiveBuilding) VALUES
+    ('BUILDING_LIBRARY',                'BUILDING_JNR_ACADEMY'),
+    ('BUILDING_JNR_ACADEMY',            'BUILDING_LIBRARY'),
+    ('BUILDING_JNR_SCHOOL',             'BUILDING_UNIVERSITY'),
+    ('BUILDING_UNIVERSITY',             'BUILDING_JNR_SCHOOL');
+
+-- Uniques
+insert or replace into MutuallyExclusiveBuildings
+        (Building,                          MutuallyExclusiveBuilding)
+select  CivUniqueBuildingType,              'BUILDING_JNR_ACADEMY'
+from    BuildingReplaces    where   ReplacesBuildingType='BUILDING_LIBRARY';
+
+insert or replace into MutuallyExclusiveBuildings
+        (Building,                          MutuallyExclusiveBuilding)
+select  CivUniqueBuildingType,              'BUILDING_JNR_SCHOOL'
+from    BuildingReplaces    where   ReplacesBuildingType='BUILDING_UNIVERSITY';
 
 insert or replace into DistrictModifiers(DistrictType,  ModifierId) values
     ('DISTRICT_CITY_CENTER',        'ONE_DISTRICT_GRANT_FLAG'),
@@ -106,6 +138,8 @@ values
 
     ('BUILDING_UNIVERSITY',                 'YIELD_SCIENCE',    2),
     ('BUILDING_UNIVERSITY',                 'YIELD_FOOD',       -1),
+    ('BUILDING_JNR_SCHOOL',                 'YIELD_SCIENCE',    2),
+    ('BUILDING_JNR_SCHOOL',                 'YIELD_FOOD',       -1),
     ('BUILDING_RESEARCH_LAB',               'YIELD_SCIENCE',    4),
     ('BUILDING_RESEARCH_LAB',               'YIELD_FOOD',       -2),
 
@@ -119,7 +153,7 @@ values
 --delete from Building_GreatPersonPoints;
 
 update Buildings set CitizenSlots = 0
-where BuildingType in ('BUILDING_TEMPLE', 'BUILDING_UNIVERSITY');
+where BuildingType in ('BUILDING_TEMPLE');
 
 update Buildings set CitizenSlots = 1
 where BuildingType in ('BUILDING_WORKSHOP');
@@ -171,7 +205,7 @@ values
     ('BUILDING_TINGTAI',            'YIELD_CULTURE',        1),
     ('BUILDING_TINGTAI',            'YIELD_SCIENCE',        1),
 
-    ('BUILDING_ZHISUO',             'YIELD_GOLD',           9),
+    ('BUILDING_ZHISUO',             'YIELD_CULTURE',        4),
 
     ('BUILDING_BARRACKS',           'YIELD_PRODUCTION',     1),
     ('BUILDING_STABLE',             'YIELD_FOOD',           1),
@@ -180,7 +214,9 @@ values
     ('BUILDING_TEMPLE',             'YIELD_FAITH',          4),
 
     ('BUILDING_LIBRARY',            'YIELD_SCIENCE',        2),
-    ('BUILDING_UNIVERSITY',         'YIELD_SCIENCE',        4),
+    ('BUILDING_JNR_ACADEMY',        'YIELD_SCIENCE',        2),
+    ('BUILDING_UNIVERSITY',         'YIELD_SCIENCE',        5),
+    ('BUILDING_JNR_SCHOOL',         'YIELD_SCIENCE',        5),
     ('BUILDING_RESEARCH_LAB',       'YIELD_SCIENCE',        8),
 
     ('BUILDING_WORKSHOP',           'YIELD_PRODUCTION',     3),
@@ -207,7 +243,7 @@ update Buildings set Maintenance = 2,   Cost = 70   where BuildingType = 'BUILDI
 update Buildings set Maintenance = 3,   Cost = 80   where BuildingType = 'BUILDING_WATER_MILL';
 
 update Buildings set Maintenance = 4,   Cost = 100  where BuildingType = 'BUILDING_LIBRARY';
-update Buildings set Maintenance = 8,   Cost = 300  where BuildingType = 'BUILDING_UNIVERSITY';
+update Buildings set Maintenance = 10,  Cost = 400  where BuildingType = 'BUILDING_UNIVERSITY';
 update Buildings set Maintenance = 16,  Cost = 800  where BuildingType = 'BUILDING_RESEARCH_LAB';
 
 update Buildings set Maintenance = 6,   Cost = 200  where BuildingType = 'BUILDING_WORKSHOP';
@@ -301,7 +337,10 @@ values
 
     ('BUILDING_LIBRARY',            'LIBRARY_POP_SCIENCE_AFTER_PAPER'),
 	('BUILDING_LIBRARY',            'LIBRARY_POP_SCIENCE_BASE'),
-    ('BUILDING_UNIVERSITY',         'UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT'),
+	('BUILDING_JNR_ACADEMY',        'SISHU_CAMPUS_DISTRICT_ADJACENCY'),
+    --('BUILDING_UNIVERSITY',         'UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT'),
+    ('BUILDING_JNR_SCHOOL',         'CITY_SCHOOL_POP_SCIENCE'),    
+    ('BUILDING_JNR_SCHOOL',         'CITY_SCHOOL_POP_SCIENCE_3_DIS'),    
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_DISTRICT_SCIENCE_FROM_DISTRICT'),
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_POP_SCIENCE_AFTER_CIVIC'),
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_SCIENCE_MOD_WITH_POWER'),
@@ -403,12 +442,16 @@ values
     ('TINGTAI_APPEAL_TINGTAI_SCIENCE',              'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_PLOT_APPEAL_AT_LEAST_4_AND_NOT_WONDER'),
     ('TINGTAI_APPEAL_TINGTAI_SCIENCE_MOD',          'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_YIELD',                   NULL),
     ('TRIUMPHAL_ENABLE_TRIUMPH',                    'MODIFIER_PLAYER_ADJUST_PROPERTY',                              NULL),
-    ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
-	('LIBRARY_POP_SCIENCE_BASE',             		'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          NULL),
+
 	
 	('ZHISUO_ADJUST_UNITY',							'MODIFIER_PLAYER_ADJUST_PROPERTY',								NULL),
 
-    ('UNIVERSITY_DISTRICT_SCIENCE',                 'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
+    ('LIBRARY_POP_SCIENCE_AFTER_PAPER',             'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_TECH_PAPER_MAKING_DA'),
+    ('LIBRARY_POP_SCIENCE_BASE',                    'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          NULL),    
+    ('CITY_SCHOOL_POP_SCIENCE',                     'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          NULL),
+    ('CITY_SCHOOL_POP_SCIENCE_3_DIS',               'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_CITY_HAS_3_DISTRICTS'),
+    ('SISHU_CAMPUS_DISTRICT_ADJACENCY',             'MODIFIER_SINGLE_CITY_DISTRICT_ADJACENCY',                       NULL),
+    --('UNIVERSITY_DISTRICT_SCIENCE',                 'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
     ('RESEARCH_LAB_DISTRICT_SCIENCE',               'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                   'RS_IS_SPECIALITY_DISTRICT'),
     ('RESEARCH_LAB_POP_SCIENCE_AFTER_CIVIC',        'MODIFIER_CITY_OWNER_ADJUST_POP_YIELD',                          'RS_PLAYER_HAS_CIVIC_MASS_MEDIA'),
     ('RESEARCH_LAB_SCIENCE_MOD_WITH_POWER',         'MODIFIER_SINGLE_CITY_ADJUST_CITY_YIELD_MODIFIER',               'CITY_IS_POWERED'),
@@ -468,7 +511,7 @@ values
 
     ('WATER_MILL_SP_DISTRICTS_PRODUCTION',          'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                  'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_ENGINEERING'),
 
-    ('UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT',   'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_EDUCATION'),
+    --('UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT',   'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_EDUCATION'),
     ('RESEARCH_LAB_DISTRICT_SCIENCE_FROM_DISTRICT',  'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                     'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_RADIO'),
 
     ('FACTORY_DISTRICT_PRODUCTION_FROM_DISTRICT',    'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                     'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_ECONOMICS'),
@@ -553,10 +596,21 @@ values
 	('LIBRARY_POP_SCIENCE_BASE',             		'YieldType',                'YIELD_SCIENCE'),
     ('LIBRARY_POP_SCIENCE_BASE',             		'Amount',                   '0.5'),
 
-    ('UNIVERSITY_DISTRICT_SCIENCE',                 'YieldType',                'YIELD_SCIENCE'),
-    ('UNIVERSITY_DISTRICT_SCIENCE',                 'Amount',                   '1'),
+    ('SISHU_CAMPUS_DISTRICT_ADJACENCY',             'Amount',                   1),
+    ('SISHU_CAMPUS_DISTRICT_ADJACENCY',             'Description',              'LOC_DISTRICT_SCIENCE_ADJACENCY'),
+    ('SISHU_CAMPUS_DISTRICT_ADJACENCY',             'DistrictType',             'DISTRICT_CAMPUS'),
+    ('SISHU_CAMPUS_DISTRICT_ADJACENCY',             'YieldType',                'YIELD_SCIENCE'),
 
-    ('UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT',   'ModifierId',               'UNIVERSITY_DISTRICT_SCIENCE'),
+    ('CITY_SCHOOL_POP_SCIENCE',                     'YieldType',                'YIELD_SCIENCE'),
+    ('CITY_SCHOOL_POP_SCIENCE',                     'Amount',                   '1'),
+    
+    ('CITY_SCHOOL_POP_SCIENCE_3_DIS',               'YieldType',                'YIELD_SCIENCE'),
+    ('CITY_SCHOOL_POP_SCIENCE_3_DIS',               'Amount',                   '1'),
+
+    --('UNIVERSITY_DISTRICT_SCIENCE',                 'YieldType',                'YIELD_SCIENCE'),
+    --('UNIVERSITY_DISTRICT_SCIENCE',                 'Amount',                   '1'),
+
+    --('UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT',   'ModifierId',               'UNIVERSITY_DISTRICT_SCIENCE'),
 
     ('RESEARCH_LAB_DISTRICT_SCIENCE',               'YieldType',                'YIELD_SCIENCE'),
     ('RESEARCH_LAB_DISTRICT_SCIENCE',               'Amount',                   '2'),
@@ -830,7 +884,7 @@ insert or replace into ModifierArguments(ModifierId,    Name,   Value) select
 update ModifierArguments set Value = 50 where ModifierId in ('BARRACKS_TRAINED_UNIT_XP', 'STABLE_TRAINED_UNIT_XP'); --25
 
 
-
+--杂项Requirements
 insert or ignore into RequirementSets
     (RequirementSetId,                                  RequirementSetType)
 values
@@ -877,6 +931,7 @@ values
 
 
 
+--伟人点数
 update Building_GreatPersonPoints set PointsPerTurn = 2 where BuildingType in ('BUILDING_UNIVERSITY', 'BUILDING_TEMPLE');
 update Building_GreatPersonPoints set PointsPerTurn = 4 where BuildingType = 'BUILDING_RESEARCH_LAB';
 
@@ -888,7 +943,9 @@ update Building_GreatPersonPoints set PointsPerTurn = 4 where BuildingType = 'BU
 insert or replace into Building_GreatPersonPoints(BuildingType, GreatPersonClassType, PointsPerTurn) values
     ('BUILDING_MASON',                      'GREAT_PERSON_CLASS_ENGINEER',          1),
     ('BUILDING_FORGING',                    'GREAT_PERSON_CLASS_ENGINEER',          1),
-    ('BUILDING_OBSERVATORY',                'GREAT_PERSON_CLASS_SCIENTIST',         1);
+    ('BUILDING_OBSERVATORY',                'GREAT_PERSON_CLASS_SCIENTIST',         1),
+    ('BUILDING_JNR_ACADEMY',                'GREAT_PERSON_CLASS_SCIENTIST',         1),
+    ('BUILDING_JNR_SCHOOL',                 'GREAT_PERSON_CLASS_SCIENTIST',         2);
 
 
 CREATE TABLE "Building_Citizen_GreatPersonPoints" (
