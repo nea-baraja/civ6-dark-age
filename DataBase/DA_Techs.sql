@@ -55,10 +55,25 @@ CREATE TABLE "AdditionalUnlockables" (
 insert or replace into AdditionalUnlockables(ResearchType, ItemType) values
 	('TECH_HORSEBACK_RIDING', 'DISTRICT_ENCAMPMENT'),
         ('CIVIC_GAMES_RECREATION', 'DISTRICT_BATH'),
-        ('CIVIC_EARLY_EMPIRE', 'DISTRICT_GOVERNMENT');
-       
+        ('CIVIC_EARLY_EMPIRE', 'DISTRICT_GOVERNMENT'),
+        ('TECH_ENGINEERING', 'DISTRICT_INDUSTRIAL_ZONE'),  
+        ('TECH_SHIPBUILDING', 'BUILDING_JNR_WIND_MILL'),
+        ('TECH_CONSTRUCTION', 'BUILDING_JNR_WIND_MILL');
+
+--造船术也解锁风车作坊  
+insert or replace into TechnologyModifiers(TechnologyType, ModifierId) values
+	('TECH_SHIPBUILDING', 'UNLOCK_BUILDING_JNR_WIND_MILL');
+
+insert or replace into Modifiers(ModifierId, ModifierType) values
+	('UNLOCK_BUILDING_JNR_WIND_MILL', 'MODIFIER_PLAYER_ADJUST_VALID_BUILDING');
 
 
+insert or replace into ModifierArguments(ModifierId, Name, Value) values
+	('UNLOCK_BUILDING_JNR_WIND_MILL', 'BuildingType', 	'BUILDING_JNR_WIND_MILL');
+
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) values
+	('UNLOCK_BUILDING_JNR_WIND_MILL', 'BuildingTypeToReplace', 	'BUILDING_FLAG_JNR_WIND_MILL');
 
 
 

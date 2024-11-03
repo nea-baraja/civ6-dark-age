@@ -147,6 +147,9 @@ update Districts set PrereqTech = 'TECH_SAILING' where DistrictType = 'DISTRICT_
 (select CivUniqueDistrictType from DistrictReplaces where
  ReplacesDistrictType = 'DISTRICT_HARBOR');
 
+update Districts set PrereqTech = 'TECH_CONSTRUCTION' where DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' or DistrictType in 
+(select CivUniqueDistrictType from DistrictReplaces where
+ ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
 -- Happiness adjust
 update Districts set Entertainment = 3 where DistrictType = 'DISTRICT_ENTERTAINMENT_COMPLEX' or DistrictType = 'DISTRICT_WATER_ENTERTAINMENT_COMPLEX';
 update Districts set Entertainment = 4 where DistrictType in (select CivUniqueDistrictType from DistrictReplaces
@@ -249,6 +252,35 @@ from Districts where DistrictType = 'DISTRICT_ENCAMPMENT'
 	or DistrictType in 
 	(select CivUniqueDistrictType from DistrictReplaces 
 	 where ReplacesDistrictType = 'DISTRICT_ENCAMPMENT');
+
+--工程也解锁工业区（原来是建造）  同时在DA_Techs.sql也有AdditionalUnlockables表
+insert or replace into TechnologyModifiers(TechnologyType, ModifierId) select
+	'TECH_ENGINEERING', 'UNLOCK_'||DistrictType
+	from Districts where DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
+
+insert or replace into Modifiers(ModifierId, ModifierType) select
+	'UNLOCK_'||DistrictType, 'MODIFIER_PLAYER_ADJUST_DISTRICT_UNLOCK'
+from Districts where DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'UNLOCK_'||DistrictType, 'DistrictType', 	DistrictType
+from Districts where DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'UNLOCK_'||DistrictType, 'TechType', 	'TECH_ENGINEERING'
+from Districts where DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' 
+	or DistrictType in 
+	(select CivUniqueDistrictType from DistrictReplaces 
+	 where ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
 
 
 --帝国初期也解锁市政广场  同时在DA_Techs.sql也有AdditionalUnlockables表

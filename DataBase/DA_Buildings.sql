@@ -26,7 +26,11 @@ values
 
     --JNR
     ('BUILDING_JNR_ACADEMY',                   'KIND_BUILDING'),
-    ('BUILDING_JNR_SCHOOL',                    'KIND_BUILDING');
+    ('BUILDING_JNR_SCHOOL',                    'KIND_BUILDING'),
+    ('BUILDING_JNR_IZ_WATER_MILL',             'KIND_BUILDING'),
+    ('BUILDING_JNR_WIND_MILL',                 'KIND_BUILDING'),
+    ('BUILDING_FLAG_JNR_WIND_MILL',            'KIND_BUILDING');
+
 
 insert or replace into Buildings
     (BuildingType,                      Name,                                       Cost,   Maintenance,    Description,                                        
@@ -56,9 +60,15 @@ values
 
     --JNR
     ('BUILDING_JNR_ACADEMY',            'LOC_BUILDING_JNR_ACADEMY_NAME',            100,    4,              'LOC_BUILDING_JNR_ACADEMY_DESCRIPTION',                
-    'TECH_WRITING',                               null,                      'DISTRICT_CAMPUS',             'YIELD_GOLD',           null),
+    'TECH_WRITING',                      null,                                      'DISTRICT_CAMPUS',             'YIELD_GOLD',           null),
     ('BUILDING_JNR_SCHOOL',             'LOC_BUILDING_JNR_SCHOOL_NAME',             400,    10,              'LOC_BUILDING_JNR_SCHOOL_DESCRIPTION',                
-    null,                               'CIVIC_GUILDS',                      'DISTRICT_CAMPUS',             'YIELD_GOLD',           1);
+    null,                               'CIVIC_GUILDS',                             'DISTRICT_CAMPUS',             'YIELD_GOLD',           1),
+    ('BUILDING_JNR_IZ_WATER_MILL',      'LOC_BUILDING_JNR_IZ_WATER_MILL_NAME',      150,    6,              'LOC_BUILDING_JNR_IZ_WATER_MILL_DESCRIPTION',                
+    'TECH_ENGINEERING',                  null,                                      'DISTRICT_INDUSTRIAL_ZONE',    'YIELD_GOLD',           null),    
+    ('BUILDING_JNR_WIND_MILL',          'LOC_BUILDING_JNR_WIND_MILL_NAME',          150,    6,              'LOC_BUILDING_JNR_WIND_MILL_DESCRIPTION',                
+    null,                 null,                                      'DISTRICT_INDUSTRIAL_ZONE',    'YIELD_GOLD',           null),
+    ('BUILDING_FLAG_JNR_WIND_MILL',     'LOC_BUILDING_JNR_WIND_MILL_NAME',          0,    0,              'LOC_BUILDING_JNR_WIND_MILL_DESCRIPTION',                
+    NULL,                 null,                                      'DISTRICT_INDUSTRIAL_ZONE',    null,           null);
 
 update Buildings set RequiresAdjacentRiver = 0 where BuildingType = 'BUILDING_WATER_MILL';
 
@@ -67,7 +77,7 @@ update Buildings set Entertainment = 2 where BuildingType = 'BUILDING_TINGTAI';
 update Buildings set PrereqTech = 'TECH_SAILING' where BuildingType = 'BUILDING_LIGHTHOUSE';
 
 update Buildings set MustPurchase = 1 ,InternalOnly = 0 
-    where BuildingType in ('BUILDING_FLAG_ONE_DISTRICT', 'BUILDING_FLAG_TWO_DISTRICT', 'BUILDING_FLAG_THREE_DISTRICT');
+    where BuildingType in ('BUILDING_FLAG_ONE_DISTRICT', 'BUILDING_FLAG_TWO_DISTRICT', 'BUILDING_FLAG_THREE_DISTRICT', 'BUILDING_FLAG_JNR_WIND_MILL');
 
 
 insert or replace into BuildingPrereqs(Building,    PrereqBuilding) values
@@ -85,13 +95,21 @@ insert or replace into BuildingPrereqs(Building,    PrereqBuilding) values
     ('BUILDING_JNR_SCHOOL',             'BUILDING_LIBRARY'),
     ('BUILDING_JNR_SCHOOL',             'BUILDING_JNR_ACADEMY'),
     ('BUILDING_UNIVERSITY',             'BUILDING_JNR_ACADEMY'),
-    ('BUILDING_RESEARCH_LAB',           'BUILDING_JNR_SCHOOL');
+    ('BUILDING_RESEARCH_LAB',           'BUILDING_JNR_SCHOOL'),
+
+    ('BUILDING_WORKSHOP',               'BUILDING_JNR_IZ_WATER_MILL'),
+    ('BUILDING_WORKSHOP',               'BUILDING_JNR_WIND_MILL');
+
+
    
 insert or replace into MutuallyExclusiveBuildings(Building, MutuallyExclusiveBuilding) VALUES
     ('BUILDING_LIBRARY',                'BUILDING_JNR_ACADEMY'),
     ('BUILDING_JNR_ACADEMY',            'BUILDING_LIBRARY'),
     ('BUILDING_JNR_SCHOOL',             'BUILDING_UNIVERSITY'),
-    ('BUILDING_UNIVERSITY',             'BUILDING_JNR_SCHOOL');
+    ('BUILDING_UNIVERSITY',             'BUILDING_JNR_SCHOOL'),
+    ('BUILDING_JNR_IZ_WATER_MILL',      'BUILDING_JNR_WIND_MILL'),
+    ('BUILDING_JNR_WIND_MILL',          'BUILDING_JNR_IZ_WATER_MILL');
+
 
 -- Uniques
 insert or replace into MutuallyExclusiveBuildings
@@ -103,6 +121,16 @@ insert or replace into MutuallyExclusiveBuildings
         (Building,                          MutuallyExclusiveBuilding)
 select  CivUniqueBuildingType,              'BUILDING_JNR_SCHOOL'
 from    BuildingReplaces    where   ReplacesBuildingType='BUILDING_UNIVERSITY';
+
+insert or replace into MutuallyExclusiveBuildings
+        (Building,                          MutuallyExclusiveBuilding)
+select  CivUniqueBuildingType,              'BUILDING_JNR_WIND_MILL'
+from    BuildingReplaces    where   ReplacesBuildingType='BUILDING_JNR_IZ_WATER_MILL';
+
+insert or replace into MutuallyExclusiveBuildings
+        (Building,                          MutuallyExclusiveBuilding)
+select  CivUniqueBuildingType,              'BUILDING_JNR_IZ_WATER_MILL'
+from    BuildingReplaces    where   ReplacesBuildingType='BUILDING_JNR_WIND_MILL';
 
 insert or replace into DistrictModifiers(DistrictType,  ModifierId) values
     ('DISTRICT_CITY_CENTER',        'ONE_DISTRICT_GRANT_FLAG'),
@@ -123,8 +151,11 @@ insert or replace into ModifierArguments(ModifierId,    Name,   Value) values
 insert or replace into CivilopediaPageExcludes(SectionId,   PageId) values
 ('BUILDINGS',  'BUILDING_FLAG_ONE_DISTRICT'),
 ('BUILDINGS',  'BUILDING_FLAG_TWO_DISTRICT'),
-('BUILDINGS',  'BUILDING_FLAG_THREE_DISTRICT');
+('BUILDINGS',  'BUILDING_FLAG_THREE_DISTRICT'),
+('BUILDINGS',  'BUILDING_FLAG_JNR_WIND_MILL');
 
+-- insert or replace into BuildingReplaces(CivUniqueBuildingType, ReplacesBuildingType) values
+--     ('BUILDING_JNR_WIND_MILL',      'BUILDING_FLAG_JNR_WIND_MILL');
 
 
 delete from Building_CitizenYieldChanges
@@ -156,7 +187,7 @@ update Buildings set CitizenSlots = 0
 where BuildingType in ('BUILDING_TEMPLE');
 
 update Buildings set CitizenSlots = 1
-where BuildingType in ('BUILDING_WORKSHOP');
+where BuildingType in ('BUILDING_WORKSHOP', 'BUILDING_JNR_IZ_WATER_MILL', 'BUILDING_JNR_WIND_MILL');
 
 update Buildings set Entertainment = 0, CitizenSlots = 1
 where BuildingType = 'BUILDING_ARENA';
@@ -219,6 +250,8 @@ values
     ('BUILDING_JNR_SCHOOL',         'YIELD_SCIENCE',        5),
     ('BUILDING_RESEARCH_LAB',       'YIELD_SCIENCE',        8),
 
+    ('BUILDING_JNR_IZ_WATER_MILL',  'YIELD_PRODUCTION',     3),
+    ('BUILDING_JNR_WIND_MILL',      'YIELD_PRODUCTION',     3),
     ('BUILDING_WORKSHOP',           'YIELD_PRODUCTION',     3),
     ('BUILDING_FACTORY',            'YIELD_PRODUCTION',     6),
     ('BUILDING_ELECTRONICS_FACTORY','YIELD_PRODUCTION',     6),
@@ -345,6 +378,10 @@ values
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_POP_SCIENCE_AFTER_CIVIC'),
     ('BUILDING_RESEARCH_LAB',       'RESEARCH_LAB_SCIENCE_MOD_WITH_POWER'),
 
+    ('BUILDING_JNR_WIND_MILL',      'WIND_MILL_WIND_DISTRICT_PRODUCTION'),
+    ('BUILDING_JNR_WIND_MILL',      'WIND_MILL_WIND_DISTRICT_PRODUCTION_EX'),
+    ('BUILDING_JNR_IZ_WATER_MILL',  'IZ_WATERMILL_WATER_DISTRICT_PRODUCTION'),
+    ('BUILDING_JNR_IZ_WATER_MILL',  'IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX'),
     ('BUILDING_WORKSHOP',           'WORKSHOP_POP_PRODUCTION_AFTER_CIVIC'),
     ('BUILDING_FACTORY',            'FACTORY_DISTRICT_PRODUCTION_FROM_DISTRICT'),
     ('BUILDING_COAL_POWER_PLANT',   'COAL_POWER_PLANT_YIELD_PRODUCTION_MOD_WITH_POWER'),
@@ -509,6 +546,15 @@ values
     ('MASON_ADJACENT_PLAINS_MOUNTAIN_PRODUCTION_EXTRA','MODIFIER_PLAYER_CITIES_TERRAIN_ADJACENCY',                     'RS_CITY_HAS_BUILDING_MASON',                'RS_PLAYER_HAS_TECH_MASONRY'),
 
 
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION',          'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                NULL),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_MOD',      'MODIFIER_PLAYER_DISTRICT_ADJUST_YIELD_CHANGE',                 'RS_WIND_DISTRICT',                         NULL),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_EX',       'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_APPRENTICESHIP'),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_EX_MOD',   'MODIFIER_PLAYER_DISTRICT_ADJUST_YIELD_CHANGE',                 'RS_WIND_DISTRICT',                         NULL),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION',      'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                NULL),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_MOD',  'MODIFIER_PLAYER_DISTRICT_ADJUST_YIELD_CHANGE',                 'RS_IS_RIVER',                              NULL),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX',   'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_APPRENTICESHIP'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX_MOD','MODIFIER_PLAYER_DISTRICT_ADJUST_YIELD_CHANGE',                'RS_IS_RIVER',                              NULL),
+
     ('WATER_MILL_SP_DISTRICTS_PRODUCTION',          'MODIFIER_CITY_DISTRICTS_ADJUST_YIELD_CHANGE',                  'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_ENGINEERING'),
 
     --('UNIVERSITY_DISTRICT_SCIENCE_FROM_DISTRICT',   'MODIFIER_CITY_DISTRICTS_ATTACH_MODIFIER',                      'RS_IS_SPECIALITY_DISTRICT',                'RS_PLAYER_HAS_TECH_EDUCATION'),
@@ -625,6 +671,19 @@ values
 	
 	('ZHISUO_ADJUST_UNITY',							'Key',						'PROP_UNITY_SOURCE_ZHISUO'),
 	('ZHISUO_ADJUST_UNITY',							'Amount',					5),
+
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION',          'ModifierId',               'WIND_MILL_WIND_DISTRICT_PRODUCTION_MOD'),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_MOD',      'YieldType',                'YIELD_PRODUCTION'),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_MOD',      'Amount',                   '3'),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_EX',       'ModifierId',               'WIND_MILL_WIND_DISTRICT_PRODUCTION_EX_MOD'),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_EX_MOD',   'YieldType',                'YIELD_PRODUCTION'),
+    ('WIND_MILL_WIND_DISTRICT_PRODUCTION_EX_MOD',   'Amount',                   '3'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION',      'ModifierId',               'IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_MOD'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_MOD',  'YieldType',                'YIELD_PRODUCTION'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_MOD',  'Amount',                   '3'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX',   'ModifierId',               'IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX_MOD'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX_MOD','YieldType',               'YIELD_PRODUCTION'),
+    ('IZ_WATERMILL_WATER_DISTRICT_PRODUCTION_EX_MOD','Amount',                  '3'),
 
     ('WORKSHOP_POP_PRODUCTION_AFTER_CIVIC',         'YieldType',                'YIELD_PRODUCTION'),
     ('WORKSHOP_POP_PRODUCTION_AFTER_CIVIC',         'Amount',                   '1'),
@@ -893,7 +952,8 @@ values
     ('RS_RIVER_FARM',                                   'REQUIREMENTSET_TEST_ALL'),
     ('RS_RIVER_PLANTATION',                             'REQUIREMENTSET_TEST_ALL'),
     ('RS_RIVER_LUMBER_MILL',                            'REQUIREMENTSET_TEST_ALL'),
-    ('RS_AT_LEAST_4_AMENITIES_AND_HAS_AMPHITHEATER',    'REQUIREMENTSET_TEST_ALL');
+    ('RS_AT_LEAST_4_AMENITIES_AND_HAS_AMPHITHEATER',    'REQUIREMENTSET_TEST_ALL'),
+    ('RS_WIND_DISTRICT',                                'REQUIREMENTSET_TEST_ANY');
 
 
 insert or ignore into Requirements
@@ -927,7 +987,10 @@ values
     ('RS_RIVER_LUMBER_MILL',                            'REQ_PLOT_HAS_IMPROVEMENT_LUMBER_MILL'),
     ('RS_RIVER_LUMBER_MILL',                            'REQ_RIVER_PLOT'),
     ('RS_AT_LEAST_4_AMENITIES_AND_HAS_AMPHITHEATER',    'REQ_AT_LEAST_4_AMENITIES'),
-    ('RS_AT_LEAST_4_AMENITIES_AND_HAS_AMPHITHEATER',    'REQ_CITY_HAS_BUILDING_AMPHITHEATER');
+    ('RS_AT_LEAST_4_AMENITIES_AND_HAS_AMPHITHEATER',    'REQ_CITY_HAS_BUILDING_AMPHITHEATER'),
+    ('RS_WIND_DISTRICT',                                'REQ_IS_COAST'),
+    ('RS_WIND_DISTRICT',                                'REQ_IS_COASTAL_LAND'),
+    ('RS_WIND_DISTRICT',                                'REQ_PLOT_IS_TERRAIN_CLASS_HILLS');
 
 
 
@@ -945,8 +1008,9 @@ insert or replace into Building_GreatPersonPoints(BuildingType, GreatPersonClass
     ('BUILDING_FORGING',                    'GREAT_PERSON_CLASS_ENGINEER',          1),
     ('BUILDING_OBSERVATORY',                'GREAT_PERSON_CLASS_SCIENTIST',         1),
     ('BUILDING_JNR_ACADEMY',                'GREAT_PERSON_CLASS_SCIENTIST',         1),
-    ('BUILDING_JNR_SCHOOL',                 'GREAT_PERSON_CLASS_SCIENTIST',         2);
-
+    ('BUILDING_JNR_SCHOOL',                 'GREAT_PERSON_CLASS_SCIENTIST',         2),
+    ('BUILDING_JNR_IZ_WATER_MILL',          'GREAT_PERSON_CLASS_ENGINEER',          1),
+    ('BUILDING_JNR_WIND_MILL',              'GREAT_PERSON_CLASS_ENGINEER',          1);
 
 CREATE TABLE "Building_Citizen_GreatPersonPoints" (
         "BuildingType" TEXT NOT NULL,

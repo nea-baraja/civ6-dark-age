@@ -25,7 +25,8 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_GOV_CONQUEST_NAME",                           "将军府"),
     ("zh_Hans_CN",  "LOC_BUILDING_JNR_ACADEMY_NAME",                            "私塾"),
     ("zh_Hans_CN",  "LOC_BUILDING_JNR_SCHOOL_NAME",                             "城市学校"),
-
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_IZ_WATER_MILL_NAME",                      "水力作坊"),
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_WIND_MILL_NAME",                          "风车作坊"),
 
 
     ("zh_Hans_CN",  "LOC_BUILDING_CONSTRUCT_REQUIRES_BUILDING",                 "建造该建筑需要{1_Building}。"),
@@ -62,6 +63,8 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_BARRACKS_EXPANSION2_DESCRIPTION",             "该城市中训练的所有近战、抗骑兵和远程类陆地单位+50%战斗经验值。训练单位时获得等于军营相邻加成的 [ICON_Production] 生产力加成。[NEWLINE][NEWLINE]无法建造在已有马厩的军营区域中。"),
     ("zh_Hans_CN",  "LOC_BUILDING_STABLE_EXPANSION2_DESCRIPTION",               "该城市中训练的所有骑兵类和攻城类单位+50%战斗经验值。牧场+1 [ICON_Food] 食物+1 [ICON_Production] 生产力。[NEWLINE][NEWLINE]不能建造在已有兵营的军营区域中。"),
 
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_IZ_WATER_MILL_DESCRIPTION",               "为相邻河流的专业区域+3 [ICON_PRODUCTION] 生产力，研究“学徒”科技后翻倍"),
+    ("zh_Hans_CN",  "LOC_BUILDING_JNR_WIND_MILL_DESCRIPTION",                   "为相邻海岸或在丘陵上的专业区域+3 [ICON_PRODUCTION] 生产力，研究“学徒”科技后翻倍"),
     ("zh_Hans_CN",  "LOC_BUILDING_WORKSHOP_DESCRIPTION",                        "研究“公会”市政后，城市中每位 [ICON_CITIZEN] 公民+1 [ICON_PRODUCTION] 生产力产出。"),
     ("zh_Hans_CN",  "LOC_BUILDING_FACTORY_DESCRIPTION",                         "改良单元格+1 [ICON_PRODUCTION] 生产力。研究“经济”科技后，城市每有一个专业区域，就为城市所有专业区域+1 [ICON_PRODUCTION] 生产力"),
     ("zh_Hans_CN",  "LOC_BUILDING_FOSSIL_FUEL_POWER_PLANT_DESCRIPTION",         "通电后+20% [ICON_PRODUCTION] 生产力。研究“精炼”市政后城市每有一个专业区域，就为城市所有专业区域+2 [ICON_PRODUCTION] 生产力"),
