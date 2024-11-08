@@ -66,9 +66,9 @@ UPDATE Districts SET CostProgressionModel = 'COST_PROGRESSION_PREVIOUS_COPIES', 
 );
 
 
-UPDATE Districts SET CostProgressionModel = 'COST_PROGRESSION_PREVIOUS_COPIES', CostProgressionParam1 = 30, Cost = 60 
- WHERE DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' or DistrictType in 
-(SELECT CivUniqueDistrictType FROM DistrictReplaces WHERE ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
+-- UPDATE Districts SET CostProgressionModel = 'COST_PROGRESSION_PREVIOUS_COPIES', CostProgressionParam1 = 30, Cost = 60 
+--  WHERE DistrictType = 'DISTRICT_INDUSTRIAL_ZONE' or DistrictType in 
+-- (SELECT CivUniqueDistrictType FROM DistrictReplaces WHERE ReplacesDistrictType = 'DISTRICT_INDUSTRIAL_ZONE');
 
 -- --测试免费区域
 -- --统一涨价模型
