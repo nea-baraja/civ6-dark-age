@@ -34,7 +34,7 @@ values
     ("zh_Hans_CN",  "LOC_TECH_PAPER_MAKING_DA_DESCRIPTION",                                 "种植园改良设施提供的 [ICON_GOLD] 金币+3。"),
     ("zh_Hans_CN",  "LOC_TECH_CELESTIAL_NAVIGATION_DESCRIPTION",                            "渔船改良设施提供的 [ICON_GOLD] 金币+3。"),
 
-    ("zh_Hans_CN",  "LOC_TECH_APPRENTICESHIP_DESCRIPTION",                                  "与每1个矿山改良设施相邻时，矿山提供的 [ICON_PRODUCTION] 生产力+1。"),
+    ("zh_Hans_CN",  "LOC_TECH_MACHINERY_DESCRIPTION",                                       "与每1个矿山改良设施相邻时，矿山提供的 [ICON_PRODUCTION] 生产力+1。"),
     ("zh_Hans_CN",  "LOC_TECH_STIRRUPS_DESCRIPTION",                                        "牧场改良设施提供的 [ICON_PRODUCTION] 生产力+1。与每1个营地改良设施相邻时，营地提供的 [ICON_GOLD] 金币额外再+2。"),
     ("zh_Hans_CN",  "LOC_TECH_CASTLES_DESCRIPTION",                                         "采石场改良设施提供的 [ICON_PRODUCTION] 生产力+1。");
 

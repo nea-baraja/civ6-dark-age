@@ -187,7 +187,7 @@ update Buildings set CitizenSlots = 0
 where BuildingType in ('BUILDING_TEMPLE');
 
 update Buildings set CitizenSlots = 1
-where BuildingType in ('BUILDING_WORKSHOP', 'BUILDING_JNR_IZ_WATER_MILL', 'BUILDING_JNR_WIND_MILL');
+where BuildingType in ('BUILDING_WORKSHOP', 'BUILDING_JNR_IZ_WATER_MILL', 'BUILDING_JNR_WIND_MILL', 'BUILDING_JNR_ACADEMY');
 
 update Buildings set Entertainment = 0, CitizenSlots = 1
 where BuildingType = 'BUILDING_ARENA';

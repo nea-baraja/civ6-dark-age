@@ -33,7 +33,7 @@ values
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_CELESTIAL_NAVIGATION",                           "每探明10个单元格研究速度增加1%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_SHIPBUILDING",                                   "每拥有一个改良资源的渔场或渔船研究速度增加50%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_PAPER_MAKING_DA",                                "每拥有一种专业区域研究速度增加50%"),
-    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_MATHEMATICS",                                    "每有一回合科技值产出，研究速度增加5%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_MATHEMATICS",                                    "每拥有一个基础产出科技值的建筑或奇观，研究速度增加40%"),
 
     ("zh_Hans_CN",  "LOC_DA_CIVIC_POLITICAL_PHILOSOPHY",                                "每遇到一个城邦研究速度增加25%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_DRAMA_POETRY",                                  "每建造一个奇观研究速度增加100%"),
@@ -41,6 +41,15 @@ values
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_THEOLOGY",                                      "每有一回合信仰值收入，研究速度增加4%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_MILITARY_TRAINING",                             "每进行一次单位升级研究速度增加15%"),
     ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_DEFENSIVE_TACTICS",                             "每拥有一座城市研究速度增加30%"),
-    ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_RECORDED_HISTORY",                              "拥有数量最多的区域，每有一个该种区域，研究速度增加25%");
+    ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_RECORDED_HISTORY",                              "拥有数量最多的区域，每有一个该种区域，研究速度增加25%"),
+
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_MACHINERY",                                      "每造1个矿山或采石场研究速度增加10%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_EDUCATION",                                      "每安排一个 [icon_citizen] 专家研究速度增加10%(还没实装)"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_MILITARY_ENGINEERING",                           "每拥有一个正确改良的铁资源或马资源研究速度+30%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_STIRRUPS",                                       "每造1个牧场或营地研究速度增加10%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_TECH_APPRENTICESHIP",                                 "每拥有一个基础产出生产力的建筑或奇观，研究速度增加20%"),
+
+    ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_FEUDALISM",                                     "每造1个农场或种植园研究速度增加10%"),
+    ("zh_Hans_CN",  "LOC_DA_BOOST_CIVIC_GUILDS",                                        "每拥有一个改变住房的建筑，研究速度增加20%");
 
 

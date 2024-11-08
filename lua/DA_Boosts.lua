@@ -276,6 +276,10 @@ function DA_Boost_RefreshImprovements(playerID)
 	DA_Boost_Set_Count(playerID, 'TECH_HORSEBACK_RIDING', "ByTask", DA_Boost['IMPROVED_HORSE']);
 	DA_Boost_Set_Count(playerID, 'TECH_IRON_WORKING', "ByTask", DA_Boost['IMPROVED_IRON']);
 	DA_Boost_Set_Count(playerID, 'TECH_SHIPBUILDING', "ByTask", DA_Boost['IMPROVEMENT_FISHING_BOATS'] + DA_Boost['FISHERY_WITH_RESOURCE']);
+	DA_Boost_Set_Count(playerID, 'TECH_MACHINERY', "ByTask", DA_Boost['IMPROVEMENT_MINE'] + DA_Boost['IMPROVEMENT_QUARRY']);
+	DA_Boost_Set_Count(playerID, 'CIVIC_FEUDALISM', "ByTask", DA_Boost['IMPROVEMENT_FARM'] + DA_Boost['IMPROVEMENT_PLANTATION']);
+	DA_Boost_Set_Count(playerID, 'TECH_STIRRUPS', "ByTask", DA_Boost['IMPROVEMENT_CAMP'] + DA_Boost['IMPROVEMENT_PASTURE']);
+	DA_Boost_Set_Count(playerID, 'TECH_MILITARY_ENGINEERING', "ByTask", DA_Boost['IMPROVED_IRON'] + DA_Boost['IMPROVED_HORSE']);
 
 end
 
@@ -329,6 +333,27 @@ end
 
 
 BoostBuildings = {'BUILDING_MONUMENT', 'BUILDING_GRANARY', 'BUILDING_MASON', 'BUILDING_OBSERVATORY', 'BUILDING_WATER_MILL', 'BUILDING_TRIUMPHAL' ,'ALL_WONDER'};
+ScienceBuildingOrWonder = {};
+for row in GameInfo.Building_YieldChanges() do
+	if row.YieldType == "YIELD_SCIENCE" and row.YieldChange > 0 then
+		table.insert(ScienceBuildingOrWonder, row.BuildingType);
+	end
+end
+ProductionBuildingOrWonder = {};
+for row in GameInfo.Building_YieldChanges() do
+	if row.YieldType == "YIELD_PRODUCTION" and row.YieldChange > 0 then
+		table.insert(ProductionBuildingOrWonder, row.BuildingType);
+	end
+end
+HousingBuilding = {};
+for row in GameInfo.Buildings() do
+	if row.Housing ~= 0 and row.IsWonder == false then
+		table.insert(HousingBuilding, row.BuildingType);
+	end
+end
+
+
+
 
 function DA_Boost_RefreshBuildings(playerID)
 	if playerID < 0 then
@@ -340,12 +365,31 @@ function DA_Boost_RefreshBuildings(playerID)
 		return
 	end
 	local DA_Boost = {}
+	local iScienceBuildingOrWonder = 0;
+	local iProductionBuildingOrWonder = 0;
+	local iHousingBuilding = 0;
 	for k, sBuilding in pairs(BoostBuildings) do
 		 DA_Boost[sBuilding] = pPlayer:GetProperty(sBuilding..'_COUNT') or 0;
+	end
+	for k, sBuilding in pairs(ScienceBuildingOrWonder) do
+		local iCount = pPlayer:GetProperty(sBuilding..'_COUNT') or 0;
+		iScienceBuildingOrWonder = iScienceBuildingOrWonder + iCount;
+	end
+	for k, sBuilding in pairs(ProductionBuildingOrWonder) do
+		local iCount = pPlayer:GetProperty(sBuilding..'_COUNT') or 0;
+		iProductionBuildingOrWonder = iProductionBuildingOrWonder + iCount;
+	end
+	for k, sBuilding in pairs(HousingBuilding) do
+		local iCount = pPlayer:GetProperty(sBuilding..'_COUNT') or 0;
+		iHousingBuilding = iHousingBuilding + iCount;
 	end
 	DA_Boost_Set_Count(playerID, 'CIVIC_STATE_WORKFORCE', "ByTask", DA_Boost['BUILDING_MONUMENT'] + DA_Boost['BUILDING_GRANARY'] + DA_Boost['BUILDING_MASON']);
 	DA_Boost_Set_Count(playerID, 'TECH_CONSTRUCTION', "ByTask", DA_Boost['BUILDING_OBSERVATORY'] + DA_Boost['BUILDING_WATER_MILL'] + DA_Boost['BUILDING_TRIUMPHAL']);
 	DA_Boost_Set_Count(playerID, 'CIVIC_DRAMA_POETRY', "ByTask", DA_Boost['ALL_WONDER']);
+	DA_Boost_Set_Count(playerID, 'TECH_MATHEMATICS', "ByTask", iScienceBuildingOrWonder);
+	DA_Boost_Set_Count(playerID, 'TECH_APPRENTICESHIP', "ByTask", iProductionBuildingOrWonder);
+	DA_Boost_Set_Count(playerID, 'CIVIC_GUILDS', "ByTask", iHousingBuilding);
+
 
 end
 

@@ -233,9 +233,9 @@ insert or replace into Adjacency_YieldChanges
     -- 灌溉解锁农场小相邻 封建主义解锁大相邻
     ('DA_FARM_FARM_IRRIGATION',    'Placeholder',    'YIELD_FOOD',  '1', '2', 'IMPROVEMENT_FARM', null, 'TECH_IRRIGATION', 'CIVIC_FEUDALISM', null),
     ('DA_FARM_FARM_FEUDALISM',     'Placeholder',     'YIELD_FOOD', '1', '1', 'IMPROVEMENT_FARM', 'CIVIC_FEUDALISM', null, null, null),
-   --炼铜术解锁矿山小相邻 学徒制解锁大相邻
-    ('DA_MINE_MINE_BRONZE_WORKING', 'Placeholder', 'YIELD_PRODUCTION', '1', '2', 'IMPROVEMENT_MINE', null, 'TECH_BRONZE_WORKING', null, 'TECH_APPRENTICESHIP'),
-    ('DA_MINE_MINE_APPRENTICESHIP', 'Placeholder', 'YIELD_PRODUCTION', '1', '1', 'IMPROVEMENT_MINE', null,'TECH_APPRENTICESHIP', null, null),
+   --炼铜术解锁矿山小相邻 机械制解锁大相邻
+    ('DA_MINE_MINE_BRONZE_WORKING', 'Placeholder', 'YIELD_PRODUCTION', '1', '2', 'IMPROVEMENT_MINE', null, 'TECH_BRONZE_WORKING', null, 'TECH_MACHINERY'),
+    ('DA_MINE_MINE_APPRENTICESHIP', 'Placeholder', 'YIELD_PRODUCTION', '1', '1', 'IMPROVEMENT_MINE', null,'TECH_MACHINERY', null, null),
    --箭术解锁营地小相邻 马镫解锁大相邻
     ('DA_CAMP_CAMP_ARCHERY', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', null, 'TECH_ARCHERY', null, null),
     ('DA_CAMP_CAMP_MEDIEVAL', 'Placeholder', 'YIELD_GOLD', '2', '1', 'IMPROVEMENT_CAMP', null, 'TECH_STIRRUPS', null, null),

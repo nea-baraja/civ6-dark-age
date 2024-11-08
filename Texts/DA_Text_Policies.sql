@@ -42,10 +42,13 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_NATURAL_PHILOSOPHY_DESCRIPTION",            "+100%学院相邻加成，若城市拥有造纸坊则额外+50%。"),
     ("zh_Hans_CN",  "LOC_POLICY_AESTHETICS_DESCRIPTION",                    "+100%剧院广场相邻加成，若城市拥有造纸坊则额外+50%。"),
 
+    ("zh_Hans_CN",  "LOC_POLICY_CONSTRUCTION_REGULATION_DESCRIPTION",       "每有一个基础提供 [icon_housing] 住房的建筑，建造相同建筑时+30%建造速度"),
+    ("zh_Hans_CN",  "LOC_POLICY_MASON_GUILD_DESCRIPTION",                   "建造建筑和区域时，产出 [icon_greatengineer] 大工程师点数的建筑会额外提供基础生产力3倍的 [icon_production] 生产力"),
 
    -- ("zh_Hans_CN",  "LOC_POLICY_EQUESTRIAN_ORDERS_DESCRIPTION",             "改良的 [ICON_RESOURCE_HORSES] 马与 [ICON_RESOURCE_IRON] 铁每回合额外产出1点资源，若城市采用资源税则翻倍。"),
     ("zh_Hans_CN",  "LOC_POLICY_COASTAL_SURVEY_DESCRIPTION",                "海军单位移动后，会获得5格内村庄，野蛮人营地，以及市中心的位置信息。"),
     ("zh_Hans_CN",  "LOC_POLICY_LIMITANEI_DESCRIPTION",                     "战斗单位为三环内的城市+2忠诚度。"),
+    ("zh_Hans_CN",  "LOC_POLICY_SERFDOM_DESCRIPTION",                       "+30%建造者的建造速度。若城市拥有至少3个专业区域则再+20%。"),
 
 
 
@@ -76,6 +79,10 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_EQUESTRIAN_ORDERS_NAME",            "战略储备"),
     ("zh_Hans_CN",  "LOC_POLICY_CAPITAL_NAME",                      "都城"),
     ("zh_Hans_CN",  "LOC_POLICY_COOPERATIVE_COMBAT_NAME",           "协同作战"),
+
+    ("zh_Hans_CN",  "LOC_POLICY_CONSTRUCTION_REGULATION_NAME",      "建造规章"),
+    ("zh_Hans_CN",  "LOC_POLICY_MASON_GUILD_NAME",                  "石匠行会"),
+
 
     ("zh_Hans_CN",  "LOC_DA_PK_DOUBLED_POLICY_CARD",                 "该政策卡已开启双倍效果，右键点击政策卡关闭，释放占用的额外槽位"),
     ("zh_Hans_CN",  "LOC_DA_PK_TO_DOUBLE_POLICY_CARD_TITLE",         "你有额外的政策槽位，右键点击该政策卡开启双倍政策卡效果");

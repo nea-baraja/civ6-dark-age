@@ -18,7 +18,10 @@ insert or replace into DistrictCitizenYields
 'UNIVERSITY_BONUS',			'YIELD_FOOD',			-1,				DistrictType,			0
 from Districts where RequiresPopulation = 1 and DistrictType not in (select CivUniqueDistrictType from DistrictReplaces);
 
-
+insert or replace into DistrictCitizenYields
+(Id,						YieldType,				Amount,		    DistrictType,			CitizenSlots) select
+'EDUCATOR_SLOT',			NULL,					0,				DistrictType,			2
+from Districts where RequiresPopulation = 1 and DistrictType not in (select CivUniqueDistrictType from DistrictReplaces);
 
 update DistrictCitizenYields set BuildingType = 'BUILDING_CTZY_'||Id||'_IN_'||DistrictType;
 
@@ -40,7 +43,7 @@ insert or ignore into Buildings_XP2 (BuildingType, Pillage)
 select BuildingType, 0 from DistrictCitizenYields;
 
 insert or ignore into Building_CitizenYieldChanges(BuildingType,		YieldType,		YieldChange)
-select BuildingType,	YieldType,		Amount from DistrictCitizenYields;
+select BuildingType,	YieldType,		Amount from DistrictCitizenYields where YieldType is not null;
 
 
 
@@ -56,5 +59,18 @@ insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetI
 insert or ignore into ModifierArguments(ModifierId, Name, Value) select
 	'UNIVERSITY_GIFT_'||BuildingType, 'BuildingType', BuildingType
     from DistrictCitizenYields where Id = 'UNIVERSITY_BONUS';
+
+--平旮旯给全专业区域加槽
+insert or ignore into GovernorPromotionModifiers(GovernorPromotionType, ModifierId) select
+	'GOVERNOR_PROMOTION_EDUCATOR_PROFESSOR', 'PROFESSOR_GIFT_'||BuildingType
+	from DistrictCitizenYields where Id = 'EDUCATOR_SLOT';
+
+insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'PROFESSOR_GIFT_'||BuildingType, 'MODIFIER_SINGLE_CITY_GRANT_BUILDING_IN_CITY_IGNORE', 'RS_CITY_HAS_'||DistrictType
+    from DistrictCitizenYields where Id = 'EDUCATOR_SLOT';
+
+insert or ignore into ModifierArguments(ModifierId, Name, Value) select
+	'PROFESSOR_GIFT_'||BuildingType, 'BuildingType', BuildingType
+    from DistrictCitizenYields where Id = 'EDUCATOR_SLOT';
 
 

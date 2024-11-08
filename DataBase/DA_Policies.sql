@@ -54,6 +54,9 @@ delete from Policies where PolicyType in ('POLICY_RAID', 'POLICY_VETERANCY', 'PO
 delete from PolicyModifiers where PolicyType = 'POLICY_GOD_KING';
 --美学改为文官制度解锁
 update Policies set PrereqCivic = 'CIVIC_DEFENSIVE_TACTICS' where PolicyType = 'POLICY_AESTHETICS';
+-- 农奴制改为军事卡
+update Policies set GovernmentSlotType = 'SLOT_MILITARY' where PolicyType = 'POLICY_SERFDOM';
+delete from PolicyModifiers where PolicyType = 'POLICY_SERFDOM';
 
 insert or replace into PolicyModifiers
 	(PolicyType,						ModifierId)
@@ -92,7 +95,10 @@ values
 	--('POLICY_LITERARY_TRADITION',		'LITERARY_GREATWRITERPOINTS_PERCENT'),	--文学传统那啥，同上
 --	('POLICY_EQUESTRIAN_ORDERS',		'EQUESTRIAN_ORDERS_EXTRA_IRON'),	-- 战略储备给收资源税额外加铁
 --	('POLICY_EQUESTRIAN_ORDERS',		'EQUESTRIAN_ORDERS_EXTRA_HORSE'),	-- 同上
-	('POLICY_LIMITANEI',				'LIMITANEI_UNITS_SPREAD_LOYALTY');	-- 三层套娃，战斗单位给三格内城+2忠诚
+	('POLICY_LIMITANEI',				'LIMITANEI_UNITS_SPREAD_LOYALTY'),	-- 三层套娃，战斗单位给三格内城+2忠诚
+	('POLICY_SERFDOM',					'SERFDOM_BUILDER_PRODUCTION'),	-- 农奴制 加建造者生产力
+	('POLICY_SERFDOM',					'SERFDOM_BUILDER_PRODUCTION_EXTRA');	-- 农奴制 加建造者生产力
+
 
 insert or replace into Modifiers
 	(ModifierId,									ModifierType,											SubjectRequirementSetId)
@@ -135,7 +141,11 @@ values
 		
 	('LIMITANEI_UNITS_SPREAD_LOYALTY',				'MODIFIER_ALL_UNITS_ATTACH_MODIFIER',					'RS_UNIT_IS_CLASS_MILITARY'),  
 	('LIMITANEI_SPREAD_LOYALTY',					'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER',				'RS_OBJECT_WITHIN_3_TILES'),  
-	('LIMITANEI_LOYALTY_FROM_UNITS',				'MODIFIER_SINGLE_CITY_ADJUST_IDENTITY_PER_TURN',		NULL);
+	('LIMITANEI_LOYALTY_FROM_UNITS',				'MODIFIER_SINGLE_CITY_ADJUST_IDENTITY_PER_TURN',		NULL),
+	('SERFDOM_BUILDER_PRODUCTION',					'MODIFIER_PLAYER_CITIES_ADJUST_UNIT_PRODUCTION',		NULL),
+	('SERFDOM_BUILDER_PRODUCTION_EXTRA',			'MODIFIER_PLAYER_CITIES_ADJUST_UNIT_PRODUCTION',		'RS_CITY_HAS_3_DISTRICTS');
+
+
 
 update Modifiers set SubjectStackLimit = 1 where ModifierId = 'DISCIPLINE_EXTRA_BARBARIANCOMBAT_MOD';
 
@@ -200,7 +210,11 @@ values
 
 	('LIMITANEI_UNITS_SPREAD_LOYALTY',						'ModifierId',			'LIMITANEI_SPREAD_LOYALTY'),
 	('LIMITANEI_SPREAD_LOYALTY',							'ModifierId',			'LIMITANEI_LOYALTY_FROM_UNITS'),
-	('LIMITANEI_LOYALTY_FROM_UNITS',						'Amount',				'2');
+	('LIMITANEI_LOYALTY_FROM_UNITS',						'Amount',				'2'),
+	('SERFDOM_BUILDER_PRODUCTION',							'Amount',				'30'),
+	('SERFDOM_BUILDER_PRODUCTION',							'UnitType',				'UNIT_BUILDER'),   
+	('SERFDOM_BUILDER_PRODUCTION_EXTRA',					'Amount',				'20'),
+	('SERFDOM_BUILDER_PRODUCTION_EXTRA',					'UnitType',				'UNIT_BUILDER');
 
 -- 新增政策
 insert or replace into Types
@@ -230,7 +244,9 @@ values
 	('POLICY_CELEBRATION',					'KIND_POLICY'), --庆典
 	('POLICY_BREAD_AND_CIRCUSES',			'KIND_POLICY'), --面包与马戏
 	('POLICY_ARMY_FARM',					'KIND_POLICY'),	--军屯
-	('POLICY_LOUGE',						'KIND_POLICY');	--楼阁
+	('POLICY_LOUGE',						'KIND_POLICY'),	--楼阁
+	('POLICY_CONSTRUCTION_REGULATION',		'KIND_POLICY'),	--建造规章
+	('POLICY_MASON_GUILD',					'KIND_POLICY');	--石匠行会
 
 insert or replace into Policies
 	(PolicyType,							Name,											Description,											PrereqCivic,								PrereqTech,					GovernmentSlotType)
@@ -261,7 +277,9 @@ values
     ('POLICY_BREAD_AND_CIRCUSES',           'LOC_POLICY_BREAD_AND_CIRCUSES_NAME',           'LOC_POLICY_BREAD_AND_CIRCUSES_DESCRIPTION',            'CIVIC_GAMES_RECREATION',               null,                       	'SLOT_ECONOMIC'),
   
 	('POLICY_ARMY_FARM',           			'LOC_POLICY_ARMY_FARM_NAME',           			'LOC_POLICY_ARMY_FARM_DESCRIPTION',            			'CIVIC_MILITARY_TRAINING',                 	null,                       'SLOT_MILITARY'),
-	('POLICY_LOUGE',           				'LOC_POLICY_LOUGE_NAME',           				'LOC_POLICY_LOUGE_DESCRIPTION',            				null,                 						'TECH_CONSTRUCTION',        'SLOT_ECONOMIC');
+	('POLICY_LOUGE',           				'LOC_POLICY_LOUGE_NAME',           				'LOC_POLICY_LOUGE_DESCRIPTION',            				null,                 						'TECH_CONSTRUCTION',        'SLOT_ECONOMIC'),
+	('POLICY_CONSTRUCTION_REGULATION',      'LOC_POLICY_CONSTRUCTION_REGULATION_NAME',      'LOC_POLICY_CONSTRUCTION_REGULATION_DESCRIPTION',      	'CIVIC_GUILDS',                 			null,        				'SLOT_ECONOMIC'),
+	('POLICY_MASON_GUILD',           		'LOC_POLICY_MASON_GUILD_NAME',           		'LOC_POLICY_MASON_GUILD_DESCRIPTION',            		null,                 						'TECH_APPRENTICESHIP',      'SLOT_MILITARY');
 
 
 insert or replace into PolicyModifiers
@@ -559,7 +577,57 @@ insert or replace into ModifierArguments(ModifierId, Name, Value) select
 	'BREAD_AND_CIRCUSES_BUFF_DISTRICT_'||numbers,	'Amount', 1
 	from counter where numbers > 0 and numbers < 11;
 
+-- 带住房建筑互相加速                                         
+insert or replace into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_CONSTRUCTION_REGULATION',	'CONSTRUCTION_REGULATION_BUFF_BUILDING_'||BuildingType
+	from Buildings where Housing > 0;
 
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'CONSTRUCTION_REGULATION_BUFF_BUILDING_'||BuildingType, 'MODIFIER_PLAYER_CITIES_ATTACH_MODIFIER', 'RS_CITY_HAS_'||BuildingType
+	from Buildings where Housing > 0;
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'CONSTRUCTION_REGULATION_BUFF_BUILDING_'||BuildingType,	'ModifierId', 'CONSTRUCTION_REGULATION_BUFF_BUILDING_MOD_'||BuildingType
+	from Buildings where Housing > 0;
+
+insert or replace into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'CONSTRUCTION_REGULATION_BUFF_BUILDING_MOD_'||BuildingType, 'MODIFIER_PLAYER_CITIES_ADJUST_BUILDING_PRODUCTION', null
+	from Buildings where Housing > 0;
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'CONSTRUCTION_REGULATION_BUFF_BUILDING_MOD_'||BuildingType,	'Amount', 30
+	from Buildings where Housing > 0;
+
+insert or replace into ModifierArguments(ModifierId, Name, Value) select
+	'CONSTRUCTION_REGULATION_BUFF_BUILDING_MOD_'||BuildingType,	'BuildingType', BuildingType
+	from Buildings where Housing > 0;
+
+-- 有大工程师点数建筑加建筑锤
+insert or ignore into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_MASON_GUILD',	'MASON_GUILD_BUFF_BUILDING_'||BuildingType
+	from Building_GreatPersonPoints where GreatPersonClassType = 'GREAT_PERSON_CLASS_ENGINEER' and PointsPerTurn > 0;
+
+insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'MASON_GUILD_BUFF_BUILDING_'||BuildingType, 'MODIFIER_PLAYER_CITIES_ADJUST_BUILDING_PRODUCTION_CHANGE', 'RS_CITY_HAS_'||BuildingType
+	from Building_GreatPersonPoints where GreatPersonClassType = 'GREAT_PERSON_CLASS_ENGINEER' and PointsPerTurn > 0;
+
+insert or ignore into ModifierArguments(ModifierId, Name, Value) select
+	'MASON_GUILD_BUFF_BUILDING_'||Building_GreatPersonPoints.BuildingType,	'Amount', Building_YieldChanges.YieldChange * 3
+	from Building_GreatPersonPoints, Building_YieldChanges where GreatPersonClassType = 'GREAT_PERSON_CLASS_ENGINEER' and PointsPerTurn > 0
+	and Building_GreatPersonPoints.BuildingType = Building_YieldChanges.BuildingType and Building_YieldChanges.YieldType = 'YIELD_PRODUCTION';
+
+insert or ignore into PolicyModifiers(PolicyType, ModifierId) select
+	'POLICY_BREAD_AND_CIRCUSES',	'MASON_GUILD_BUFF_DISTRICT_'||BuildingType
+	from Building_GreatPersonPoints where GreatPersonClassType = 'GREAT_PERSON_CLASS_ENGINEER' and PointsPerTurn > 0;
+
+insert or ignore into Modifiers(ModifierId, ModifierType, SubjectRequirementSetId) select
+	'MASON_GUILD_BUFF_DISTRICT_'||BuildingType, 'MODIFIER_PLAYER_CITIES_ADJUST_DISTRICT_PRODUCTION_CHANGE', 'RS_CITY_HAS_'||BuildingType
+	from Building_GreatPersonPoints where GreatPersonClassType = 'GREAT_PERSON_CLASS_ENGINEER' and PointsPerTurn > 0;
+
+insert or ignore into ModifierArguments(ModifierId, Name, Value) select
+	'MASON_GUILD_BUFF_DISTRICT_'||Building_GreatPersonPoints.BuildingType,	'Amount', Building_YieldChanges.YieldChange * 3
+	from Building_GreatPersonPoints, Building_YieldChanges where GreatPersonClassType = 'GREAT_PERSON_CLASS_ENGINEER' and PointsPerTurn > 0
+	and Building_GreatPersonPoints.BuildingType = Building_YieldChanges.BuildingType and Building_YieldChanges.YieldType = 'YIELD_PRODUCTION';
 
 --伟人点卡框架，有一定相邻的区域，专家增加产出伟人点
 -- create table 'PolicyGreatPersonPoints'(
